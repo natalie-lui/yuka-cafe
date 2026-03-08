@@ -1,0 +1,1175 @@
+/*navbar container*/
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 2rem;
+
+    /*background img*/
+    background-image: url('images/navbar-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    margin: 0;
+}
+
+.merch-nav {
+    margin-left: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.merch-nav p{
+    color: #202020;
+    font-size: 24px;
+    font-family: "gaegu", sans-serif;
+    transition: color 0.3s;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    line-height: 0;
+}
+
+.logo{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links{
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin-left: auto;
+}
+
+.nav-links li a{
+    text-decoration: none;
+    color: #202020;
+    font-size: 24px;
+    font-family: "gaegu", sans-serif;
+    font-weight: 700;
+    line-height:0;
+}
+
+.nav-img{
+    text-align: center;
+}
+
+.nav-img p{
+    margin-top: 1rem;
+}
+
+/*shadow overlay*/
+#shadow-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    display: none;
+    z-index: 999;
+}
+
+/* POPUP BOX */
+#shadow-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+
+    background: url("images/add-to-bag-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 65%;
+
+    padding: 4rem;
+    text-align: center;
+    font-family: "Gaegu", sans-serif;
+    display: none;
+    gap: 2rem;
+}
+
+.merch-box h1{
+    font-size: 64px;
+}
+
+.merch-box h2 {
+    font-size: 48px;
+}
+
+
+.socials button{
+    background: #7D9D5A;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.socials img {
+    height: 2rem;
+    width: auto;
+    object-fit: contain;
+}
+
+.socials a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: "Gaegu", sans-serif;
+    color: white;
+    gap: 0.5rem;
+    font-size: 32px;
+}
+
+.socials p{
+    margin: 0;
+}
+
+/* Show state */
+#shadow-box.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/*hero section*/
+.hero-section{
+    position: relative;
+    margin: 0;
+}
+
+.hero-section img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-section a{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    width: clamp(140px, 25vw, 320px);
+    height: auto;
+}
+
+/*featured products section*/
+.ft-products {
+    text-align: center;
+    padding: 4rem 2rem;
+    
+    background-image: url("images/lined-paper.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position:relative;
+}
+
+.ft-products h2{
+    font-family:"gaegu", sans-serif;
+    font-size: 64px;
+}
+
+.products-container {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1rem, 4vw, 4rem);
+    flex-wrap: wrap;
+}
+
+.product-card{
+    width: clamp(180px, 28vw, 400px);
+    font-family: "gaegu", sans-serif;
+}
+
+.product-card img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-card h3{
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.product-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+/*ABOUT US SECTION*/
+.about-us{
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+    
+    background-image: url("images/about-us-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.about-us-text,
+.our-goal-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.about-us-text h2{
+    font-family: "gaegu", sans-serif;
+    font-size: 64px;
+}
+
+.about-us-text p{
+    text-align: center;
+    padding: 5rem;
+    max-width: 40%;
+    font-size: 24px;
+
+    font-family: "Besley", serif;
+    background-image: url("images/dotted-paper.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.about-us-text img{
+    padding-bottom: 4rem;
+}
+
+.quote-img{
+    margin-bottom: 2rem;
+}
+
+.left-polaroid{
+    position: absolute;
+    left: 0px;
+    transform: translateY(73%);
+    z-index: 1;
+}
+
+.right-polaroid{
+    position: absolute;
+    right: 0px;
+    transform: translateY(-30%);
+}
+
+/*OUR GOAL SECTION*/
+.our-goal {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 2rem;
+
+    background-image: url("images/our-goal-bckgnd.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.our-goal-text img{
+    margin: 2rem;
+}
+
+.our-goal-text p{
+    font-family: "Besley", serif;
+    font-size: 24px;
+}
+
+.our-goal-p{
+    background-image: url("images/brown-paper.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    font-size: 24px;
+    color: #ffffff;
+    padding: 4rem;
+    max-width: 60%;
+}
+
+.left-petals{
+    position: absolute;
+    left: 2rem;
+    transform: translateY(-30%);
+}
+
+.matcha-sticker{
+    position: absolute;
+    right: 1rem;
+    transform: translateY(-70%)
+}
+
+.right-petals{
+    position: absolute;
+    right: 1rem;
+    transform: translateY(100%);
+}
+
+/* SECOND ABOUT US SECTION */
+.about-us-2 {
+    align-items: center;
+    padding: 4rem;
+
+    background-color: #B19587;
+}
+
+.hand-whisked-info,
+.transparancy-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hand-whisked-info p,
+.transparancy-info p{
+    text-align: center;
+    font-family: "Besley", serif;
+    font-size: 24px;
+    padding: 1rem;
+
+    color: #ffffff;
+}
+
+/*MISSION STATEMENT*/
+.mission-statement{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #FFF4EE;
+
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.mission-statement p{
+    font-family: "Besley", serif;
+    font-size: 32px;
+    color: #202020;
+    max-width: 50%;
+    text-align: center;
+}
+
+.yuka-imgs{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.yuka-imgs img{
+    height: auto;
+    object-fit: contain;
+}
+
+.mission-statement a{
+    margin: 2rem;
+}
+
+/*FOOTER*/
+.footer {
+    background-color: #B19587;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem 4rem;
+}
+
+.footer img{
+    height: auto;
+    max-width: 140px;
+}
+
+.contact-info,
+.hours {
+    font-family: "gaegu", sans-serif;
+    color: white;
+}
+
+.contact-info h3,
+.hours h3{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.contact-info p,
+.hours p{
+    margin-top: 2px;
+    font-size: 24px;
+}
+
+/* -----------------MENU SECTION -------------------*/
+.menu-header{
+    padding: clamp(1.5rem, 4vw, 2rem) clamp(1.5rem, 6vw, 4rem);
+    color: #ffffff;
+    background-color: #B19587;
+}
+
+.menu-header h1{
+    font-family: "gaegu", sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 0px;
+}
+
+.menu-header p {
+    font-family: "Besley", serif;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-top: 1rem;
+}
+
+.menu{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 1rem clamp(1rem, 6vw, 4rem);
+
+    background-color:#B19587;
+}
+
+.menu-card{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: none;
+    
+    color: white;
+}
+
+.menu-card h3{
+    font-family: "gaegu", sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.menu-card p{
+    font-family: "Besley", serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    margin-top: 0.6rem;
+}
+
+/*------------------FAQ SECTION----------------*/
+.faq-body{
+    background-color: #B19587;
+    font-family: "gaegu", sans-serif;
+    color: white;
+    padding: 1rem;
+}
+
+.faq-body h1{
+    font-size: 64px;
+    padding: 4rem;
+    margin-bottom: 0px;
+}
+
+.toggle {
+  margin: 0 2rem 4rem;
+  overflow: hidden;
+
+  background-image: url("images/faq-toggle-closed.png");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.toggle[open] {
+  background-image: url("images/faq-toggle-open.png");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.toggle summary {
+  list-style: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.toggle h2 {
+  font-family: "gaegu", sans-serif;
+  padding: 2rem;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  color: #202020;
+}
+
+.toggle p {
+  font-family: "Besley", serif;
+  font-size: 16px;
+  padding: 0 4rem 2rem;
+  margin: 0;
+  color: #202020;
+}
+
+.ceremonial-img {
+    margin-bottom: 4rem;
+    margin-left: 4rem;
+    width: 50%;
+    height: auto;
+}
+
+/***--------CUSTOMIZE DRINK PAGE------------***/
+.drink-info{
+    background-color: #B19587;
+    padding: 4rem;
+}
+
+.drink-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.back-to-menu-button {
+    font-family: "gaegu", sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+    text-decoration: none;
+    color: white;
+}
+
+.drink-main-info {
+    color: white;
+    flex: 1;
+    text-align: left;
+    justify-content: left;
+
+    max-height: calc(100vh - 200px); /* adjust for navbar */
+    overflow-y: auto;
+    padding-right: 2rem auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.drink-main-info::-webkit-scrollbar {
+  display: none;
+}
+
+.drink-main-info h1 {
+    font-family: "gaegu", sans-serif;
+    font-size: 64px;
+    margin-bottom: 0;
+}
+
+.drink-main-info h2 {
+    font-family: "Besley", serif;
+    font-size: 40px;
+    margin-top: 0;
+}
+
+.drink-main-info p {
+    font-family: "Besley", serif;
+    font-size: 24px;
+}
+
+.drink-img {
+    flex: 1;
+    position: sticky;
+    align-items:center;
+    display: flex;
+    justify-content: center;
+}
+
+.drink-img img{
+    transform: scale(1.2);
+    transform-origin: center;
+}
+
+.adjustments-toggle {
+  overflow: hidden;
+  font-family: "Gaegu", sans-serif;
+  font-size: 40px;
+}
+
+.adjustments-toggle summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.adjustments-toggle fieldset {
+    border: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.adjust-field label {
+    font-family: "Besley", serif;
+    font-size: 20px;
+    display: block;
+}
+
+.add-to-bag {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    margin-top: 2rem;
+}
+
+/***--------ADD TO CART OVERLAY------------***/
+.cart-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+
+.cart-popup {
+  background: url("images/add-to-bag-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 65%;
+
+  padding: 4rem;
+  text-align: center;
+  font-family: "Gaegu", sans-serif;
+  display: flex;
+  gap: 2rem;
+}
+
+.cart-popup-text {
+    text-align: left;
+    color: #202020;
+}
+
+.cart-popup-text h1{
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.cart-popup-text h2{
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.cart-popup-text p{
+    font-family: "Besley", serif;
+    font-size: 20px;
+}
+
+.popup-buttons {
+    margin-top: 4rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.popup-buttons button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0.7rem;
+}
+
+
+/***--------BAG------------***/
+.bag-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 9999;
+}
+
+.bag-panel {
+  background: white;
+  width: 30%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+
+  font-family: "Gaegu", sans-serif;
+  color:#202020;
+  align-items: center;
+  text-align: center;
+}
+
+.bag-overlay.show .bag-panel {
+  transform: translateX(0);
+}
+
+.hidden {
+  display: none;
+}
+
+.bag-header {
+    font-family: "Gaegu", sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.bag-header h2{
+    margin: 1rem;
+}
+
+.bag-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #ACD2F7;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+.bag-item-img {
+    flex: 1;
+    width: 70px;
+    height: auto;
+    object-fit: cover;
+}
+
+.bag-item-text {
+    flex: 2;
+    text-align: left;
+}
+
+.bag-item-text h2{
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.bag-item-text p{
+    margin-top: 0;
+    font-family: "Besley", serif;
+    font-size: 16px;
+}
+
+.bag-total {
+    font-size: 16px;
+}
+
+.checkout-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0.7rem;
+    margin-bottom: 3rem;
+}
+
+.delete-item{
+  background:#f3e6dc;
+  border-radius:50%;
+  width:32px;
+  height:32px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/**PICKUP**/
+.pickup-view {
+  background: white;
+  width: 30%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  font-family: "Gaegu", sans-serif;
+  color:#202020;
+  align-items: left;
+  text-align: left;
+}
+
+.back-to-bag-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0.7rem;
+    margin-bottom: 3rem;
+
+    font-family: "Gaegu", sans-serif;
+    color: #202020;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.pickup-time-content {
+    padding: 1rem;
+    border: 1px solid #ACD2F7;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+.pickup-time-content h1{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.pickup-time-content p{
+    font-family: "Besley", serif;
+    font-size: 16px;
+}
+
+.pickup-time-select {
+    background: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    margin: 0.7rem;
+    margin-bottom: 3rem;
+    border-radius:5px;
+
+    font-family: "Gaegu", sans-serif;
+    color: #202020;
+    font-size: 20px;
+}
+
+.confirmation-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0.7rem;
+    margin-bottom: 3rem;
+    
+    display: block;
+    margin: 2rem auto 0; 
+}
+
+/* =========================
+   MOBILE FIXES
+========================= */
+/*NAVBAR + FOOTER MOBILE FIX*/
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    section {
+        padding: 1.5rem 1rem;
+    }
+
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .logo {
+    position: static;
+    transform: none;
+  }
+
+  .nav-links {
+    margin-left: 0;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links li a {
+    font-size: 18px;
+  }
+
+  .nav-img img {
+    width: 40px;
+    height: auto;
+  }
+
+  .merch-nav {
+    display: none;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+    padding: 2rem;
+  }
+
+  .footer img {
+    width: 120px;
+  }
+
+
+}
+
+/* =========================
+   MOBILE BAG SLIDE UP
+========================= */
+@media (max-width: 768px) {
+
+  .bag-overlay {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+   .bag-panel {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    height: 80vh;
+    border-radius: 20px 20px 0 0;
+
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .bag-overlay.show .bag-panel {
+    transform: translateY(0);
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* =========================
+   MOBILE CUSTOMIZE SECTION
+========================= */
+
+@media (max-width:768px){
+
+.drink-info{
+    padding:2rem 1.5rem;
+}
+
+.drink-info-container{
+    flex-direction:column;
+    gap:2rem;
+}
+
+.drink-img{
+    position:static;
+    order: -1;
+}
+
+.drink-img img{
+    margin-top: 1rem;
+    transform:none;
+    width:70%;
+    max-width: 320px;
+}
+
+.back-to-menu-button{
+    font-size:24px;
+}
+
+.drink-main-info h1{
+    font-size:clamp(2rem,6vw,3rem);
+}
+
+.drink-main-info h2{
+    font-size:clamp(1.5rem,4vw,2rem);
+}
+
+.drink-main-info p{
+    font-size:clamp(1rem,3vw,1.2rem);
+}
+
+/*adjustments*/
+.adjustments-toggle{
+    font-size:24px;
+}
+
+.adjust-field label{
+    font-size:16px;
+}
+
+.adjustments-toggle summary{
+    padding:0.5rem 0;
+}
+
+/*mobile scroll area*/
+.drink-main-info{
+    max-height:none;
+    overflow:visible;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-to-bag {
+    align-self:center;
+    margin-top:2rem;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+.add-to-bag img{
+    width:clamp(180px, 40vw, 260px);
+}
+
+.adjust-field{
+    margin-bottom:1rem;
+}
+
+.adjust-field label{
+    margin:0.3rem 0;
+}
+
+/* =========================
+   RESPONSIVE POPUP PAGE
+========================= */
+.cart-popup{
+    flex-direction: column;
+    width: 90%;
+    padding: 2rem;
+    gap: 1.5rem;
+    padding-top: 6rem;
+}
+
+.cart-popup img{
+    width: 160px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.cart-popup-text{
+    text-align: center;
+}
+
+.cart-popup-text h1{
+    font-size: 36px;
+}
+
+.cart-popup-text h2{
+    font-size: 28px;
+}
+
+.cart-popup-text p{
+    font-size: 16px;
+}
+
+.popup-buttons{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1rem;
+    margin-top:1.5rem;
+}
+
+.popup-buttons img{
+    width:clamp(140px, 35vw, 180px);
+    height:auto;
+}
+
+}
+
+/* =========================
+   RESPONSIVE ABOUT PAGE
+========================= */
+
+@media (max-width: 1200px) {
+
+    .about-us{
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .about-us-text h2{
+        font-size: 40px;
+    }
+
+    .about-us-text p{
+        max-width: 90%;
+        padding: 2rem;
+        font-size: 18px;
+        background-size: cover;
+    }
+
+    .left-polaroid,
+    .right-polaroid{
+        display:none;
+    }
+
+    .our-goal{
+        flex-direction: column;
+        text-align:center;
+    }
+
+    .our-goal p{
+        max-width:90%;
+        padding:2rem;
+        font-size:18px;
+    }
+
+    .left-petals,
+    .right-petals,
+    .matcha-sticker,
+    .floating-petals1,
+    .floating-petals2{
+        display:none;
+    }
+
+    .hand-whisked-info,
+    .transparancy-info{
+        flex-direction:column;
+        gap:1rem;
+    }
+
+    .hand-whisked-info p,
+    .transparancy-info p{
+        font-size:18px;
+    }
+
+    .mission-statement p{
+        max-width:90%;
+        font-size:20px;
+    }
+}

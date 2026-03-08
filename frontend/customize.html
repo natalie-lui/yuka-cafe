@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yuka Cafe | Product Page</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="merch-nav">
+            <img src="images/merch-coming-soon.png"/>
+        </div>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Yuka Cafe Logo" />
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="faq.html">
+                <div class="nav-img">
+                    <img src="images/faq-seal.png"/>
+                    <p>FAQ</p>
+                </div>
+            </a></li>
+            <li><a href="about.html">
+                <div class="nav-img">
+                    <img src="images/about-seal.png"/>
+                    <p>About</p>
+                </div>
+            </a></li>
+            <li><a href="menu.html">
+                <div class="nav-img">
+                    <img src="images/menu-seal.png"/>
+                    <p>Menu</p>
+                </div>
+            </a></li>
+            <li><a onclick=openBag()>
+                <div class="nav-img">
+                    <img src="images/bag-seal.png"/>
+                    <p>Bag</p>
+                </div>
+            </a></li>
+        </ul>
+    </nav>
+  <section class = "drink-info">
+    <div>
+      <a class="back-to-menu-button" href="menu.html"> <b>&lt</b> Back to Menu</a>
+    </div>
+    <div class = "drink-info-container">
+      <div class="drink-main-info">
+        <h1 id="drink-name"></h1>
+        <h2 id="drink-price"></h2>
+        <p id="drink-description"></p>
+        <details class="adjustments-toggle">
+          <summary>Adjustments  <b>&gt</b></summary>
+          <!--MILK-->
+          <fieldset class="adjust-field">
+            <legend>Milk</legend>
+            <p>*Milk alternatives have no extra cost</p>
+            <label><input type="radio" name="milk" value="Whole milk" checked> Whole Milk</label>
+            <label><input type="radio" name="milk" value="Oat milk"> Oat</label>
+            <label><input type="radio" name="milk" value="Soy milk"> Soy</label>
+          </fieldset>
+          <!--SWEETNESS-->
+          <fieldset class="adjust-field">
+            <legend>Sweetness</legend>
+            <label><input type="radio" name="sweetness" value="100% sweetness" checked> 100%</label>
+            <label><input type="radio" name="sweetness" value="75% sweetness"> 75%</label>
+            <label><input type="radio" name="sweetness" value="50% sweetness"> 50%</label>
+            <label><input type="radio" name="sweetness" value="25% sweetness"> 25%</label>
+          </fieldset>
+          <!--ICE-->
+          <fieldset class="adjust-field">
+            <legend>Ice</legend>
+            <label><input type="radio" name="ice" value="more ice"> More Ice</label>
+            <label><input type="radio" name="ice" value="regular ice" checked> Regular Ice</label>
+            <label><input type="radio" name="ice" value="less ice"> Less Ice</label>
+          </fieldset>
+        </details>
+        <button class="add-to-bag" onclick="addToCart()">
+          <img src="images/add-to-bag-button.png"/>
+        </button>
+      </div>
+      <div class="drink-img">
+        <img id="drink-image"/>
+      </div>
+    </div>
+  </section>
+  <div id="cart-popup-overlay" class="cart-popup-overlay hidden">
+    <div class="cart-popup">
+      <img src="images/drink-img-filler.png"/>
+      <div class="cart-popup-text">
+        <h1>Added to Bag</h1>
+        <div id="popup-item-details"></div>
+        <div class="popup-buttons">
+          <button id="continue-ordering">
+             <img src="images/order-more-button.png"/>
+          </button>
+          <button id="go-to-bag">
+            <img src="images/checkout-button.png"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="yuka-tape">
+    <img src="images/yuka-tape.png"/>
+  </div>
+  <!-- BAG OVERLAY -->
+  <div id="bag-overlay" class="bag-overlay hidden">
+    <!--CART VIEW-->
+    <div id="bag-panel" class="bag-panel">
+      <div class="bag-header">
+        <h2>Bag</h2>
+      </div>
+      <div id="bag-items"></div>
+      <div class="bag-footer">
+        <p id="bag-total"></p>
+        <button class="checkout-btn" onclick=showPickupTime()>
+          <img src="images/checkout-btn.png" alt="Checkout"/>
+        </button>
+      </div>
+    </div>
+    <!--PICKUP TIME VIEW-->
+    <div class="pickup-view" id="pickup-view" style="display:none">
+      <button class="back-to-bag-btn" onclick=showCart()><b>&lt</b> Back to Bag</button>
+      <div class="pickup-time-content">
+        <h1>Select Pickup Time</h1>
+        <p>*Same day pick-up is unavailable</p>
+        <select class="pickup-time-select" id="pickup-time-select"></select>
+      </div>
+      <button class="confirmation-button" onclick=checkout()>
+        <img src="images/confirm-pay-btn.png" alt="Confirm & Pay"/>
+      </button>
+    </div>
+  </div>
+  <!--FOOTER-->
+   <footer class="footer">
+    <a href="index.html">
+        <img src="images/logo.png" alt="Yuka Cafe Logo" />
+    </a>
+    <div class="contact-info">
+        <h3>Yuka Cafe</h3>
+        <p>yukacafe.la@gmail.com<br>insta: @yukacafe.la</p>
+    </div>
+    <div class="hours">
+        <h3>Hours of Operation</h3>
+        <p>Friday-Monday<br>10:00AM-3:00PM</p>
+    </div>
+    <a href="menu.html"><img src="images/order-now-footer.png"></a>
+   </footer>
+  <script src="customize.js"></script>
+  <script src="bag.js"></script>
+</body>
+</html>
