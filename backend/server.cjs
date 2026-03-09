@@ -22,7 +22,7 @@ let cart = [];
 //SQUARE CLIENT SETUP
 const squareClient = new SquareClient({
   token: process.env.SQUARE_ACCESS_TOKEN,
-  environment: SquareEnvironment.Sandbox,
+  environment: SquareEnvironment.Production,
 });
 
 const catalogApi = squareClient.catalog;
