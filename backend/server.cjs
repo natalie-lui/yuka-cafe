@@ -106,7 +106,7 @@ app.get("/api/drinks/:squareId", async (req, res) => {
       id: obj.id,
       name: item?.name ?? "Unnamed item",
       description: item?.description ?? "",
-      price: priceCents / 100,
+      price: Number(priceCents) / 100,
       image: null,
     });
   } catch (err) {
