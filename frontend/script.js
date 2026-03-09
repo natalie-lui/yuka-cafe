@@ -18,6 +18,7 @@ async function loadDrinks(){
                     alt="${drink.name}"
                 >
                 <h3>${drink.name}</h3>
+                <p>$${drink.price.toFixed(2)}</p>
             `;
             
             card.addEventListener('click', () => {
@@ -37,9 +38,6 @@ async function loadDrinks(){
 
 window.addEventListener('DOMContentLoaded', loadDrinks);
 
-//add to order
-let currItem = {};
-
 function openModal(name, price){
     currItem = {name, price};
     document.getElementById("modal-title").textContent = name;
@@ -49,18 +47,4 @@ function openModal(name, price){
 
 function closeModal(){
     document.getElementById("modal").classList.remove("active");
-}
-
-function addToCart(){
-    const sweetness= document.querySelector('input[name="sweetness"]:checked').value;
-    const ice = document.querySelector('input[name="ice"]:checked').value;
-
-    const cartItem = {
-        ...currItem,
-        sweetness,
-        ice
-    };
-
-    console.log("added to cart ", cartItem);
-    closeModal();
 }

@@ -58,28 +58,7 @@
         <p id="drink-description"></p>
         <details class="adjustments-toggle">
           <summary>Adjustments  <b>&gt</b></summary>
-          <!--MILK-->
-          <fieldset class="adjust-field">
-            <legend>Milk</legend>
-            <p>*Milk alternatives have no extra cost</p>
-            <label><input type="radio" name="milk" value="Whole milk" checked> Whole Milk</label>
-            <label><input type="radio" name="milk" value="Oat milk"> Oat</label>
-          </fieldset>
-          <!--SWEETNESS-->
-          <fieldset class="adjust-field">
-            <legend>Sweetness</legend>
-            <label><input type="radio" name="sweetness" value="100% sweetness" checked> 100%</label>
-            <label><input type="radio" name="sweetness" value="75% sweetness"> 75%</label>
-            <label><input type="radio" name="sweetness" value="50% sweetness"> 50%</label>
-            <label><input type="radio" name="sweetness" value="25% sweetness"> 25%</label>
-          </fieldset>
-          <!--ICE-->
-          <fieldset class="adjust-field">
-            <legend>Ice</legend>
-            <label><input type="radio" name="ice" value="more ice"> More Ice</label>
-            <label><input type="radio" name="ice" value="regular ice" checked> Regular Ice</label>
-            <label><input type="radio" name="ice" value="less ice"> Less Ice</label>
-          </fieldset>
+          <div id="modifiers-container"></div>
         </details>
         <button class="add-to-bag" onclick="addToCart()">
           <img src="images/add-to-bag-button.png"/>

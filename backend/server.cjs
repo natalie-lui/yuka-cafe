@@ -89,8 +89,10 @@ app.get("/api/drinks", async (req, res) => {
 app.get("/api/drinks/:squareId", async (req, res) => {
   try {
     const { squareId } = req.params;
+
     const response = await catalogApi.object.get({
       objectId: squareId,
+      includeRelatedObjects: true,
     });
 
     const obj = response.object;
@@ -102,67 +104,61 @@ app.get("/api/drinks/:squareId", async (req, res) => {
     const firstVar = item?.variations?.[0];
     const priceCents = firstVar?.itemVariationData?.priceMoney?.amount ?? 0;
 
+    // ---------------- IMAGE ----------------
+    let imageUrl = null;
+
+    if (item?.imageIds?.length && response.relatedObjects) {
+      const imageId = item.imageIds[0];
+
+      const imageObj = response.relatedObjects.find(
+        (o) => o.id === imageId && o.type === "IMAGE"
+      );
+
+      if (imageObj?.imageData?.url) {
+        imageUrl = imageObj.imageData.url;
+      }
+    }
+
+    // ---------------- MODIFIERS ----------------
+    let modifiers = [];
+
+    if (item?.modifierListInfo?.length && response.relatedObjects) {
+      const modifierListIds = item.modifierListInfo.map(
+        (m) => m.modifierListId
+      );
+
+      const modifierLists = response.relatedObjects.filter(
+        (obj) =>
+          obj.type === "MODIFIER_LIST" &&
+          modifierListIds.includes(obj.id)
+      );
+
+      modifiers = modifierLists.map((list) => ({
+        name: list.modifierListData?.name,
+        options: list.modifierListData?.modifiers?.map((mod) => ({
+          id: mod.id,
+          name: mod.modifierData?.name,
+          price: Number(mod.modifierData?.priceMoney?.amount ?? 0n) / 100,
+        })),
+      }));
+    }
+
     res.json({
       id: obj.id,
       name: item?.name ?? "Unnamed item",
       description: item?.description ?? "",
       price: Number(priceCents) / 100,
-      image: null,
+      image: imageUrl,
+      modifiers,
     });
+
   } catch (err) {
     console.error("Square drink details error:", err);
     res.status(500).json({ error: "Failed to load drink from Square" });
   }
 });
 
-app.get("/api/featured-drinks", async (req, res) => {
-  try {
-    const response = await catalogApi.list({ types: "ITEM,IMAGE" });
-    const objects = response.data || [];
-
-    // Separate items and images
-    const items = objects.filter(obj => obj.type === "ITEM");
-    const images = objects.filter(obj => obj.type === "IMAGE");
-
-    // Build image lookup map
-    const imageMap = {};
-    images.forEach(img => {
-      imageMap[img.id] = img.imageData?.url;
-    });
-
-    // Filter featured items (variation-level custom attribute)
-    const featuredItems = items.filter(item => {
-      const variations = item.itemData?.variations || [];
-
-      return variations.some(variation => {
-        const custom = variation.customAttributeValues;
-        if (!custom) return false;
-
-        return Object.values(custom).some(
-          attr => attr.booleanValue === true
-        );
-      });
-    });
-
-    // Format response with image URL
-    const formatted = featuredItems.map(item => ({
-      id: item.id,
-      name: item.itemData?.name,
-      image: item.itemData?.imageIds?.length
-        ? imageMap[item.itemData.imageIds[0]]
-        : null
-    }));
-
-    res.json(formatted);
-
-  } catch (err) {
-    console.error("Featured drinks error:", err);
-    res.status(500).json({ error: "Failed to load featured drinks" });
-  }
-});
-
 //CART ROUTE
-
 // Add to cart
 app.post("/api/cart", (req, res) => {
   if (!req.session.cart) {
@@ -213,15 +209,22 @@ app.post("/api/checkout", async (req, res) => {
     }
 
     const lineItems = cart.map((item, index) => {
+      // Build a string for modifiers
+      const modifiersNote = item.modifiers
+        ? Object.entries(item.modifiers)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(", ")
+        : "";
+
       return {
         uid: `line-${index}`,
         name: item.name,
         quantity: "1",
         basePriceMoney: {
-          amount: BigInt(Math.round(item.price * 100)), 
+          amount: BigInt(Math.round(item.price * 100)),
           currency: "USD"
         },
-        note: `PickupTime: ${pickupTime}, Milk: ${item.milk}, Sweetness: ${item.sweetness}, Ice: ${item.ice}`
+        note: `PickupTime: ${pickupTime}${modifiersNote ? ", " + modifiersNote : ""}`
       };
     });
 

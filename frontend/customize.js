@@ -26,6 +26,38 @@ if(productId){
         : "images/drink-img-filler.png";
 
       imgEl.alt = drink.name;
+
+      // -------- RENDER MODIFIERS --------
+      const container = document.getElementById("modifiers-container");
+      container.innerHTML = "";
+
+      drink.modifiers.forEach(list => {
+
+        const fieldset = document.createElement("fieldset");
+        fieldset.className = "adjust-field";
+
+        const legend = document.createElement("legend");
+        legend.textContent = list.name;
+        fieldset.appendChild(legend);
+
+        list.options.forEach((opt, index) => {
+
+          const label = document.createElement("label");
+
+          label.innerHTML = `
+            <input type="radio"
+                  name="${list.name}"
+                  value="${opt.name}"
+                  data-price="${opt.price}"
+                  ${index === 0 ? "checked" : ""}>
+            ${opt.name} ${opt.price ? `(+$${opt.price})` : ""}
+          `;
+
+          fieldset.appendChild(label);
+        });
+
+        container.appendChild(fieldset);
+      });
     })
     .catch(err => {
       console.error(err);
@@ -35,20 +67,56 @@ if(productId){
   console.warn("No product ID found in URL.");
 }
 
-function addToCart(){
-  const milk = document.querySelector('input[name="milk"]:checked').value;
-  const sweetness = document.querySelector('input[name="sweetness"]:checked').value;
-  const ice = document.querySelector('input[name="ice"]:checked').value;
+function showCartPopup(item) {
+  const overlay = document.getElementById("cart-popup-overlay");
+  const details = document.getElementById("popup-item-details");
+
+  // Build modifier string
+  const mods = Object.entries(item.modifiers)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join(", ");
+
+  details.innerHTML = `
+    <h2><b>${item.name}</b></h2>
+    <p>${mods}</p>
+    <p>Price: $${item.price.toFixed(2)}</p>
+  `;
+
+  overlay.classList.remove("hidden");
+}
+
+//add to order
+let currItem = {};
+
+function addToCart() {
+  if (!currItem || !currentDrink) return;
+
+  const selectedModifiers = {};
+  let modifierPriceTotal = 0;
+
+  // Loop through all modifier groups
+  document.querySelectorAll("#modifiers-container fieldset").forEach(field => {
+    const legend = field.querySelector("legend").textContent;
+    const checked = field.querySelector("input:checked");
+
+    if (checked) {
+      const price = Number(checked.dataset.price || 0);
+      selectedModifiers[legend] = checked.value;
+      modifierPriceTotal += price;
+    }
+  });
+
+  // Final price includes base + modifier prices
+  const finalPrice = currentDrink.price + modifierPriceTotal;
 
   const cartItem = {
-    productId,
+    productId: currentDrink.id,
     name: currentDrink.name,
-    price: currentDrink.price,
-    milk,
-    sweetness,
-    ice
+    price: finalPrice,
+    modifiers: selectedModifiers
   };
 
+  // Send to backend
   fetch("/api/cart", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -56,20 +124,10 @@ function addToCart(){
   })
   .then(res => res.json())
   .then(data => {
-    showCartPopup(cartItem);
-  });
-}
-
-function showCartPopup(item) {
-  const overlay = document.getElementById("cart-popup-overlay");
-  const details = document.getElementById("popup-item-details");
-
-  details.innerHTML = `
-    <h2><b>${item.name}</b></h2>
-    <p>${item.milk} milk, ${item.sweetness} sweetness, ${item.ice}</p>
-  `;
-
-  overlay.classList.remove("hidden");
+    showCartPopup(cartItem); // show popup
+    console.log("Added to cart:", cartItem);
+  })
+  .catch(err => console.error("Cart error:", err));
 }
 
 // buttons

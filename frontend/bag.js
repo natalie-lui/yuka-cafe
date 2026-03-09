@@ -31,35 +31,46 @@ pickupPanel.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
-//fetch cart from backend
-function loadBag(){
-    fetch("/api/cart")
+// Fetch cart from backend
+function loadBag() {
+  fetch("/api/cart")
     .then(res => res.json())
     .then(cart => {
       bagItemsDiv.innerHTML = "";
       let total = 0;
 
-      cart.forEach((item, index) => { // <-- note the index
+      cart.forEach((item, index) => {
         total += item.price;
+
+        // Build modifier string dynamically
+        const mods = item.modifiers
+          ? Object.entries(item.modifiers)
+              .map(([key, value]) => `${key}: ${value}`)
+              .join(", ")
+          : "";
 
         const div = document.createElement("div");
         div.className = "bag-item";
         div.innerHTML = `
-          <img class="bag-item-img" src="images/drink-img-filler.png"/>
+          <img class="bag-item-img" src="${item.image || 'images/drink-img-filler.png'}"/>
           <div class="bag-item-text">
             <h2><b>${item.name}</b></h2>
-            <p>${item.milk}, ${item.sweetness}, ${item.ice}</p>
+            <p>${mods}</p>
             <p>$${item.price.toFixed(2)}</p>
           </div>
-          <button class="delete-item" onclick="removeItem(${index})">
-            ✕
-          </button>
+          <button class="delete-item" onclick="removeItem(${index})">✕</button>
         `;
         bagItemsDiv.appendChild(div);
       });
 
       bagTotal.textContent = `Total: $${total.toFixed(2)}`;
     });
+}
+
+// Remove item from cart
+function removeItem(index) {
+  fetch(`/api/cart/${index}`, { method: "DELETE" })
+    .then(() => loadBag()); // refresh bag after deletion
 }
 
 //delete item
