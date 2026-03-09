@@ -7,7 +7,7 @@ const { SquareClient, SquareEnvironment, SquareError } = require("square");
 
 //setup express
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const fs = require("fs")
 
 //set up cart sessions
