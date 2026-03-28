@@ -130,7 +130,7 @@ function addToCart() {
   .catch(err => console.error("Cart error:", err));
 }
 
-// buttons
+// cart popup buttons
 document.getElementById("continue-ordering").onclick = () => {
   document.getElementById("cart-popup-overlay").classList.add("hidden");
 };
@@ -139,22 +139,3 @@ document.getElementById("go-to-bag").onclick = () => {
   document.getElementById("cart-popup-overlay").classList.add("hidden");
   showCart();
 };
-
-//merch popup
-function openShadowBox() {
-    document.getElementById("shadow-overlay").style.display = "block";
-    document.getElementById("shadow-box").style.display = "block";
-
-    setTimeout(() => {
-        document.getElementById("shadow-box").classList.add("active");
-    }, 10);
-}
-
-function closeShadowBox() {
-    document.getElementById("shadow-box").classList.remove("active");
-
-    setTimeout(() => {
-        document.getElementById("shadow-overlay").style.display = "none";
-        document.getElementById("shadow-box").style.display = "none";
-    }, 200);
-}

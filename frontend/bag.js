@@ -136,3 +136,28 @@ function showCart() {
   document.getElementById("bag-panel").style.display = "block";
   openBag();
 }
+
+//merch popup
+function openShadowBox() {
+    document.getElementById("shadow-overlay").style.display = "block";
+    document.getElementById("shadow-box").style.display = "block";
+
+    setTimeout(() => {
+        document.getElementById("shadow-box").classList.add("active");
+    }, 10);
+}
+
+function closeShadowBox() {
+    document.getElementById("shadow-box").classList.remove("active");
+
+    setTimeout(() => {
+        document.getElementById("shadow-overlay").style.display = "none";
+        document.getElementById("shadow-box").style.display = "none";
+    }, 200);
+}
+
+//mobile menu toggle
+function toggleMenu() {
+  const menu = document.getElementById("mobileMenu");
+  menu.classList.toggle("active");
+}

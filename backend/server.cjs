@@ -44,36 +44,60 @@ app.get("/", (req, res) => {
 
 app.get("/api/drinks", async (req, res) => {
   try {
-    // Fetch both items and images
-    const response = await catalogApi.list({ types: "ITEM,IMAGE" });
-    const objects = response.data || [];
-
-    const items = objects.filter(obj => obj.type === "ITEM");
-    const images = objects.filter(obj => obj.type === "IMAGE");
-
-    // Build image lookup table
-    const imageMap = {};
-    images.forEach(img => {
-      imageMap[img.id] = img.imageData?.url;
+    // fetch everything
+    const response = await catalogApi.list({
+      types: "ITEM,IMAGE,CATEGORY"
     });
 
-    const drinks = items.map(item => {
-      const itemData = item.itemData;
-      const firstVar = itemData?.variations?.[0];
+    const objects = response.data || [];
 
+    // split by object type
+    const items = objects.filter(obj => obj.type === "ITEM");
+    const images = objects.filter(obj => obj.type === "IMAGE");
+    const categories = objects.filter(obj => obj.type === "CATEGORY");
+
+    // build image map
+    const imageMap = {};
+    images.forEach(img => {
+      if (img.id && img.imageData?.url) {
+        imageMap[img.id] = img.imageData.url;
+      }
+    });
+
+    // build category map
+    const categoryMap = {};
+    categories.forEach(cat => {
+      if (cat.id && cat.categoryData?.name) {
+        categoryMap[cat.id] = cat.categoryData.name.toLowerCase();
+      }
+    });
+
+    // build drinks array
+    const drinks = items.map(item => {
+      const itemData = item.itemData || {};
+
+      // price
+      const firstVar = itemData.variations?.[0];
       const priceCents =
         firstVar?.itemVariationData?.priceMoney?.amount ?? 0;
 
-      // Get image from ITEM level
-      const imageId = itemData?.imageIds?.[0];
+      // image
+      const imageId = itemData.imageIds?.[0];
       const imageUrl = imageId ? imageMap[imageId] : null;
+
+      // category
+      const categoryId = itemData.categories?.[0]?.id;
+      const categoryName = categoryId
+        ? categoryMap[categoryId]
+        : "uncategorized";
 
       return {
         id: item.id,
-        name: itemData?.name ?? "Unnamed item",
-        description: itemData?.description ?? "",
-        price: Number(priceCents) / 100, // convert BigInt safely
-        image: imageUrl,
+        name: itemData.name || "Unnamed item",
+        description: itemData.description || "",
+        price: Number(priceCents) / 100,
+        image: imageUrl || "/images/default-drink.png",
+        category: categoryName || "uncategorized"
       };
     });
 

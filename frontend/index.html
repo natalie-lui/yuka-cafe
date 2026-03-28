@@ -24,6 +24,10 @@
                 <img src="images/logo.png" alt="Yuka Cafe Logo" />
             </a>
         </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <img src="images/hamburger.png" alt = "☰"/>
+        </div>
+        <!--desktop nav-->
         <ul class="nav-links">
             <li><a href="faq.html">
                 <div class="nav-img">
@@ -50,7 +54,19 @@
                 </div>
             </a></li>
         </ul>
+        <!--Mobile Nav-->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a onclick="openBag()">Bag</a></li>
+        </ul>
     </nav>
+    <!-- MERCH BANNER -->
+    <div class="merch-banner" onclick="openShadowBox()">
+        <img src="images/merch-coming-soon-banner.png"/>
+    </div>
+
     <div id="shadow-overlay" onclick="closeShadowBox()"></div>
 
     <div class="merch-box" id="shadow-box">
@@ -77,19 +93,29 @@
     <div class = "products">
         <div class="products-container">
             <div class="product-card">
-                <img src="images/drink-img-filler.png" alt="The Yuka">
+                <img src="images/yuka-ft.png" alt="The Yuka">
                 <h3>Yuka</h3>
             </div>
             <div class="product-card">
-                <img src="images/drink-img-filler.png" alt="Capybara">
+                <img src="images/capybara-ft.png" alt="Capybara">
                 <h3>Capybara</h3>
             </div>
         </div>
+         <a href="menu.html" class ="order-button"><img src="images/full-menu-btn.png" alt="View Full Menu"/></a>
     </div>
    </section>
    <div class="yuka-tape">
     <img src="images/yuka-tape.png"/>
    </div>
+   <div class="mission-statement-index">
+        <p>We're here to make matcha accessible, intentional, and worth coming back for—<strong><i>every single time.</i></strong></p>
+        <div class="yuka-imgs">
+            <img class="floating-petals1" src="images/floating-petals1.png"/>
+            <img src="images/yuka-logo.png"/>
+            <img class = "floating-petals2" src="images/floating-petals2.png"/>
+        </div>
+        <a href="about.html"><img src="images/about-us-btn.png"></a>
+    </div>
    <!-- BAG OVERLAY -->
     <div id="bag-overlay" class="bag-overlay hidden">
         <!--CART VIEW-->
@@ -133,7 +159,6 @@
     </div>
     <a href="menu.html"><img src="images/order-now-footer.png"></a>
    </footer>
-   <script src="customize.js"></script>
    <script src="bag.js"></script>
 </body>
 </html>
