@@ -261,10 +261,7 @@
     position: relative;
     overflow: visible;
     
-    background-image: url("images/about-us-background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #B19587;
 }
 
 .about-us-text,
@@ -278,19 +275,21 @@
 .about-us-text h2{
     font-family: "gaegu", sans-serif;
     font-size: 64px;
+    color: white;
 }
 
 .about-us-text p{
     text-align: center;
-    padding: 5rem;
-    max-width: 40%;
+    padding: 8rem;
+    width: 70%;
     font-size: 24px;
+    color: #202020;
 
     font-family: "Besley", serif;
-    background-image: url("images/dotted-paper.png");
-    background-size: cover;
+    background-image: url("images/about-us-lined-background.png");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top center;
+    background-size: contain;
 }
 
 .about-us-text img{
@@ -311,12 +310,13 @@
 .right-polaroid{
     position: absolute;
     right: 0px;
-    transform: translateY(-30%);
+    transform: translateY() translateX(25%);
 }
 
 /*OUR GOAL SECTION*/
 .our-goal {
     display: flex;
+    flex-direction: column;
     align-items: center;
     position: relative;
     padding: 2rem;
@@ -327,43 +327,33 @@
     background-repeat: no-repeat;
 }
 
-.our-goal-text img{
-    margin: 2rem;
+.our-goal-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.our-goal-text {
+    background-image: url("images/our-goal-lined-background.png");
+    background-size: contain;
+    background-size: 100% 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8rem;
+    flex: 1;
 }
 
 .our-goal-text p{
+    font-size: 24px;
     font-family: "Besley", serif;
-    font-size: 24px;
+    color: #202020;
 }
 
-.our-goal-p{
-    background-image: url("images/brown-paper.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    font-size: 24px;
-    color: #ffffff;
-    padding: 4rem;
-    max-width: 60%;
-}
-
-.left-petals{
-    position: absolute;
-    left: 2rem;
-    transform: translateY(-30%);
-}
-
-.matcha-sticker{
-    position: absolute;
-    right: 1rem;
-    transform: translateY(-70%)
-}
-
-.right-petals{
-    position: absolute;
-    right: 1rem;
-    transform: translateY(100%);
+.our-goal-img-wrapper{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* SECOND ABOUT US SECTION */
