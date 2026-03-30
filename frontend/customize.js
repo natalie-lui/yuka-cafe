@@ -19,13 +19,43 @@ if(productId){
       document.getElementById("drink-price").textContent = `$${drink.price.toFixed(2)}`;
       document.getElementById("drink-description").textContent = drink.description;
 
+      //RENDER IMGS
       const imgEl = document.getElementById("drink-image");
+      const thumbnailColumn = document.getElementById("thumbnail-col");
 
-      imgEl.src = drink.image 
-        ? drink.image 
-        : "images/drink-img-filler.png";
+      // fallback if no images
+      const images = (drink.images && drink.images.length)
+        ? drink.images
+        : ["images/drink-img-filler.png"];
 
+      // set default main image
+      imgEl.src = images[0];
       imgEl.alt = drink.name;
+
+      // render thumbnails
+      thumbnailColumn.innerHTML = "";
+
+      images.forEach((img, index) => {
+        const thumb = document.createElement("img");
+        thumb.src = img;
+        thumb.className = "thumbnail";
+
+        // highlight first one
+        if (index === 0) thumb.classList.add("active");
+
+        thumb.addEventListener("click", () => {
+          // update main image
+          imgEl.src = img;
+
+          // update active state
+          document.querySelectorAll(".thumbnail").forEach(t =>
+            t.classList.remove("active")
+          );
+          thumb.classList.add("active");
+        });
+
+        thumbnailColumn.appendChild(thumb);
+      });
 
       // -------- RENDER MODIFIERS --------
       const container = document.getElementById("modifiers-container");
@@ -70,9 +100,14 @@ if(productId){
 function showCartPopup(item) {
   const overlay = document.getElementById("cart-popup-overlay");
   const details = document.getElementById("popup-item-details");
+  const img = document.getElementById("popup-item-image");
+
+  // set img
+  img.src = item.image || "images/drink-img-filler.png";
+  img.alt = item.name;
 
   // Build modifier string
-  const mods = Object.entries(item.modifiers)
+  const mods = Object.entries(item.modifiers || {})
     .map(([k, v]) => `${k}: ${v}`)
     .join(", ");
 
@@ -108,12 +143,15 @@ function addToCart() {
 
   // Final price includes base + modifier prices
   const finalPrice = currentDrink.price + modifierPriceTotal;
+  const note = document.getElementById("custom-note").value;
 
   const cartItem = {
     productId: currentDrink.id,
     name: currentDrink.name,
     price: finalPrice,
-    modifiers: selectedModifiers
+    modifiers: selectedModifiers,
+    note: note,
+    image: currentDrink.image || currentDrink.images?.[0] //for popup
   };
 
   // Send to backend

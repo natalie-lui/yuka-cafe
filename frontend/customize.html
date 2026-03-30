@@ -12,14 +12,23 @@
 <body>
   <!-- NAVBAR -->
     <nav class="navbar">
-      <div class="merch-nav">
-            <img src="images/merch-coming-soon.png"/>
+        <div class="merch-nav">
+            <a onclick="openShadowBox()">
+                <div class="merch-img">
+                    <img src="images/merch-seal.png"/>
+                    <p>Merch</p>
+                </div>
+            </a>
         </div>
         <div class="logo">
             <a href="index.html">
                 <img src="images/logo.png" alt="Yuka Cafe Logo" />
             </a>
         </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <img src="images/hamburger.png" alt = "☰"/>
+        </div>
+        <!--desktop nav-->
         <ul class="nav-links">
             <li><a href="faq.html">
                 <div class="nav-img">
@@ -46,7 +55,34 @@
                 </div>
             </a></li>
         </ul>
+        <!--Mobile Nav-->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a onclick="openBag()">Bag</a></li>
+        </ul>
     </nav>
+    <!-- MERCH BANNER -->
+    <div class="merch-banner" onclick="openShadowBox()">
+        <img src="images/merch-coming-soon-banner.png"/>
+    </div>
+
+    <div id="shadow-overlay" onclick="closeShadowBox()"></div>
+
+    <div class="merch-box" id="shadow-box">
+        <button class="close-btn" onclick="closeShadowBox()">✕</button>
+        <h1>Merch Coming Soon...</h1>
+        <h2>Stay Connected for Updates!</h2>
+        <div class="socials">
+            <button>
+                <a href="https://www.instagram.com/yukacafe.la/" target="_blank">
+                    <img src="images/insta-logo.png"/>
+                    <p>@yukacafe.la</p>
+                </a>
+            </button>
+        </div>
+    </div>
   <section class = "drink-info">
     <div>
       <a class="back-to-menu-button" href="menu.html"> <b>&lt</b> Back to Menu</a>
@@ -58,20 +94,27 @@
         <p id="drink-description"></p>
         <details class="adjustments-toggle">
           <summary>Adjustments  <b>&gt</b></summary>
+          <p>Milk, Sweetness Level, Ice Level, Notes</p>
           <div id="modifiers-container"></div>
+          <textarea 
+            id="custom-note" 
+            placeholder="Any additional notes (allergies, preferences, etc.)"
+            rows="3"
+        ></textarea>
         </details>
         <button class="add-to-bag" onclick="addToCart()">
           <img src="images/add-to-bag-button.png"/>
         </button>
       </div>
-      <div class="drink-img">
+      <div class="drink-gallery">
         <img id="drink-image"/>
+        <div class="thumbnail-col" id="thumbnail-col"></div>
       </div>
     </div>
   </section>
   <div id="cart-popup-overlay" class="cart-popup-overlay hidden">
     <div class="cart-popup">
-      <img src="images/drink-img-filler.png"/>
+      <img id="popup-item-image" src="images/drink-img-filler.png"/>
       <div class="cart-popup-text">
         <h1>Added to Bag</h1>
         <div id="popup-item-details"></div>

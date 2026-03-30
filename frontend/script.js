@@ -84,7 +84,7 @@ async function loadDrinks() {
       card.className = 'menu-card';
 
       card.innerHTML = `
-        <img src="${drink.image}" alt="${drink.name}">
+        <img src="${drink.image || '/images/drink-img-filler.png'}" alt="${drink.name}">
         <h3>${drink.name}</h3>
         <p class="menu-desc">${drink.description || ""}</p>
         <p class="menu-price">$${drink.price.toFixed(2)}</p>
@@ -93,6 +93,7 @@ async function loadDrinks() {
       //pull sticker for drink
       const stickerInfo = drinkStickers[drink.name]
 
+      if (stickerInfo) {
         const sticker = document.createElement('img');
         sticker.src = stickerInfo.src;
         sticker.className = 'sticker';
@@ -104,6 +105,7 @@ async function loadDrinks() {
         sticker.style.pointerEvents = 'none';
 
         card.appendChild(sticker);
+      }
 
 
       card.addEventListener('click', () => {

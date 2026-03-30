@@ -9,16 +9,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet">
 <body>
-     <!-- NAVBAR -->
+    <!-- NAVBAR -->
     <nav class="navbar">
-         <div class="merch-nav">
-            <img src="images/merch-coming-soon.png"/>
+        <div class="merch-nav">
+            <a onclick="openShadowBox()">
+                <div class="merch-img">
+                    <img src="images/merch-seal.png"/>
+                    <p>Merch</p>
+                </div>
+            </a>
         </div>
         <div class="logo">
             <a href="index.html">
                 <img src="images/logo.png" alt="Yuka Cafe Logo" />
             </a>
         </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <img src="images/hamburger.png" alt = "☰"/>
+        </div>
+        <!--desktop nav-->
         <ul class="nav-links">
             <li><a href="faq.html">
                 <div class="nav-img">
@@ -45,7 +54,34 @@
                 </div>
             </a></li>
         </ul>
+        <!--Mobile Nav-->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a onclick="openBag()">Bag</a></li>
+        </ul>
     </nav>
+    <!-- MERCH BANNER -->
+    <div class="merch-banner" onclick="openShadowBox()">
+        <img src="images/merch-coming-soon-banner.png"/>
+    </div>
+
+    <div id="shadow-overlay" onclick="closeShadowBox()"></div>
+
+    <div class="merch-box" id="shadow-box">
+        <button class="close-btn" onclick="closeShadowBox()">✕</button>
+        <h1>Merch Coming Soon...</h1>
+        <h2>Stay Connected for Updates!</h2>
+        <div class="socials">
+            <button>
+                <a href="https://www.instagram.com/yukacafe.la/" target="_blank">
+                    <img src="images/insta-logo.png"/>
+                    <p>@yukacafe.la</p>
+                </a>
+            </button>
+        </div>
+    </div>
     <!--ABOUT US-->
    <section class="about-us-container">
     <div class="about-us">

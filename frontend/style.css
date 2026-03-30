@@ -670,6 +670,8 @@
     align-items: center;
     justify-content: center;
     gap: 3rem;
+    background-color: #FFF4EE;
+    padding: 2rem;
 }
 
 .back-to-menu-button {
@@ -678,10 +680,18 @@
     font-size: 40px;
     text-decoration: none;
     color: white;
+
+    background: #FBA7B4;
+    border-bottom: none;
+
+    padding: 0.35rem 0.7rem;
+    border: 3px solid white;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
 }
 
 .drink-main-info {
-    color: white;
+    color: black;
     flex: 1;
     text-align: left;
     justify-content: left;
@@ -725,12 +735,19 @@
 .drink-img img{
     transform: scale(1.2);
     transform-origin: center;
+    margin: 4rem;
 }
 
 .adjustments-toggle {
   overflow: hidden;
   font-family: "Gaegu", sans-serif;
   font-size: 40px;
+}
+
+.adjustments-toggle p {
+    font-family: "Gaegu", sans-serif;
+    font-size: 24px;
+    margin-top: 0;
 }
 
 .adjustments-toggle summary {
@@ -750,6 +767,21 @@
     display: block;
 }
 
+.adjustments-toggle textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #FBA7B4;
+  margin-top: 1rem;
+
+  font-family: "Besley", serif;
+  font-size: 16px;
+
+  resize: vertical;
+  box-sizing: border-box;
+}
+
 .add-to-bag {
     background: none;
     border: none;
@@ -757,6 +789,47 @@
     cursor: pointer;
 
     margin-top: 2rem;
+}
+
+.drink-gallery {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+/* main image */
+#drink-image {
+  width: 100%;
+  max-width: 400px;
+  object-fit: contain;
+}
+
+/* thumbnail column */
+.thumbnail-col {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* thumbnails */
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border: 3px solid #FBA7B4;
 }
 
 /***--------ADD TO CART OVERLAY------------***/
@@ -778,13 +851,17 @@
   background: url("images/add-to-bag-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
-  width: 65%;
+  padding: 4rem 2.5rem;
 
-  padding: 4rem;
   text-align: center;
   font-family: "Gaegu", sans-serif;
+
   display: flex;
   gap: 2rem;
+
+  align-self: center;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .cart-popup-text {
@@ -806,7 +883,13 @@
 }
 
 .popup-buttons {
-    margin-top: 4rem;
+    margin-top: 2rem;
+}
+
+.cart-popup img {
+  width: 300px;
+  height: auto;
+  object-fit: contain;
 }
 
 .hidden {
@@ -1216,9 +1299,18 @@
     gap:2rem;
 }
 
-.drink-img{
+.drink-gallery{
     position:static;
     order: -1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thumbnail-col {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
 }
 
 .drink-img img{
@@ -1292,7 +1384,7 @@
     flex-direction: column;
     width: 90%;
     padding: 2rem;
-    gap: 1.5rem;
+    gap: 0.5rem;
     padding-top: 6rem;
 }
 
@@ -1312,9 +1404,11 @@
 
 .cart-popup-text h2{
     font-size: 28px;
+    margin: 0;
 }
 
 .cart-popup-text p{
+    margin-top: 0;
     font-size: 16px;
 }
 
@@ -1322,7 +1416,7 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:1rem;
+    gap:0;
     margin-top:1.5rem;
 }
 

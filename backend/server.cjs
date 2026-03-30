@@ -81,9 +81,11 @@ app.get("/api/drinks", async (req, res) => {
       const priceCents =
         firstVar?.itemVariationData?.priceMoney?.amount ?? 0;
 
-      // image
-      const imageId = itemData.imageIds?.[0];
-      const imageUrl = imageId ? imageMap[imageId] : null;
+      // image array
+      const imageIds = itemData?.imageIds || [];
+      const imageUrls = imageIds
+        .map(id => imageMap[id])
+        .filter(Boolean); // remove undefined
 
       // category
       const categoryId = itemData.categories?.[0]?.id;
@@ -96,7 +98,7 @@ app.get("/api/drinks", async (req, res) => {
         name: itemData.name || "Unnamed item",
         description: itemData.description || "",
         price: Number(priceCents) / 100,
-        image: imageUrl || "/images/default-drink.png",
+        image: imageUrls.length ? imageUrls[0] : "/images/drink-img-filler.png",
         category: categoryName || "uncategorized"
       };
     });
@@ -129,18 +131,17 @@ app.get("/api/drinks/:squareId", async (req, res) => {
     const priceCents = firstVar?.itemVariationData?.priceMoney?.amount ?? 0;
 
     // ---------------- IMAGE ----------------
-    let imageUrl = null;
+    let imageUrls = [];
 
     if (item?.imageIds?.length && response.relatedObjects) {
-      const imageId = item.imageIds[0];
-
-      const imageObj = response.relatedObjects.find(
-        (o) => o.id === imageId && o.type === "IMAGE"
-      );
-
-      if (imageObj?.imageData?.url) {
-        imageUrl = imageObj.imageData.url;
-      }
+      imageUrls = item.imageIds
+        .map(imageId => {
+          const imgObj = response.relatedObjects.find(
+            o => o.id === imageId && o.type === "IMAGE"
+          );
+          return imgObj?.imageData?.url;
+        })
+        .filter(Boolean);
     }
 
     // ---------------- MODIFIERS ----------------
@@ -172,7 +173,8 @@ app.get("/api/drinks/:squareId", async (req, res) => {
       name: item?.name ?? "Unnamed item",
       description: item?.description ?? "",
       price: Number(priceCents) / 100,
-      image: imageUrl,
+      image: imageUrls[0] || null, //default first img
+      images: imageUrls.length ? imageUrls : ["/images/drink-img-filler.png"],
       modifiers,
     });
 
@@ -223,6 +225,7 @@ app.delete("/api/cart/:index", (req, res) => {
 
 const { randomUUID } = require("crypto");
 
+//CHECKOUT
 app.post("/api/checkout", async (req, res) => {
   try {
     const cart = req.session.cart || [];
@@ -237,8 +240,18 @@ app.post("/api/checkout", async (req, res) => {
       const modifiersNote = item.modifiers
         ? Object.entries(item.modifiers)
             .map(([key, value]) => `${key}: ${value}`)
-            .join(", ")
+            .join("\n")
         : "";
+
+      //build full note - modifiers, custom note, pickup time
+      const fullNote = [
+        `Pickup Time: ${pickupTime}`,
+        modifiersNote,
+        item.note ? `Notes: ${item.note}` : null
+      ]
+        .filter(Boolean) //removes null vals
+        .join("\n");
+
 
       return {
         uid: `line-${index}`,
@@ -248,7 +261,7 @@ app.post("/api/checkout", async (req, res) => {
           amount: BigInt(Math.round(item.price * 100)),
           currency: "USD"
         },
-        note: `PickupTime: ${pickupTime}${modifiersNote ? ", " + modifiersNote : ""}`
+        note: fullNote
       };
     });
 
