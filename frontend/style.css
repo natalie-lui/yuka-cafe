@@ -280,7 +280,7 @@
 
 .about-us-text p{
     text-align: center;
-    padding: 8rem;
+    padding: 5rem 8rem;
     width: 70%;
     font-size: 24px;
     color: #202020;
@@ -356,64 +356,188 @@
     align-items: center;
 }
 
-/* SECOND ABOUT US SECTION */
-.about-us-2 {
-    align-items: center;
-    padding: 4rem;
-
-    background-color: #B19587;
-}
-
-.hand-whisked-info,
-.transparancy-info {
+.our-goal-2 {
     display: flex;
-    justify-content: center;
+    background-color: #B19587;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
 }
 
-.hand-whisked-info p,
-.transparancy-info p{
+.our-goal-2-text {
+    color: white;
+    flex: 2;
     text-align: center;
+    padding: 4rem 2rem;
+    max-width: 50%;
+}
+
+.our-goal-2-text h2 {
+    font-family: "Gaegu", sans-serif;
+    font-size: 64px;
+    margin-bottom: 0;
+}
+
+.our-goal-2-text p {
     font-family: "Besley", serif;
-    font-size: 24px;
-    padding: 1rem;
-
-    color: #ffffff;
+    font-size: 32px;
+    margin-top: 0;
 }
 
-/*MISSION STATEMENT*/
-.mission-statement{
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    background-color: #FFF4EE;
+.our-goal-2 img {
+    max-width: 15%;
+}
 
-    padding: 2rem;
+.yuka-transparent {
+    flex: 1;
+    transform: translateY(35%);
+}
+
+.einspanner-transparent {
+    flex:1;
+    transform: translateY(-30%);
+}
+
+.olive-sticker-overlap {
+    position: absolute;
+
+    bottom: -60px;
+    left: 50%; 
+    transform: translateX(-50%);
+
+    z-index: 10;
+    pointer-events: none;
+}
+
+.about-us-2 {
+    position: relative;
+    z-index: 1;
+    background-color: #FFF4EE;
+    padding: 4rem;
+    
+    align-items: center;
     display: flex;
     flex-direction: column;
 }
 
-.mission-statement p{
-    font-family: "Besley", serif;
-    font-size: 32px;
-    color: #202020;
-    max-width: 50%;
-    text-align: center;
-}
-
-.yuka-imgs{
+.about-us-2-content {
     display: flex;
-    gap: 2rem;
+    align-items: center;
     justify-content: center;
 }
 
-.yuka-imgs img{
-    height: auto;
-    object-fit: contain;
+.banana-transparant,
+.yuka-transparant-2 {
+    flex: 1;
+    max-width: 200px;
 }
 
-.mission-statement a{
-    margin: 2rem;
+.about-us-2-content p {
+    flex: 2;
+    font-family: "Besley", serif;
+    font-size: 24px;
+    padding: 4rem;
+    text-align: center;
+    max-width: 60%;
+}
+
+.about-us-2-text {
+    background-image: url("images/about-us-2-text-background.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 6rem;
+    align-items: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-us-2-text p{
+    text-align: left;
+    max-width: 70%;
+}
+
+.about-us-2-text-p {
+    margin-top: 2rem;
+    font-size: 36px;
+}
+
+.about-us-2-text-emph {
+    margin-top: 0;
+    font-size: 48px;
+}
+
+.transparancy-statement {
+    background-color: #FFF4EE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: "Besley", serif;
+    font-size: 24px;
+    color: #202020;
+}
+
+.transparent-text-1 {
+    padding: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.transparent-text-1 p{
+    flex: 3;
+    text-align: center;
+    max-width: 40%;
+}
+
+.transparent-text-1 img {
+    margin-left: 4rem;
+}
+
+.transparent-text-2 {
+    padding: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.transparent-text-2 p{
+    flex: 3;
+    text-align: center;
+    max-width: 40%;
+}
+
+.transparent-text-2 img {
+    margin-right: 4rem;
+}
+
+.mission-statement {
+    background-color: #B19587;
+    padding: 4rem;
+    font-family: "Besley", serif;
+    font-size: 32px;
+    color: white;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.mission-statement p {
+    max-width: 60%;
+    padding: 4rem;
+}
+
+.mission-statement img {
+    max-width: 100%;
 }
 
 /*FOOTER*/
@@ -1423,59 +1547,122 @@
 
 @media (max-width: 1200px) {
 
-    .about-us{
-        flex-direction: column;
-        padding: 2rem 1rem;
+    .about-us {
+        position: relative;
+        overflow: visible;
     }
 
-    .about-us-text h2{
-        font-size: 40px;
+    .left-polaroid {
+        flex: 1;
+        max-width: 35%;
+        transform: translateY(150%);
     }
 
-    .about-us-text p{
-        max-width: 90%;
-        padding: 2rem;
-        font-size: 18px;
+    .about-us-text {
+        flex: 2;
+        text-align: center;
+        margin-bottom: 9rem;
+    }
+
+    .about-us-text h2 {
+        font-size: 36px;
+    }
+
+    .about-us-text p {
+        font-size: 16px;
+        padding: 5rem 1rem;
+        background-image: url("images/lined-background-mobile.png");
         background-size: cover;
+        max-width: 100%;
     }
 
-    .left-polaroid,
-    .right-polaroid{
-        display:none;
+    .right-polaroid {
+        flex: 1;
+        max-width: 38%;
+        transform: translateY(95%);
+        z-index: 10;
     }
 
-    .our-goal{
+    /*Our Goal*/
+
+    .our-goal {
+        display: flex;
         flex-direction: column;
-        text-align:center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 4rem 2rem;
+    }
+    .our-goal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        order: 2;
     }
 
-    .our-goal p{
-        max-width:90%;
-        padding:2rem;
-        font-size:18px;
+    .our-goal > img {
+        order: 1; /*quote*/
+        width: 90%;
     }
 
-    .left-petals,
-    .right-petals,
-    .matcha-sticker,
-    .floating-petals1,
-    .floating-petals2{
-        display:none;
+    .our-goal-img-wrapper {
+        order: 1; /*kuma*/
+        width: 60%;
+        display: flex;
+        justify-content: center;
     }
 
-    .hand-whisked-info,
-    .transparancy-info{
-        flex-direction:column;
-        gap:1rem;
+    .our-goal-img-wrapper img {
+        width: 100%;
+        height: auto;
     }
 
-    .hand-whisked-info p,
-    .transparancy-info p{
-        font-size:18px;
+    .our-goal-text {
+        order: 2; /* text */
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        background-image: url("images/our-goal-bck-mobile.png");
+        background-size: contain;
     }
 
-    .mission-statement p{
-        max-width:90%;
-        font-size:20px;
+    .our-goal-text p {
+        font-size: 13px;
+        max-width: 90%;
+    }
+
+    /*our goal 2*/
+    .our-goal-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .our-goal-2 img {
+        max-width: 30%;
+    }
+
+    .yuka-transparent {
+        transform: translateX(-100%);
+    }
+
+    .einspanner-transparent {
+        transform: translateX(120%);
+        margin-bottom: 2rem;
+    }
+
+    .our-goal-2-text {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .our-goal-2-text h2 {
+        font-size: 36px;
+        margin-top: 0;
+    }
+
+    .our-goal-2-text p {
+        font-size: 20px;
+        margin-bottom:0;
     }
 }
