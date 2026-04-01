@@ -517,6 +517,10 @@
     margin-right: 4rem;
 }
 
+.carousel-mobile {
+    display: none;
+}
+
 .mission-statement {
     background-color: #B19587;
     padding: 4rem;
@@ -771,6 +775,29 @@
     margin-left: 4rem;
     width: 50%;
     height: auto;
+}
+
+.more-questions {
+    margin: 2rem;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-image: url("images/email-bckgnd.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.more-questions p {
+    color: #202020;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.more-questions button {
+    border: none;
 }
 
 /***--------CUSTOMIZE DRINK PAGE------------***/
@@ -1547,6 +1574,10 @@
 
 @media (max-width: 1200px) {
 
+    .about-us-container {
+        padding: 0;
+    }
+
     .about-us {
         position: relative;
         overflow: visible;
@@ -1664,5 +1695,121 @@
     .our-goal-2-text p {
         font-size: 20px;
         margin-bottom:0;
+    }
+
+    /*about us 2*/
+    .about-us-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    
+    .about-us-2-content {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-us-2-content p {
+        order: 1;
+        text-align: center;
+        font-size: 16px;
+        max-width: 100%;
+        padding: 2rem;
+
+        grid-column: span 2;
+    }
+
+    .about-us-2-content img {
+        order: 2;
+    }
+
+    .banana-transparant {
+        grid-column: 1;
+        max-width: 80%;
+    }
+
+    .yuka-transparant-2 {
+        grid-column: 2;
+        max-width: 70%;
+    }
+
+    .about-us-2-text {
+        order: 3; /* bottom text */
+        width: 90%;
+        text-align: center;
+        padding: 4rem 2.5rem 6rem 2.5rem;
+        background: url("images/about-us-2-background-mobile.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .about-us-2-text p {
+        max-width: 100%;
+    }
+
+    .about-us-2-text-p {
+        font-size: 20px;
+    }
+    
+    .about-us-2-text-emph {
+        font-size: 24px;
+    }
+
+    /*transparancy statemtn*/
+    .transparent-text-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transparent-text-1 p {
+        max-width: 100%;
+        order: 2;
+        font-size: 16px;
+    }
+
+    .transparent-text-1 img {
+        order: 1;
+        margin: 2rem 0;
+    }
+
+    .carousel-mobile {
+        display: block;
+    }
+
+    .carousel-desktop {
+        display: none;
+    }
+
+    .transparent-text-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transparent-text-2 p {
+        max-width: 100%;
+        order: 1;
+        font-size: 16px;
+    }
+
+    .transparent-text-2 img {
+        order: 2;
+        margin: 2rem 0;
+    }
+
+    /*mission statement*/
+    .mission-statement {
+        padding: 2rem;
+        font-size: 16px;
+    }
+
+    .mission-statement p {
+        max-width: 100%;
+        padding: 2rem 0;
     }
 }
