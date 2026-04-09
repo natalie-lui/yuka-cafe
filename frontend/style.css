@@ -55,11 +55,18 @@
     transform: translateX(-50%);
 }
 
+.logo img {
+    width: 70px;
+    height: auto;
+}
+
 .nav-links{
     list-style: none;
     display: flex;
     gap: 2rem;
     margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .nav-links li a{
@@ -208,6 +215,7 @@
     justify-content: center;
     gap: clamp(1rem, 8rem, 10rem);
     flex-wrap: wrap;
+    margin-bottom: 2rem;
 }
 
 .product-card{
@@ -281,11 +289,11 @@
 .about-us-text p{
     text-align: center;
     padding: 5rem 8rem;
-    width: 70%;
-    font-size: 24px;
+    width: 60%;
+    font-size: 28px;
     color: #202020;
 
-    font-family: "Besley", serif;
+    font-family: "Gaegu", sans-serif;
     background-image: url("images/about-us-lined-background.png");
     background-repeat: no-repeat;
     background-position: top center;
@@ -1255,6 +1263,11 @@
     transform: none;
   }
 
+ .logo img{
+    width: 50px;
+    height: auto;
+ }
+
   .hamburger {
     display: block;
     color: #7D9D5A;
@@ -1301,7 +1314,7 @@
   }
 
   .nav-links {
-    margin-left: 0;
+    margin: 0;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
