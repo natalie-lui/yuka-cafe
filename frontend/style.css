@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 /*navbar container*/
 .navbar{
     display: flex;
@@ -38,6 +42,12 @@
     text-align: center;
     cursor: pointer;
 }
+
+.merch-nav img{
+    max-width: 120px;
+}
+
+
 
 .merch-nav p{
     color: #202020;
@@ -94,6 +104,11 @@
     backdrop-filter: blur(4px);
     display: none;
     z-index: 999;
+}
+
+.yuka-tape {
+    width: 100%;
+    display: block;
 }
 
 /* POPUP BOX */
@@ -343,25 +358,36 @@
 
 .our-goal-text {
     background-image: url("images/our-goal-lined-background.png");
-    background-size: contain;
-    background-size: 100% 75%;
+    background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 8rem;
-    flex: 1;
+    padding: 4rem;
+    flex: 1.2;
 }
 
 .our-goal-text p{
     font-size: 24px;
-    font-family: "Besley", serif;
+    font-family: "Gaegu", sans-serif;
     color: #202020;
 }
 
-.our-goal-img-wrapper{
-    flex: 1;
+.our-goal-img-wrapper {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex: 0.8;
+}
+
+.our-goal-text,
+.our-goal-img-wrapper {
+    min-width: 0;
+}
+
+.our-goal-img-wrapper img {
+    width: 70%;
+    max-width: 280px; 
+    height: auto;
+    object-fit: contain;
 }
 
 .our-goal-2 {
@@ -400,11 +426,17 @@
 .yuka-transparent {
     flex: 1;
     transform: translateY(35%);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .einspanner-transparent {
     flex:1;
     transform: translateY(-30%);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .olive-sticker-overlap {
@@ -457,6 +489,7 @@
     background-repeat: no-repeat;
     padding: 2rem 6rem;
     align-items: center;
+    font-family: "Gaegu", sans-serif;
 
     display: flex;
     flex-direction: column;
@@ -466,6 +499,7 @@
 .about-us-2-text p{
     text-align: left;
     max-width: 70%;
+    padding: 1rem;
 }
 
 .about-us-2-text-p {
@@ -771,7 +805,7 @@
 }
 
 .toggle p {
-  font-family: "Besley", serif;
+  font-family: "gaegu", sans-serif;
   font-size: 16px;
   padding: 0 4rem 2rem;
   margin: 0;
@@ -1383,6 +1417,11 @@
     font-size: 16px;
     max-width: 100%;
     padding: 1rem;
+  }
+
+  .hero-section a {
+    width: clamp(120px, 7vw, 180px);
+    margin-top: 1rem;
   }
 }
 
