@@ -226,13 +226,55 @@ app.delete("/api/cart/:index", (req, res) => {
 const { randomUUID } = require("crypto");
 
 //CHECKOUT
+const db = require("./db");
+
+const DAYS = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+
+function getDateStr(daysAhead = 0) {
+  const d = new Date();
+  d.setDate(d.getDate() + daysAhead);
+  return d.toISOString().split("T")[0]; // "2026-05-02"
+}
+
+function getDayName(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return DAYS[d.getDay()];
+}
+
 app.post("/api/checkout", async (req, res) => {
   try {
     const cart = req.session.cart || [];
-    const { pickupTime } = req.body;
+    const { pickupTime, pickupDate } = req.body; // add pickupDate to your frontend
 
     if (!cart.length) {
       return res.status(400).json({ error: "Cart is empty" });
+    }
+
+    // claim the slot BEFORE creating the Square payment link
+    const claim = db.transaction(() => {
+      const dayName = getDayName(pickupDate);
+      const slot = db.prepare(`
+        SELECT max_orders FROM schedule WHERE day_of_week = ? AND time = ?
+      `).get(dayName, pickupTime);
+
+      if (!slot) return { error: "Invalid time slot" };
+
+      const { count } = db.prepare(`
+        SELECT COUNT(*) as count FROM bookings WHERE date = ? AND time = ?
+      `).get(pickupDate, pickupTime);
+
+      if (count >= slot.max_orders) return { error: "Slot is full" };
+
+      db.prepare(`
+        INSERT INTO bookings (date, time) VALUES (?, ?)
+      `).run(pickupDate, pickupTime);
+
+      return { success: true };
+    });
+
+    const claimResult = claim();
+    if (claimResult.error) {
+      return res.status(409).json({ error: claimResult.error });
     }
 
     const lineItems = cart.map((item, index) => {
@@ -279,6 +321,86 @@ app.post("/api/checkout", async (req, res) => {
     console.error("Checkout error:", err);
     res.status(500).json({ error: "Checkout failed" });
   }
+});
+
+//TIME SLOTS
+
+// GET /api/slots?date=2026-05-02
+// Returns available times for a given date
+app.get("/api/slots", (req, res) => {
+  const date = req.query.date || getDateStr(1);
+  const dayName = getDayName(date);
+
+  const scheduled = db.prepare(`
+    SELECT time, max_orders FROM schedule
+    WHERE day_of_week = ?
+    ORDER BY time
+  `).all(dayName);
+
+  if (!scheduled.length) {
+    return res.json({ date, available: [], closed: true });
+  }
+
+  const booked = db.prepare(`
+    SELECT time, COUNT(*) as count
+    FROM bookings WHERE date = ?
+    GROUP BY time
+  `).all(date);
+
+  const bookedMap = {};
+  booked.forEach(b => bookedMap[b.time] = b.count);
+
+  const available = scheduled
+    .filter(slot => (bookedMap[slot.time] || 0) < slot.max_orders)
+    .map(slot => ({
+      time: slot.time,
+      remaining: slot.max_orders - (bookedMap[slot.time] || 0)
+    }));
+
+  res.json({ date, available });
+});
+
+
+// POST /api/slots/claim
+// Call this inside checkout to lock the slot
+app.post("/api/slots/claim", (req, res) => {
+  const { date, time, orderId } = req.body;
+  const dayName = getDayName(date);
+
+  const slot = db.prepare(`
+    SELECT max_orders FROM schedule
+    WHERE day_of_week = ? AND time = ?
+  `).get(dayName, time);
+
+  if (!slot) {
+    return res.status(400).json({ error: "That time slot doesn't exist" });
+  }
+
+  // use a transaction so check + insert don't allow for double bookings
+  const claim = db.transaction(() => {
+    const { count } = db.prepare(`
+      SELECT COUNT(*) as count FROM bookings
+      WHERE date = ? AND time = ?
+    `).get(date, time);
+
+    if (count >= slot.max_orders) {
+      return { full: true };
+    }
+
+    db.prepare(`
+      INSERT INTO bookings (date, time, order_id) VALUES (?, ?, ?)
+    `).run(date, time, orderId || null);
+
+    return { full: false };
+  });
+
+  const result = claim();
+
+  if (result.full) {
+    return res.status(409).json({ error: "Slot is full — please pick another time" });
+  }
+
+  res.json({ success: true });
 });
 
 //------------------SERVER---------------------

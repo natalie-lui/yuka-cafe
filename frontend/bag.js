@@ -106,23 +106,66 @@ async function checkout() {
 
 
 //show pickup times
-function generatePickupTimes() {
+async function generatePickupTimes() {
   const select = document.getElementById("pickup-time-select");
   select.innerHTML = "";
 
-  const times = [
-    "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-    "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
-    "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
-    "4:00 PM", "4:30 PM", "5:00 PM"
-  ];
+  // find the next Friday, Saturday, or Sunday
+  function getNextWeekendDate() {
+    const d = new Date();
+    d.setDate(d.getDate() + 1); // start from tomorrow
+    while (true) {
+      const day = d.getDay(); // 0=Sun, 5=Fri, 6=Sat
+      if (day === 0 || day === 5 || day === 6) break;
+      d.setDate(d.getDate() + 1);
+    }
+    const year  = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day   = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
-  times.forEach(t => {
-    const option = document.createElement("option");
-    option.value = t;
-    option.textContent = `Tomorrow at ${t}`;
-    select.appendChild(option);
+  const date = getNextWeekendDate();
+  const res = await fetch(`/api/slots?date=${date}`);
+  const { available, closed } = await res.json();
+
+  // format date nicely for the label
+  const label = new Date(date + "T00:00:00").toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric"
   });
+
+  if (closed || !available.length) {
+    const opt = document.createElement("option");
+    opt.textContent = "No slots available this weekend";
+    opt.disabled = true;
+    select.appendChild(opt);
+    return;
+  }
+
+  available.forEach(slot => {
+    const opt = document.createElement("option");
+    opt.value = JSON.stringify({ date, time: slot.time });
+    opt.textContent = `${label} at ${slot.time} (${slot.remaining} left)`;
+    select.appendChild(opt);
+  });
+}
+
+// then in your checkout() function, parse it back out:
+async function checkout() {
+  const select = document.getElementById("pickup-time-select");
+  const { date, time } = JSON.parse(select.value);
+
+  const res = await fetch("/api/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pickupDate: date, pickupTime: time })
+  });
+
+  const { checkoutUrl, error } = await res.json();
+  if (error) return alert(error); // "Slot is full — please pick another time"
+  window.location.href = checkoutUrl;
 }
 
 function showPickupTime() {
