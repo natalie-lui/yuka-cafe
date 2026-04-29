@@ -1,0 +1,172 @@
+.faq-body {
+    background-color: var(--color-brown);
+    font-family: var(--font-main);
+    color: white;
+    padding: 1rem 1rem 4rem;
+}
+
+.faq-body h1 {
+    font-size: 64px;
+    padding: 2rem 4rem;
+    margin-bottom: 0;
+}
+
+.ceremonial-img {
+    display: block;
+    padding: 0 0 2rem 2rem;
+    width: clamp(100px, 50%, 200px); /* responsive, won't overflow */
+    height: auto;
+}
+
+.more-questions {
+    margin: 2rem;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-image: url("../images/email-bckgnd.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 200px;
+}
+
+.more-questions p {
+    color: var(--color-dark);
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+}
+
+.more-questions button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+/*==============
+TOGGLES
+===============*/
+.toggle {
+    margin: 0 2rem 2rem;
+    min-height: 130px;
+    position: relative;
+
+    background-image: url("../images/faq-toggle-closed.png");
+    background-size: 100% auto;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.toggle[open] {
+    background-image: url("../images/faq-toggle-open.png");
+    background-size: 100% auto; 
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.toggle summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    min-height: 80px; 
+}
+
+.toggle summary::-webkit-details-marker {
+    display: none;
+}
+
+.toggle h2 {
+    font-family: var(--font-main);
+    padding: 2.5rem 2rem 1rem 2rem;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--color-dark);
+}
+
+.toggle p {
+    font-family: var(--font-main);
+    font-size: 18px;
+    padding: 0 3rem 1rem;
+    margin: 0;
+    color: var(--color-dark);
+}
+
+/*===================
+MOBILE
+=====================*/
+@media (max-width: 768px) {
+    .faq-body h1 {
+        font-size: 40px;
+        padding: 1.5rem 1rem;
+    }
+
+    .toggle {
+        margin: 0 0 1.5rem;
+        min-height: 90px;
+        background: none;
+        position: relative;
+    }
+
+    .toggle[open] {
+        background: none;
+    }
+
+    .toggle::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("../images/mobile-toggle-closed.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .toggle[open]::before {
+        background-image: url("../images/mobile-toggle-open.png");
+    }
+
+    .toggle summary,
+    .toggle p,
+    .toggle img {
+        position: relative;
+        z-index: 1;
+    }
+
+    .toggle summary {
+        min-height: 90px;
+        align-items: center;
+    }
+
+    .toggle h2 {
+        font-size: 16px;
+        padding: 1rem;
+        margin-right: 2.5rem;
+    }
+
+    .toggle p {
+        font-size: 15px;
+        padding: 0 1.25rem 1.5rem;
+    }
+
+    .ceremonial-img {
+        width: 80%;
+        margin: 0 auto 1.5rem;
+    }
+
+    .more-questions {
+        margin: 0;
+        padding: 2rem 1rem;
+        background-size: 100% 100%;
+        min-height: 160px;
+    }
+
+    .more-questions p {
+        font-size: 20px;
+    }
+}

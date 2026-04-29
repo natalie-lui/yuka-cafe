@@ -1,0 +1,570 @@
+/*=====================
+ABOUT US
+======================*/
+.about-us{
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+    
+    background-color: var(--color-brown);
+}
+
+.about-us-text,
+.our-goal-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.about-us-text h2{
+    font-family: var(--font-main);
+    font-size: 64px;
+    color: white;
+}
+
+.about-us-text p{
+    text-align: center;
+    padding: 5rem 8rem;
+    width: 60%;
+    font-size: 28px;
+    color: var(--color-dark);
+
+    font-family: var(--font-main);
+    background-image: url("../images/about-us-lined-background.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+}
+
+.about-us-text img{
+    padding-bottom: 4rem;
+}
+
+.quote-img{
+    margin-bottom: 2rem;
+}
+
+.left-polaroid{
+    position: absolute;
+    left: 0px;
+    transform: translateY(73%);
+    z-index: 1;
+}
+
+.right-polaroid{
+    position: absolute;
+    right: 0px;
+    transform: translateY() translateX(25%);
+}
+
+/*======================
+ABOUT COSTS
+=======================*/
+.our-goal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 2rem;
+
+    background-image: url("../images/our-goal-bckgnd.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.our-goal-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.our-goal-text {
+    background-image: url("../images/our-goal-lined-background.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 4rem;
+    flex: 1.2;
+}
+
+.our-goal-text p{
+    font-size: 24px;
+    font-family: var(--font-main);
+    color: var(--color-dark);
+}
+
+.our-goal-img-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex: 0.8;
+}
+
+.our-goal-text,
+.our-goal-img-wrapper {
+    min-width: 0;
+}
+
+.our-goal-img-wrapper img {
+    width: 70%;
+    max-width: 280px; 
+    height: auto;
+    object-fit: contain;
+}
+
+/*====================
+OUR GOAL
+====================*/
+.our-goal-2 {
+    display: flex;
+    background-color:var(--color-brown);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
+}
+
+.our-goal-2-text {
+    color: white;
+    flex: 2;
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 50%;
+}
+
+.our-goal-2-text h2 {
+    font-family: var(--font-main);
+    font-size: 64px;
+    margin-bottom: 0;
+}
+
+.our-goal-2-text p {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    margin-top: 0;
+}
+
+.our-goal-2 img {
+    max-width: 15%;
+}
+
+.yuka-transparent {
+    flex: 1;
+    transform: translateY(35%);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.einspanner-transparent {
+    flex:1;
+    transform: translateY(-30%);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.olive-sticker-overlap {
+    position: absolute;
+
+    bottom: -60px;
+    left: 50%; 
+    transform: translateX(-50%);
+
+    z-index: 10;
+    pointer-events: none;
+}
+
+/*======================
+ABOUT QUALITY
+========================*/
+.about-us-2 {
+    position: relative;
+    z-index: 1;
+    background-color: var(--color-cream);
+    padding: 4rem;
+    
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-us-2-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banana-transparant,
+.yuka-transparant-2 {
+    flex: 1;
+    max-width: 200px;
+}
+
+.about-us-2-content p {
+    flex: 2;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    padding: 4rem;
+    text-align: center;
+    max-width: 60%;
+}
+
+.about-us-2-text {
+    background-image: url("../images/about-us-2-text-background.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 6rem;
+    align-items: center;
+    font-family: var(--font-main);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-us-2-text p{
+    text-align: left;
+    max-width: 70%;
+    padding: 1rem;
+}
+
+.about-us-2-text-p {
+    margin-top: 2rem;
+    font-size: 36px;
+}
+
+.about-us-2-text-emph {
+    margin-top: 0;
+    font-size: 48px;
+}
+
+/*===================
+TRANSPARANCY STATEMENT
+======================*/
+.transparancy-statement {
+    background-color: var(--color-cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: var(--color-dark);
+}
+
+.transparent-text-1 {
+    padding: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.transparent-text-1 p{
+    flex: 3;
+    text-align: center;
+    max-width: 40%;
+}
+
+.transparent-text-1 img {
+    margin-left: 4rem;
+}
+
+.transparent-text-2 {
+    padding: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.transparent-text-2 p{
+    flex: 3;
+    text-align: center;
+    max-width: 40%;
+}
+
+.transparent-text-2 img {
+    margin-right: 4rem;
+}
+
+.carousel-mobile {
+    display: none;
+}
+
+/*======================
+MISSION STATEMENT
+======================*/
+.mission-statement {
+    background-color: var(--color-brown);
+    padding: 4rem;
+    font-family: var(--font-serif);
+    font-size: 32px;
+    color: white;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.mission-statement p {
+    max-width: 60%;
+    padding: 4rem;
+}
+
+.mission-statement img {
+    max-width: 100%;
+}
+
+/* =========================
+   RESPONSIVE ABOUT PAGE
+========================= */
+
+@media (max-width: 1200px) {
+
+    .about-us-container {
+        padding: 0;
+    }
+
+    .about-us {
+        position: relative;
+        overflow: visible;
+    }
+
+    .left-polaroid {
+        flex: 1;
+        max-width: 35%;
+        transform: translateY(150%);
+    }
+
+    .about-us-text {
+        flex: 2;
+        text-align: center;
+        margin-bottom: 9rem;
+    }
+
+    .about-us-text h2 {
+        font-size: 36px;
+    }
+
+    .about-us-text p {
+        font-size: 16px;
+        padding: 5rem 1rem;
+        background-image: url("../images/lined-background-mobile.png");
+        background-size: cover;
+        max-width: 100%;
+    }
+
+    .right-polaroid {
+        flex: 1;
+        max-width: 38%;
+        transform: translateY(95%);
+        z-index: 10;
+    }
+
+    /*Our Goal*/
+
+    .our-goal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 4rem 2rem;
+    }
+    .our-goal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        order: 2;
+    }
+
+    .our-goal > img {
+        order: 1; /*quote*/
+        width: 90%;
+    }
+
+    .our-goal-img-wrapper {
+        order: 1; /*kuma*/
+        width: 60%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .our-goal-img-wrapper img {
+        width: 100%;
+        height: auto;
+    }
+
+    .our-goal-text {
+        order: 2; /* text */
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        background-image: url("../images/our-goal-bck-mobile.png");
+        background-size: contain;
+    }
+
+    .our-goal-text p {
+        font-size: 13px;
+        max-width: 90%;
+    }
+
+    /*our goal 2*/
+    .our-goal-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .our-goal-2 img {
+        max-width: 30%;
+    }
+
+    .yuka-transparent {
+        transform: translateX(-100%);
+    }
+
+    .einspanner-transparent {
+        transform: translateX(120%);
+        margin-bottom: 2rem;
+    }
+
+    .our-goal-2-text {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .our-goal-2-text h2 {
+        font-size: 36px;
+        margin-top: 0;
+    }
+
+    .our-goal-2-text p {
+        font-size: 20px;
+        margin-bottom:0;
+    }
+
+    /*about us 2*/
+    .about-us-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    
+    .about-us-2-content {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-us-2-content p {
+        order: 1;
+        text-align: center;
+        font-size: 16px;
+        max-width: 100%;
+        padding: 2rem;
+
+        grid-column: span 2;
+    }
+
+    .about-us-2-content img {
+        order: 2;
+    }
+
+    .banana-transparant {
+        grid-column: 1;
+        max-width: 80%;
+    }
+
+    .yuka-transparant-2 {
+        grid-column: 2;
+        max-width: 70%;
+    }
+
+    .about-us-2-text {
+        order: 3; /* bottom text */
+        width: 90%;
+        text-align: center;
+        padding: 4rem 2.5rem 6rem 2.5rem;
+        background: url("../images/about-us-2-background-mobile.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .about-us-2-text p {
+        max-width: 100%;
+    }
+
+    .about-us-2-text-p {
+        font-size: 20px;
+    }
+    
+    .about-us-2-text-emph {
+        font-size: 24px;
+    }
+
+    /*transparancy statemtn*/
+    .transparent-text-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transparent-text-1 p {
+        max-width: 100%;
+        order: 2;
+        font-size: 16px;
+    }
+
+    .transparent-text-1 img {
+        order: 1;
+        margin: 2rem 0;
+    }
+
+    .carousel-mobile {
+        display: block;
+    }
+
+    .carousel-desktop {
+        display: none;
+    }
+
+    .transparent-text-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transparent-text-2 p {
+        max-width: 100%;
+        order: 1;
+        font-size: 16px;
+    }
+
+    .transparent-text-2 img {
+        order: 2;
+        margin: 2rem 0;
+    }
+
+    /*mission statement*/
+    .mission-statement {
+        padding: 2rem;
+        font-size: 16px;
+    }
+
+    .mission-statement p {
+        max-width: 100%;
+        padding: 2rem 0;
+    }
+}

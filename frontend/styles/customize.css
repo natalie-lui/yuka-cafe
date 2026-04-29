@@ -1,0 +1,394 @@
+
+.back-to-menu-button {
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 40px;
+    text-decoration: none;
+    color: white;
+
+    background: var(--color-pink);
+    border-bottom: none;
+
+    padding: 0.35rem 0.7rem;
+    border: 3px solid white;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+}
+
+.add-to-bag {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    margin-top: 2rem;
+}
+
+
+/*=======================
+DRINK INFO
+=======================*/
+.drink-info{
+    background-color: var(--color-brown);
+    padding: 4rem;
+}
+
+.drink-info-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3rem;
+    background-color: var(--color-cream);
+    padding: 2rem;
+    height: calc(100vh - 200px);
+}
+
+.drink-main-info {
+    color: var(--color-dark);
+    flex: 1;
+    text-align: left;
+
+    height: 100%; 
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.drink-main-info::-webkit-scrollbar {
+  display: none;
+}
+
+.drink-main-info h1 {
+    font-family: var(--font-main);
+    font-size: 64px;
+    margin-bottom: 0;
+}
+
+.drink-main-info h2 {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    margin-top: 0;
+}
+
+.drink-main-info p {
+    font-family: var(--font-serif);
+    font-size: 24px;
+}
+
+/*==================
+DRINK IMG
+====================*/
+.drink-img {
+    flex: 1;
+    position: sticky;
+    align-items:center;
+    display: flex;
+    justify-content: center;
+}
+
+.drink-img img{
+    transform: scale(1.2);
+    transform-origin: center;
+    margin: 4rem;
+}
+
+.drink-gallery {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    top: 2rem;
+    flex-shrink: 0;
+}
+
+/*-- THUMBNAILS --*/
+/* main image */
+#drink-image {
+  width: 100%;
+  max-width: 400px;
+  object-fit: contain;
+}
+
+.thumbnail-col {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border: 3px solid var(--color-pink);
+}
+
+/*===================
+ADJUSTMENTS TOGGLE
+===================*/
+.adjustments-toggle {
+  overflow: hidden;
+  font-family: var(--font-main);
+  font-size: 40px;
+}
+
+.adjustments-toggle p {
+    font-family: var(--font-main);
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.adjustments-toggle summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.adjustments-toggle fieldset {
+    border: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.adjust-field label {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    display: block;
+}
+
+.adjustments-toggle textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--color-pink);
+  margin-top: 1rem;
+
+  font-family: var(--font-serif);
+  font-size: 16px;
+
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/*=================
+ADD TO CART
+=================*/
+.cart-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+
+.cart-popup {
+  background: url("../images/add-to-bag-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 4rem 2.5rem;
+
+  text-align: center;
+  font-family: var(--font-main);
+
+  display: flex;
+  gap: 2rem;
+
+  align-self: center;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.cart-popup-text {
+    text-align: left;
+    color: var(--color-dark);
+}
+
+.cart-popup-text h1{
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.cart-popup-text h2{
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+.cart-popup-text p{
+    font-family: var(--font-serif);
+    font-size: 20px;
+}
+
+.popup-buttons {
+    margin-top: 2rem;
+}
+
+.cart-popup img {
+  width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.hidden {
+    display: none;
+}
+
+.popup-buttons button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0.7rem;
+}
+
+/*===================
+MOBILE
+=====================*/
+@media (max-width: 768px) {
+    .drink-info{
+        padding:2rem 1.5rem;
+    }
+
+    .drink-info-container{
+        flex-direction:column;
+        gap:2rem;
+    }
+
+    .drink-gallery{
+        position:static;
+        order: -1;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .thumbnail-col {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .drink-img img{
+        margin-top: 1rem;
+        transform:none;
+        width:70%;
+        max-width: 320px;
+    }
+
+    .back-to-menu-button{
+        font-size:24px;
+    }
+
+    .drink-main-info h1{
+        font-size:clamp(2rem,6vw,3rem);
+    }
+
+    .drink-main-info h2{
+        font-size:clamp(1.5rem,4vw,2rem);
+    }
+
+    .drink-main-info p{
+        font-size:clamp(1rem,3vw,1.2rem);
+    }
+
+    /*adjustments*/
+    .adjustments-toggle{
+        font-size:24px;
+    }
+
+    .adjust-field label{
+        font-size:16px;
+    }
+
+    .adjustments-toggle summary{
+        padding:0.5rem 0;
+    }
+
+    /*mobile scroll area*/
+    .drink-main-info{
+        max-height:none;
+        overflow:visible;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .add-to-bag {
+        align-self:center;
+        margin-top:2rem;
+        background:none;
+        border:none;
+        cursor:pointer;
+    }
+
+    .add-to-bag img{
+        width:clamp(180px, 40vw, 260px);
+    }
+
+    .adjust-field{
+        margin-bottom:1rem;
+    }
+
+    .adjust-field label{
+        margin:0.3rem 0;
+    }
+
+    /*POPUP*/
+    .cart-popup{
+        flex-direction: column;
+        width: 90%;
+        padding: 2rem;
+        gap: 0.5rem;
+        padding-top: 6rem;
+    }
+
+    .cart-popup img{
+        width: 160px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .cart-popup-text{
+        text-align: center;
+    }
+
+    .cart-popup-text h1{
+        font-size: 36px;
+    }
+
+    .cart-popup-text h2{
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .cart-popup-text p{
+        margin-top: 0;
+        font-size: 16px;
+    }
+
+    .popup-buttons{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:0;
+        margin-top:1.5rem;
+    }
+
+    .popup-buttons img{
+        width:clamp(140px, 35vw, 180px);
+        height:auto;
+    }
+}

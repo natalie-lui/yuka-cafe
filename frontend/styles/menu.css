@@ -1,0 +1,154 @@
+/*=========================
+MENU HEADER
+=========================*/
+.menu-header{
+    padding: clamp(1.5rem, 4rem, 2rem) clamp(1.5rem, 4rem, 8rem);
+    color: white;
+    background-color: var(--color-brown);
+}
+
+.menu-header h1{
+    font-family: var(--font-main);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 0px;
+}
+
+.menu-header p {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-top: 1rem;
+}
+
+.menu-tabs {
+  position: sticky;
+  top: 5rem;
+  z-index: 999;
+
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1rem;
+
+  background: var(--color-brown);
+  border-bottom: none;
+}
+
+.menu-tabs button {
+  font-family: var(--font-main);
+  font-size: clamp(18px, 3vw, 32px);
+  font-style: bold;
+  padding: 0.6rem 1.2rem;
+  color: white;
+
+  background: var(--color-pink);
+  border: 3px solid white;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.menu-tabs button:active {
+  transform: translateY(2px);
+}
+
+/*================
+MENU CONTENT
+=================*/
+.menu{
+    display: block;
+    background-color: var(--color-brown);
+    padding: 0 clamp(1rem, 5vw, 4rem);
+    padding-bottom: 4rem;
+}
+
+.menu-content {
+    background-color: var(--color-cream);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    width: 100%;
+}
+
+.menu-section {
+    padding: 2rem clamp(1rem, 6vw, 4rem);
+    scroll-margin-top: 10rem;
+}
+
+.menu-section h2 {
+    font-family: var(--font-main);
+    font-size: 40px;
+    color: var(--color-dark);
+}
+
+.menu-section p {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: var(--color-dark);
+    margin-bottom: 1.5rem;
+}
+
+.menu-card{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+
+    color: var(--color-dark);
+}
+
+.menu-card h3{
+    font-family: var(--font-main);
+    font-size: 32px !important;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.menu-card p{
+    font-family: var(--font-serif);
+    margin-top: 0;
+}
+
+.menu-price {
+    margin-top: 0;
+    font-size: 24px !important;
+}
+
+.menu-desc {
+    font-size: 16px !important;
+    margin-bottom: 0;
+    white-space: pre-line;
+}
+
+.ft-drinks-items {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1rem, 8rem, 10rem);
+    flex-wrap: wrap;
+    margin-bottom: 0;
+}
+
+/*===================
+MOBILE
+=====================*/
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    .menu-tabs {
+        top: 3rem;
+        gap: 0.4rem;
+    }
+
+    .menu-tabs button {
+        padding: 0.35rem 0.7rem;
+        border-width: 2px;
+        border-radius: 4px 4px 0 0;
+    }
+}

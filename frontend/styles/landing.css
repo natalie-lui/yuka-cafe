@@ -1,0 +1,135 @@
+/*===============
+HERO SECTION
+================*/
+.hero-section{
+    position: relative;
+    margin: 0;
+}
+
+.hero-section img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-section a{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    width: clamp(140px, 25vw, 320px);
+    height: auto;
+}
+
+/*================
+FEATURED PRODUCTS
+=================*/
+.ft-products {
+    text-align: center;
+    padding: 4rem 2rem;
+    
+    background-image: url("../images/lined-paper.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position:relative;
+}
+
+.ft-products h2{
+    font-family: var(--font-main);
+    font-size: 64px;
+}
+
+.products-container {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1rem, 8rem, 10rem);
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.product-card{
+    width: clamp(180px, 28vw, 400px);
+    font-family: var(--font-main);
+    text-align: center;
+}
+
+.product-card img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-card h3{
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.product-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+/*==================
+MISSION STATEMENT
+===================*/
+.mission-statement-index{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: var(--color-cream);
+
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.mission-statement-index p{
+    font-family: var(--font-serif);
+    font-size: 32px;
+    color: var(--color-dark);
+    max-width: 50%;
+    text-align: center;
+}
+
+.mission-statement-index a{
+    margin: 2rem;
+}
+
+/*===================
+MOBILE
+=====================*/
+@media (max-width: 768px) {
+    .products-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .product-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .ft-products {
+    padding: 2rem 1rem;
+  }
+
+  .products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mission-statement-index p{
+    font-size: 16px;
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .hero-section a {
+    width: clamp(120px, 7vw, 180px);
+    margin-top: 1rem;
+  }
+}

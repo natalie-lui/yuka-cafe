@@ -1,0 +1,30 @@
+/* variables */
+:root {
+  --color-brown: #B19587;
+  --color-cream: #FFF4EE;
+  --color-pink: #FBA7B4;
+  --color-dark: #202020;
+  --color-green: #7D9D5A;
+  --font-main: "Gaegu", sans-serif;
+  --font-serif: "Besley", serif;
+}
+
+/* reset */
+* { box-sizing: border-box; }
+body { overflow-x: hidden; }
+.hidden { display: none; }
+.yuka-tape { width: 100%; display: block; }
+
+
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    section {
+        padding: 1.5rem 1rem;
+    }
+}
