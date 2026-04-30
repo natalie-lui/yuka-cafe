@@ -106,67 +106,99 @@ async function checkout() {
 
 
 //show pickup times
+let selectedDay = null;
+let selectedSlot = null;
+
 async function generatePickupTimes() {
-  const select = document.getElementById("pickup-time-select");
-  select.innerHTML = "";
+  const res = await fetch("/api/slots");
+  const days = await res.json();
 
-  // find the next Friday, Saturday, or Sunday
-  function getNextWeekendDate() {
-    const d = new Date();
-    d.setDate(d.getDate() + 1); // start from tomorrow
-    while (true) {
-      const day = d.getDay(); // 0=Sun, 5=Fri, 6=Sat
-      if (day === 0 || day === 5 || day === 6) break;
-      d.setDate(d.getDate() + 1);
+  renderDayTabs(days);
+  // default select first open slot
+  const firstOpen = days.find(d => d.available?.some(s => s.remaining > 0));
+  if (firstOpen) {
+    selectedDay = firstOpen;
+    renderSlots(firstOpen.available);
+  }
+}
+
+function renderDayTabs(days) {
+  const container = document.getElementById("day-tabs");
+  container.innerHTML = "";
+
+  days.forEach(day => {
+    const allFull = day.available.every(s => s.remaining === 0);
+    const tab = document.createElement("button");
+    tab.className = "day-tab" + (allFull ? " closed" : "");
+    tab.innerHTML = `
+      <div class="day-label">${capitalize(day.dayName)}</div>
+      <div class="day-date">${formatDate(day.date)}</div>
+    `;
+    if (!allFull) {
+      tab.onclick = () => {
+        selectedDay = day;
+        selectedSlot = null;
+        document.querySelectorAll(".day-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        renderSlots(day.available);
+      };
     }
-    const year  = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day   = String(d.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
-
-  const date = getNextWeekendDate();
-  const res = await fetch(`/api/slots?date=${date}`);
-  const { available, closed } = await res.json();
-
-  // format date nicely for the label
-  const label = new Date(date + "T00:00:00").toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric"
-  });
-
-  if (closed || !available.length) {
-    const opt = document.createElement("option");
-    opt.textContent = "No slots available this weekend";
-    opt.disabled = true;
-    select.appendChild(opt);
-    return;
-  }
-
-  available.forEach(slot => {
-    const opt = document.createElement("option");
-    opt.value = JSON.stringify({ date, time: slot.time });
-    opt.textContent = `${label} at ${slot.time} (${slot.remaining} left)`;
-    select.appendChild(opt);
+    container.appendChild(tab);
   });
 }
 
+function renderSlots(slots) {
+  const grid = document.getElementById("slots-grid");
+  grid.innerHTML = "";
+
+  slots.forEach(slot => {
+    const full = slot.remaining === 0;
+    const btn = document.createElement("button");
+    btn.className = "slot" + (full ? " full" : "");
+    btn.innerHTML = `
+      ${slot.time}
+      <div class="slot-remaining">${full ? "full" : slot.remaining + " left"}</div>
+    `;
+    if (!full) {
+      btn.onclick = () => {
+        selectedSlot = slot;
+        document.querySelectorAll(".slot").forEach(s => s.classList.remove("selected"));
+        btn.classList.add("selected");
+      };
+    }
+    grid.appendChild(btn);
+  });
+}
+
+
 // then in your checkout() function, parse it back out:
 async function checkout() {
-  const select = document.getElementById("pickup-time-select");
-  const { date, time } = JSON.parse(select.value);
+  if (!selectedDay || !selectedSlot) {
+    alert("Please select a pickup time");
+    return;
+  }
 
   const res = await fetch("/api/checkout", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ pickupDate: date, pickupTime: time })
+    body: JSON.stringify({
+      pickupDate: selectedDay.date,
+      pickupTime: selectedSlot.time
+    })
   });
 
   const { checkoutUrl, error } = await res.json();
-  if (error) return alert(error); // "Slot is full — please pick another time"
+  if (error) return alert(error);
   window.location.href = checkoutUrl;
 }
+
+//format dates
+function formatDate(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
 function showPickupTime() {
   document.getElementById("bag-panel").style.display = "none";

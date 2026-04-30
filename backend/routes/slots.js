@@ -1,38 +1,43 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { getDayName, getDateStr } = require("../utils/dateHelpers");
+const { getDayName, getUpcomingWeekend } = require("../utils/dateHelpers");
 
-// GET /api/slots?date=2026-05-02
+// GET /api/slots for upcoming weekend
 router.get("/", (req, res) => {
-  const date    = req.query.date || getDateStr(1);
-  const dayName = getDayName(date);
+  const dates = getUpcomingWeekend(); // ["2026-05-02", "2026-05-03", "2026-05-04"]
 
-  const scheduled = db.prepare(`
-    SELECT time, max_orders FROM schedule
-    WHERE day_of_week = ? ORDER BY time
-  `).all(dayName);
+  const result = dates.map(date => {
+    const dayName = getDayName(date);
 
-  if (!scheduled.length) {
-    return res.json({ date, available: [], closed: true });
-  }
+    const scheduled = db.prepare(`
+      SELECT time, max_orders FROM schedule
+      WHERE day_of_week = ? ORDER BY time
+    `).all(dayName);
 
-  const booked = db.prepare(`
-    SELECT time, COUNT(*) as count FROM bookings
-    WHERE date = ? GROUP BY time
-  `).all(date);
+    if (!scheduled.length) {
+      return { date, dayName, available: [], closed: true };
+    }
 
-  const bookedMap = {};
-  booked.forEach(b => bookedMap[b.time] = b.count);
+    const booked = db.prepare(`
+      SELECT time, COUNT(*) as count FROM bookings
+      WHERE date = ? GROUP BY time
+    `).all(date);
 
-  const available = scheduled
-    .filter(slot => (bookedMap[slot.time] || 0) < slot.max_orders)
-    .map(slot => ({
-      time: slot.time,
-      remaining: slot.max_orders - (bookedMap[slot.time] || 0)
-    }));
+    const bookedMap = {};
+    booked.forEach(b => bookedMap[b.time] = b.count);
 
-  res.json({ date, available });
+    const available = scheduled
+      .filter(slot => (bookedMap[slot.time] || 0) < slot.max_orders)
+      .map(slot => ({
+        time: slot.time,
+        remaining: slot.max_orders - (bookedMap[slot.time] || 0)
+      }));
+
+    return { date, dayName, available };
+  });
+
+  res.json(result);
 });
 
 // POST /api/slots/claim

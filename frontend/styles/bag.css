@@ -178,6 +178,39 @@ PICKUP TIME
     margin: 2rem auto 0; 
 }
 
+.day-tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: 1px solid #e0d5cf;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-family: var(--font-main);
+  text-align: center;
+}
+
+.day-tab.active { border: 2px solid var(--color-brown); }
+.day-tab.closed { opacity: 0.4; cursor: not-allowed; }
+.day-label { font-size: 14px; font-weight: bold; }
+.day-date  { font-size: 12px; color: #888; }
+
+.slot {
+  padding: 10px 6px;
+  border: 1px solid #e0d5cf;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 14px;
+}
+
+.slot:hover  { border-color: var(--color-brown); }
+.slot.selected { border: 2px solid var(--color-brown); font-weight: bold; }
+.slot.full   { background: #f5f5f5; color: #aaa; cursor: not-allowed; text-decoration: line-through; }
+.slot-remaining { font-size: 11px; color: #aaa; margin-top: 2px; }
+.slot.selected .slot-remaining { color: var(--color-brown); }
+
 /*===================
 MOBILE
 =====================*/

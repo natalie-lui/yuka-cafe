@@ -137,7 +137,8 @@
         <div class="pickup-time-content">
             <h1>Select Pickup Time</h1>
             <p>*Same day pick-up is unavailable</p>
-            <select class="pickup-time-select" id="pickup-time-select"></select>
+            <div id="day-tabs" style="display: flex; gap: 8px; margin-bottom: 1rem;"></div>
+            <div id="slots-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px;"></div>
         </div>
         <button class="confirmation-button" onclick=checkout()>
             <img src="images/confirm-pay-btn.png" alt="Confirm & Pay"/>
