@@ -169,4 +169,11 @@ MOBILE
     .more-questions p {
         font-size: 20px;
     }
+
+    .more-questions button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        max-width: 40%;
+    }
 }

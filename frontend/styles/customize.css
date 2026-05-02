@@ -259,136 +259,125 @@ ADD TO CART
 MOBILE
 =====================*/
 @media (max-width: 768px) {
-    .drink-info{
-        padding:2rem 1.5rem;
-    }
+  .drink-info {
+    padding: 1rem;
+  }
 
-    .drink-info-container{
-        flex-direction:column;
-        gap:2rem;
-    }
+  .drink-info-container {
+    flex-direction: column;
+    height: auto;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
 
-    .drink-gallery{
-        position:static;
-        order: -1;
-        flex-direction: column;
-        align-items: center;
-    }
+  .drink-main-info {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+  }
 
-    .thumbnail-col {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-    }
+  .drink-main-info h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
 
-    .drink-img img{
-        margin-top: 1rem;
-        transform:none;
-        width:70%;
-        max-width: 320px;
-    }
+  .drink-main-info h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
 
-    .back-to-menu-button{
-        font-size:24px;
-    }
+  .drink-main-info p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
 
-    .drink-main-info h1{
-        font-size:clamp(2rem,6vw,3rem);
-    }
+  /* gallery goes above the info */
+  .drink-gallery {
+    position: static;
+    order: -1;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 
-    .drink-main-info h2{
-        font-size:clamp(1.5rem,4vw,2rem);
-    }
+  #drink-image {
+    width: 70%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
 
-    .drink-main-info p{
-        font-size:clamp(1rem,3vw,1.2rem);
-    }
+  .thumbnail-col {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
 
-    /*adjustments*/
-    .adjustments-toggle{
-        font-size:24px;
-    }
+  /* adjustments */
+  .adjustments-toggle {
+    font-size: 24px;
+    width: 100%;
+  }
 
-    .adjust-field label{
-        font-size:16px;
-    }
+  .adjustments-toggle summary {
+    padding: 0.5rem 0;
+  }
 
-    .adjustments-toggle summary{
-        padding:0.5rem 0;
-    }
+  .adjust-field {
+    margin-bottom: 1rem;
+  }
 
-    /*mobile scroll area*/
-    .drink-main-info{
-        max-height:none;
-        overflow:visible;
-        display: flex;
-        flex-direction: column;
-    }
+  .adjust-field label {
+    font-size: 16px;
+    margin: 0.3rem 0;
+  }
 
-    .add-to-bag {
-        align-self:center;
-        margin-top:2rem;
-        background:none;
-        border:none;
-        cursor:pointer;
-    }
+  .add-to-bag {
+    align-self: center;
+    margin-top: 2rem;
+  }
 
-    .add-to-bag img{
-        width:clamp(180px, 40vw, 260px);
-    }
+  .add-to-bag img {
+    width: clamp(180px, 40vw, 260px);
+  }
 
-    .adjust-field{
-        margin-bottom:1rem;
-    }
+  .back-to-menu-button {
+    font-size: 20px;
+  }
 
-    .adjust-field label{
-        margin:0.3rem 0;
-    }
+  /* popup */
+  .cart-popup {
+    flex-direction: column;
+    width: 90%;
+    padding: 2rem;
+    gap: 0.5rem;
+    padding-top: 4rem;
+  }
 
-    /*POPUP*/
-    .cart-popup{
-        flex-direction: column;
-        width: 90%;
-        padding: 2rem;
-        gap: 0.5rem;
-        padding-top: 6rem;
-    }
+  .cart-popup img {
+    width: 120px;
+    height: auto;
+    margin: 0 auto;
+  }
 
-    .cart-popup img{
-        width: 160px;
-        height: auto;
-        margin: 0 auto;
-    }
+  .cart-popup-text {
+    text-align: center;
+  }
 
-    .cart-popup-text{
-        text-align: center;
-    }
+  .cart-popup-text h1 { font-size: 32px; }
+  .cart-popup-text h2 { font-size: 24px; margin: 0; }
+  .cart-popup-text p  { margin-top: 0; font-size: 15px; }
 
-    .cart-popup-text h1{
-        font-size: 36px;
-    }
+  .popup-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 1rem;
+  }
 
-    .cart-popup-text h2{
-        font-size: 28px;
-        margin: 0;
-    }
-
-    .cart-popup-text p{
-        margin-top: 0;
-        font-size: 16px;
-    }
-
-    .popup-buttons{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:0;
-        margin-top:1.5rem;
-    }
-
-    .popup-buttons img{
-        width:clamp(140px, 35vw, 180px);
-        height:auto;
-    }
+  .popup-buttons img {
+    width: clamp(140px, 35vw, 180px);
+    height: auto;
+  }
 }

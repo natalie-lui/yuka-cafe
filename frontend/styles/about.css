@@ -24,18 +24,17 @@ ABOUT US
     color: white;
 }
 
-.about-us-text p{
+.about-us-text p {
     text-align: center;
     padding: 5rem 8rem;
     width: 60%;
     font-size: 28px;
     color: var(--color-dark);
-
     font-family: var(--font-main);
     background-image: url("../images/about-us-lined-background.png");
     background-repeat: no-repeat;
     background-position: top center;
-    background-size: contain;
+    background-size: 100% 100%;
 }
 
 .about-us-text img{
@@ -215,13 +214,12 @@ ABOUT QUALITY
 
 .about-us-2-text {
     background-image: url("../images/about-us-2-text-background.png");
-    background-size: contain;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     padding: 2rem 6rem;
     align-items: center;
     font-family: var(--font-main);
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -558,6 +556,248 @@ MISSION STATEMENT
     }
 
     /*mission statement*/
+    .mission-statement {
+        padding: 2rem;
+        font-size: 16px;
+    }
+
+    .mission-statement p {
+        max-width: 100%;
+        padding: 2rem 0;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .about-us-container {
+        padding: 0;
+    }
+
+    .about-us {
+        position: relative;
+        overflow: visible;
+    }
+
+    .left-polaroid {
+        flex: 1;
+        max-width: 35%;
+        transform: translateY(150%);
+    }
+
+    .about-us-text {
+        flex: 2;
+        text-align: center;
+        margin-bottom: 9rem;
+    }
+
+    .about-us-text h2 {
+        font-size: 36px;
+    }
+
+    .about-us-text p {
+        font-size: 16px;
+        padding: 5rem 1rem;
+        background-image: url("../images/lined-background-mobile.png");
+        background-size: 100% 100%; /* ← fixed */
+        max-width: 100%;
+    }
+
+    .right-polaroid {
+        flex: 1;
+        max-width: 38%;
+        transform: translateY(95%);
+        z-index: 10;
+    }
+
+    /* Our Goal */
+    .our-goal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 4rem 2rem;
+    }
+
+    .our-goal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        order: 2;
+    }
+
+    .our-goal > img {
+        order: 1;
+        width: 90%;
+    }
+
+    .our-goal-img-wrapper {
+        order: 1;
+        width: 60%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .our-goal-img-wrapper img {
+        width: 100%;
+        height: auto;
+    }
+
+    .our-goal-text {
+        order: 2;
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        background-image: url("../images/our-goal-bck-mobile.png");
+        background-size: 100% 100%; /* ← fixed */
+        background-repeat: no-repeat;
+    }
+
+    .our-goal-text p {
+        font-size: 13px;
+        max-width: 90%;
+    }
+
+    /* our goal 2 */
+    .our-goal-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .our-goal-2 img {
+        max-width: 30%;
+    }
+
+    .yuka-transparent {
+        transform: translateX(-100%);
+    }
+
+    .einspanner-transparent {
+        transform: translateX(120%);
+        margin-bottom: 2rem;
+    }
+
+    .our-goal-2-text {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .our-goal-2-text h2 {
+        font-size: 36px;
+        margin-top: 0;
+    }
+
+    .our-goal-2-text p {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    /* about us 2 */
+    .about-us-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .about-us-2-content {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-us-2-content p {
+        order: 1;
+        text-align: center;
+        font-size: 16px;
+        max-width: 100%;
+        padding: 2rem;
+        grid-column: span 2;
+    }
+
+    .about-us-2-content img {
+        order: 2;
+    }
+
+    .banana-transparant {
+        grid-column: 1;
+        max-width: 80%;
+    }
+
+    .yuka-transparant-2 {
+        grid-column: 2;
+        max-width: 70%;
+    }
+
+    .about-us-2-text {
+        order: 3;
+        width: 90%;
+        text-align: center;
+        padding: 4rem 2.5rem 6rem 2.5rem;
+        background-image: url("../images/about-us-2-background-mobile.png");
+        background-size: 100% 100%; /* ← fixed */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .about-us-2-text p {
+        max-width: 100%;
+    }
+
+    .about-us-2-text-p {
+        font-size: 20px;
+    }
+
+    .about-us-2-text-emph {
+        font-size: 24px;
+    }
+
+    /* transparency statement */
+    .transparent-text-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transparent-text-1 p {
+        max-width: 100%;
+        order: 2;
+        font-size: 16px;
+    }
+
+    .transparent-text-1 img {
+        order: 1;
+        margin: 2rem 0;
+    }
+
+    .carousel-mobile {
+        display: block;
+    }
+
+    .carousel-desktop {
+        display: none;
+    }
+
+    .transparent-text-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transparent-text-2 p {
+        max-width: 100%;
+        order: 1;
+        font-size: 16px;
+    }
+
+    .transparent-text-2 img {
+        order: 2;
+        margin: 2rem 0;
+    }
+
+    /* mission statement */
     .mission-statement {
         padding: 2rem;
         font-size: 16px;

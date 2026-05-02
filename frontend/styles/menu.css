@@ -134,6 +134,22 @@ MENU CONTENT
     margin-bottom: 0;
 }
 
+.ft-drink-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.ft-drink-link:hover .product-card {
+    opacity: 0.85;
+    transform: translateY(-4px);
+    transition: all 0.2s ease;
+}
+
+.ft-drink-link .product-card {
+    transition: all 0.2s ease;
+}
+
 /*===================
 MOBILE
 =====================*/
@@ -150,5 +166,9 @@ MOBILE
         padding: 0.35rem 0.7rem;
         border-width: 2px;
         border-radius: 4px 4px 0 0;
+    }
+
+    .menu-section p{
+        font-size: 16px;
     }
 }

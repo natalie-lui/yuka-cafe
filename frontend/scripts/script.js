@@ -122,12 +122,19 @@ async function loadDrinks() {
 
     });
 
-  } catch (err) {
-    console.error('Error loading drinks:', err);
-  }
-}
+    document.querySelectorAll(".ft-drink-link").forEach(link => {
+      const name = link.dataset.name.toLowerCase();
+      const match = drinks.find(d => d.name.toLowerCase() === name);
+      if (match) {
+        link.href = `customize.html?id=${match.id}`;
+        link.style.cursor = "pointer";
+      }
+    });
 
-window.addEventListener('DOMContentLoaded', loadDrinks);
+      } catch (err) {
+        console.error('Error loading drinks:', err);
+      }
+    }
 
 window.addEventListener('DOMContentLoaded', loadDrinks);
 
