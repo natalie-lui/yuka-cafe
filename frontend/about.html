@@ -10,64 +10,43 @@
   <link rel="stylesheet" href="styles/bag.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Besley:ital,wght@0,400..900;1,400..900&family=Zen+Antique&display=swap" rel="stylesheet">
 <body>
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="merch-nav">
-            <a onclick="openShadowBox()">
-                <div class="merch-img">
-                    <img src="images/merch-btn-3.png"/>
-                </div>
-            </a>
-        </div>
-        <div class="logo">
-            <a href="index.html">
-                <img src="images/logo.png" alt="Yuka Cafe Logo" />
-            </a>
-        </div>
-        <div class="hamburger" onclick="toggleMenu()">
-            <img src="images/hamburger.png" alt = "☰"/>
-        </div>
-        <!--desktop nav-->
-        <ul class="nav-links">
-            <li><a href="faq.html">
-                <div class="nav-img">
-                    <img src="images/faq-seal.png"/>
-                    <p>FAQ</p>
-                </div>
-            </a></li>
-            <li><a href="about.html">
-                <div class="nav-img">
-                    <img src="images/about-seal.png"/>
-                    <p>About</p>
-                </div>
-            </a></li>
-            <li><a href="menu.html">
-                <div class="nav-img">
-                    <img src="images/menu-seal.png"/>
-                    <p>Menu</p>
-                </div>
-            </a></li>
-            <li><a onclick=openBag()>
-                <div class="nav-img">
-                    <img src="images/bag-seal.png"/>
-                    <p>Bag</p>
-                </div>
-            </a></li>
+        <a href="index.html" class="navbar__brand">
+            <img src="images/yuka-logo-text.png" alt="Yuka Cafe" class="navbar__logo" />
+        </a>
+
+        <ul class="navbar__links">
+            <li><a href="index.html" class="navbar__link">Home</a></li>
+            <li><a href="about.html" class="navbar__link is-active" aria-current="page">About Us</a></li>
+            <li><a href="menu.html" class="navbar__link">Menu</a></li>
+            <li><a href="faq.html" class="navbar__link">FAQ</a></li>
         </ul>
-        <!--Mobile Nav-->
-        <ul class="mobile-menu" id="mobileMenu">
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="about.html">About</a></li>
+
+        <div class="navbar__actions">
+            <a href="menu.html" class="btn-primary navbar__order">Order Now</a>
+            <button type="button" class="navbar__bag" onclick="openBag()" aria-label="Open bag">
+                <img src="images/bag-icon.png" alt="" aria-hidden="true" class="navbar__bag-icon" />
+            </button>
+        </div>
+
+        <button type="button" class="navbar__hamburger" onclick="toggleMenu()" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="navbar__mobile" id="mobileMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
             <li><a href="menu.html">Menu</a></li>
-            <li><a onclick="openBag()">Bag</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="menu.html" class="btn-primary">Order Now</a></li>
+            <li><button type="button" onclick="openBag()">Bag</button></li>
         </ul>
     </nav>
-    <!-- MERCH BANNER -->
-    <div class="merch-banner" onclick="openShadowBox()">
-        <img src="images/merch-coming-soon-banner.png"/>
-    </div>
 
     <div id="shadow-overlay" onclick="closeShadowBox()"></div>
 

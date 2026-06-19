@@ -1,30 +1,62 @@
-/* variables */
+/* Design tokens */
 :root {
+  --color-white: #FFFBEF;
+  --color-pink: #D08D9C;
+  --color-dark: #1D1D1D;
+  --color-green: #8B9E7A;
   --color-brown: #B19587;
-  --color-cream: #FFF4EE;
-  --color-pink: #FBA7B4;
-  --color-dark: #202020;
-  --color-green: #7D9D5A;
-  --font-main: "Gaegu", sans-serif;
-  --font-serif: "Besley", serif;
+
+  --font-main: "Zen Antique", serif;
+  --font-secondary: "Besley", serif;
+  --font-text: "Albert Sans", sans-serif;
 }
 
-/* reset */
+/* Reset */
 * { box-sizing: border-box; }
-body { overflow-x: hidden; }
-.hidden { display: none; }
-.yuka-tape { width: 100%; display: block; }
 
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  font-family: var(--font-text);
+}
+
+.hidden { display: none; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem 1.75rem;
+  background-color: var(--color-pink);
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-primary .arrow {
+  font-size: 1rem;
+  line-height: 1;
+}
 
 @media (max-width: 768px) {
-    body {
-        overflow-x: hidden;
-    }
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-    section {
-        padding: 1.5rem 1rem;
-    }
+  body { overflow-x: hidden; }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }

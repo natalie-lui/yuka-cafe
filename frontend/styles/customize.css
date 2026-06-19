@@ -38,7 +38,7 @@ DRINK INFO
     align-items: flex-start;
     justify-content: center;
     gap: 3rem;
-    background-color: var(--color-cream);
+    background-color: var(--color-white);
     padding: 2rem;
     height: calc(100vh - 200px);
 }
