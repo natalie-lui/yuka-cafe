@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="styles/navbar.css">
   <link rel="stylesheet" href="styles/menu.css">
-  <link rel="stylesheet" href="styles/landing.css">
   <link rel="stylesheet" href="styles/bag.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,51 +64,49 @@
             </button>
         </div>
     </div>
-    <header class="menu-header">
-        <h1>Menu</h1>
-        <p>*Drinks must be ordered in advance (same-day pick-up is unavailable)</p>
-    </header>
-    <main class="menu">
-        <div class="menu-tabs">
-            <button data-target="ft-drinks">Featured Drinks</button>
-            <button data-target="matcha">Matcha</button>
-            <button data-target="coffee">Coffee</button>
-        </div>
+
+    <main class="menu-page">
+        <aside class="menu-sidebar" aria-label="Menu sections">
+            <div class="menu-sidebar__top">
+                <h1 class="menu-sidebar__title">Menu</h1>
+                <p class="menu-sidebar__note">*Drinks must be ordered in advance (same-day pick-up is unavailable)</p>
+
+                <nav class="menu-tabs">
+                    <button type="button" data-target="ft-drinks" class="is-active">Featured</button>
+                    <button type="button" data-target="matcha">Matcha</button>
+                    <button type="button" data-target="coffee">Coffee</button>
+                </nav>
+            </div>
+
+            <figure class="menu-sidebar__art">
+                <img src="images/menu-cat.png" alt="" aria-hidden="true" />
+                <figcaption>As the sun rises, the kitty looks over the horizon</figcaption>
+            </figure>
+        </aside>
 
         <div class="menu-content">
-            <!-- FT DRINKS-->
-            <section id="ft-drinks" class="menu-section">
-                <h2>Featured Drinks</h2>
-                <div class="ft-drinks-items">
-                    <a class="ft-drink-link product-link" data-name="Yuka">
-                        <div class="product-card">
-                            <h3>Yuka</h3>
-                            <img src="images/yuka-ft.png" alt="The Yuka">
-                        </div>
-                    </a>
-                    <a class="ft-drink-link product-link" data-name="Capybara">
-                        <div class="product-card">
-                            <h3>Capybara</h3>
-                            <img src="images/capybara-ft.png" alt="Capybara">
-                        </div>
-                    </a>
-                </div>
+            <!-- FEATURED -->
+            <section id="ft-drinks" class="menu-section menu-section--featured">
+                <h2>Featured</h2>
+                <p class="menu-section__subtitle">Current favorites/recommended drinks</p>
+                <div class="featured-drinks" id="featured-items"></div>
             </section>
+
             <!-- MATCHA -->
             <section id="matcha" class="menu-section">
                 <h2>Matcha</h2>
-                <p>Our matcha is first harvest ceremonial-grade matcha sourced directly from Japan! Each drink is hand-whisked with care ♡</p>
+                <p class="menu-section__subtitle">Our matcha is first harvest ceremonial-grade matcha sourced directly from Japan! Each drink is hand-whisked with care ♡</p>
                 <div class="menu-grid" id="matcha-items"></div>
             </section>
+
             <!-- COFFEE -->
             <section id="coffee" class="menu-section">
                 <h2>Coffee</h2>
-                <p>Our coffee is made from blonde espresso roast arabica coffee beans, and the beans are freshly ground for every order!</p>
+                <p class="menu-section__subtitle">Our coffee is made from blonde espresso roast arabica coffee beans, and the beans are freshly ground for every order!</p>
                 <div class="menu-grid" id="coffee-items"></div>
             </section>
         </div>
     </main>
-    <img class= "yuka-tape" src="images/yuka-tape.png"/>
 
     <!-- BAG OVERLAY -->
     <div id="bag-overlay" class="bag-overlay hidden">
@@ -175,3 +172,4 @@
    <script src="scripts/script.js" type="module"></script>
    <script src="scripts/bag.js"></script>
 </body>
+</html>

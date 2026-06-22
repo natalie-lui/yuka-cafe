@@ -1,3 +1,5 @@
+const FEATURED_DRINK_NAMES = ['Hiroki', 'Yuka'];
+
 //pull menu item from backend
 async function loadDrinks() {
   try {
@@ -5,12 +7,28 @@ async function loadDrinks() {
     const drinks = await res.json();
 
     // target sections
+    const featuredContainer = document.getElementById('featured-items');
     const matchaContainer = document.getElementById('matcha-items');
     const coffeeContainer = document.getElementById('coffee-items');
 
     // clear only the grids
+    featuredContainer.innerHTML = '';
     matchaContainer.innerHTML = '';
     coffeeContainer.innerHTML = '';
+
+    FEATURED_DRINK_NAMES.forEach(name => {
+      const drink = drinks.find(d => d.name.toLowerCase() === name.toLowerCase());
+      if (!drink) return;
+
+      const link = document.createElement('a');
+      link.className = 'featured-drink ft-drink-link';
+      link.href = `customize.html?id=${drink.id}`;
+      link.innerHTML = `
+        <img class="featured-drink__img" src="${drink.image || '/images/drink-img-filler.png'}" alt="${drink.name}">
+        <span class="featured-drink__name">${drink.name}</span>
+      `;
+      featuredContainer.appendChild(link);
+    });
 
     //sticker mapping
     const drinkStickers = {
@@ -122,15 +140,6 @@ async function loadDrinks() {
 
     });
 
-    document.querySelectorAll(".ft-drink-link").forEach(link => {
-      const name = link.dataset.name.toLowerCase();
-      const match = drinks.find(d => d.name.toLowerCase() === name);
-      if (match) {
-        link.href = `customize.html?id=${match.id}`;
-        link.style.cursor = "pointer";
-      }
-    });
-
       } catch (err) {
         console.error('Error loading drinks:', err);
       }
@@ -149,15 +158,50 @@ function closeModal(){
     document.getElementById("modal").classList.remove("active");
 }
 
-//scroll to section
-document.querySelectorAll('.menu-tabs button').forEach(button => {
+// scroll to section + active tab state
+const menuTabButtons = document.querySelectorAll('.menu-tabs button');
+
+function updateMenuScrollOffset() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+
+  let offset = navbar.getBoundingClientRect().height;
+
+  const sidebar = document.querySelector('.menu-sidebar');
+  if (window.matchMedia('(max-width: 768px)').matches && sidebar) {
+    offset += sidebar.getBoundingClientRect().height;
+  }
+
+  document.documentElement.style.setProperty('--menu-scroll-offset', `${Math.ceil(offset)}px`);
+}
+
+function scrollToMenuSection(section) {
+  updateMenuScrollOffset();
+
+  const offset = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue('--menu-scroll-offset')
+  ) || 0;
+
+  const top = section.getBoundingClientRect().top + window.scrollY - offset;
+
+  window.scrollTo({
+    top,
+    behavior: 'smooth',
+  });
+}
+
+menuTabButtons.forEach(button => {
   button.addEventListener('click', () => {
     const id = button.dataset.target;
     const section = document.getElementById(id);
+    if (!section) return;
 
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+    menuTabButtons.forEach(tab => tab.classList.remove('is-active'));
+    button.classList.add('is-active');
+
+    scrollToMenuSection(section);
   });
 });
+
+window.addEventListener('DOMContentLoaded', updateMenuScrollOffset);
+window.addEventListener('resize', updateMenuScrollOffset);
