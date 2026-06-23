@@ -25,7 +25,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-image: url("../images/email-bckgnd.png");
+    background-image: url("../images/faq/email-bckgnd.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -54,14 +54,14 @@ TOGGLES
     min-height: 130px;
     position: relative;
 
-    background-image: url("../images/faq-toggle-closed.png");
+    background-image: url("../images/faq/faq-toggle-closed.png");
     background-size: 100% auto;
     background-position: top;
     background-repeat: no-repeat;
 }
 
 .toggle[open] {
-    background-image: url("../images/faq-toggle-open.png");
+    background-image: url("../images/faq/faq-toggle-open.png");
     background-size: 100% auto; 
     background-position: top;
     background-repeat: no-repeat;
@@ -120,7 +120,7 @@ MOBILE
         content: "";
         position: absolute;
         inset: 0;
-        background-image: url("../images/mobile-toggle-closed.png");
+        background-image: url("../images/faq/mobile-toggle-closed.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
         z-index: 0;
@@ -128,7 +128,7 @@ MOBILE
     }
 
     .toggle[open]::before {
-        background-image: url("../images/mobile-toggle-open.png");
+        background-image: url("../images/faq/mobile-toggle-open.png");
     }
 
     .toggle summary,

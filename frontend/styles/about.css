@@ -31,7 +31,7 @@ ABOUT US
     font-size: 28px;
     color: var(--color-dark);
     font-family: var(--font-main);
-    background-image: url("../images/about-us-lined-background.png");
+    background-image: url("../images/about/about-us-lined-background.png");
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 100% 100%;
@@ -68,7 +68,7 @@ ABOUT COSTS
     position: relative;
     padding: 2rem;
 
-    background-image: url("../images/our-goal-bckgnd.png");
+    background-image: url("../images/about/our-goal-bckgnd.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -81,7 +81,7 @@ ABOUT COSTS
 }
 
 .our-goal-text {
-    background-image: url("../images/our-goal-lined-background.png");
+    background-image: url("../images/about/our-goal-lined-background.png");
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -213,7 +213,7 @@ ABOUT QUALITY
 }
 
 .about-us-2-text {
-    background-image: url("../images/about-us-2-text-background.png");
+    background-image: url("../images/about/about-us-2-text-background.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -355,7 +355,7 @@ MISSION STATEMENT
     .about-us-text p {
         font-size: 16px;
         padding: 5rem 1rem;
-        background-image: url("../images/lined-background-mobile.png");
+        background-image: url("../images/about/lined-background-mobile.png");
         background-size: cover;
         max-width: 100%;
     }
@@ -406,7 +406,7 @@ MISSION STATEMENT
         width: 100%;
         padding: 2rem;
         text-align: center;
-        background-image: url("../images/our-goal-bck-mobile.png");
+        background-image: url("../images/about/our-goal-bck-mobile.png");
         background-size: contain;
     }
 
@@ -494,7 +494,7 @@ MISSION STATEMENT
         width: 90%;
         text-align: center;
         padding: 4rem 2.5rem 6rem 2.5rem;
-        background: url("../images/about-us-2-background-mobile.png");
+        background: url("../images/about/about-us-2-background-mobile.png");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -597,7 +597,7 @@ MISSION STATEMENT
     .about-us-text p {
         font-size: 16px;
         padding: 5rem 1rem;
-        background-image: url("../images/lined-background-mobile.png");
+        background-image: url("../images/about/lined-background-mobile.png");
         background-size: 100% 100%; /* ← fixed */
         max-width: 100%;
     }
@@ -648,7 +648,7 @@ MISSION STATEMENT
         width: 100%;
         padding: 2rem;
         text-align: center;
-        background-image: url("../images/our-goal-bck-mobile.png");
+        background-image: url("../images/about/our-goal-bck-mobile.png");
         background-size: 100% 100%; /* ← fixed */
         background-repeat: no-repeat;
     }
@@ -736,7 +736,7 @@ MISSION STATEMENT
         width: 90%;
         text-align: center;
         padding: 4rem 2.5rem 6rem 2.5rem;
-        background-image: url("../images/about-us-2-background-mobile.png");
+        background-image: url("../images/about/about-us-2-background-mobile.png");
         background-size: 100% 100%; /* ← fixed */
         background-repeat: no-repeat;
         background-position: center;

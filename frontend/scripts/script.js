@@ -24,7 +24,7 @@ async function loadDrinks() {
       link.className = 'featured-drink ft-drink-link';
       link.href = `customize.html?id=${drink.id}`;
       link.innerHTML = `
-        <img class="featured-drink__img" src="${drink.image || '/images/drink-img-filler.png'}" alt="${drink.name}">
+        <img class="featured-drink__img" src="${drink.image || '/images/shared/drink-img-filler.png'}" alt="${drink.name}">
         <span class="featured-drink__name">${drink.name}</span>
       `;
       featuredContainer.appendChild(link);
@@ -33,7 +33,7 @@ async function loadDrinks() {
     //sticker mapping
     const drinkStickers = {
         "Matcha Latte": {
-            src: "images/dino-sticker.png",
+            src: "images/menu/dino-sticker.png",
             top: "45%",
             left: "55%",
             width: "50%",
@@ -41,7 +41,7 @@ async function loadDrinks() {
         },
 
         "Matcha Cloud": {
-            src: "images/olive-matcha-sticker.png",
+            src: "images/menu/olive-matcha-sticker.png",
             top: "-5%",
             left: "70%",
             width: "38%",
@@ -49,7 +49,7 @@ async function loadDrinks() {
         },
 
         "Yuka": {
-            src: "images/olive-strawberry-sticker.png",
+            src: "images/menu/olive-strawberry-sticker.png",
             top: "45%",
             left: "65%",
             width: "50%",
@@ -57,7 +57,7 @@ async function loadDrinks() {
         },
         
         "Banana Matcha": {
-            src: "images/smiski-sticker.png",
+            src: "images/menu/smiski-sticker.png",
             top: "38%",
             left: "65%",
             width: "50%",
@@ -65,7 +65,7 @@ async function loadDrinks() {
         }, 
 
         "Kuma": {
-            src: "images/kuma-sticker.png",
+            src: "images/menu/kuma-sticker.png",
             top: "48%",
             left: "60%",
             width: "34%",
@@ -73,7 +73,7 @@ async function loadDrinks() {
         },
 
         "Capybara": {
-            src: "images/capybara-sticker.png",
+            src: "images/menu/capybara-sticker.png",
             top: "-5%",
             left: "72%",
             width: "35%",
@@ -81,7 +81,7 @@ async function loadDrinks() {
         },
 
         "Cookie Spice Latte": {
-            src: "images/cookie-sticker.png",
+            src: "images/menu/cookie-sticker.png",
             top: "46%",
             left: "75%",
             width: "34%",
@@ -89,7 +89,7 @@ async function loadDrinks() {
         },
 
         "Build-Your-Own Latte": {
-            src: "images/latte-sticker.png",
+            src: "images/menu/latte-sticker.png",
             top: "42%",
             left: "77%",
             width: "45%",
@@ -102,7 +102,7 @@ async function loadDrinks() {
       card.className = 'menu-card';
 
       card.innerHTML = `
-        <img src="${drink.image || '/images/drink-img-filler.png'}" alt="${drink.name}">
+        <img src="${drink.image || '/images/shared/drink-img-filler.png'}" alt="${drink.name}">
         <h3>${drink.name}</h3>
         <p class="menu-desc">${drink.description || ""}</p>
         <p class="menu-price">$${drink.price.toFixed(2)}</p>
@@ -139,6 +139,8 @@ async function loadDrinks() {
       }
 
     });
+
+    positionMenuSectionPaint();
 
       } catch (err) {
         console.error('Error loading drinks:', err);
@@ -205,3 +207,58 @@ menuTabButtons.forEach(button => {
 
 window.addEventListener('DOMContentLoaded', updateMenuScrollOffset);
 window.addEventListener('resize', updateMenuScrollOffset);
+
+function positionMenuNavPaint() {
+  const paint = document.querySelector('.menu-nav-paint');
+  const navbar = document.querySelector('.navbar');
+  const widthAnchor = document.querySelector('.navbar__actions') || document.querySelector('.navbar__links .navbar__link[href="faq.html"]');
+  if (!paint || !navbar || !widthAnchor) return;
+
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    paint.style.width = '';
+    paint.style.height = '';
+    return;
+  }
+
+  const anchorRight = widthAnchor.getBoundingClientRect().left;
+  const navbarBox = navbar.getBoundingClientRect();
+
+  paint.style.width = `${Math.ceil(anchorRight + 24)}px`;
+  paint.style.height = `${Math.ceil(navbarBox.bottom)}px`;
+}
+
+window.addEventListener('DOMContentLoaded', positionMenuNavPaint);
+window.addEventListener('resize', positionMenuNavPaint);
+
+function positionMenuSectionPaint() {
+  const paint = document.querySelector('.menu-section-paint');
+  const featured = document.getElementById('ft-drinks');
+  const menuContent = document.querySelector('.menu-content');
+  if (!paint || !featured || !menuContent) return;
+
+  const boundary = menuContent.offsetTop + featured.offsetTop + featured.offsetHeight;
+  paint.style.top = `${boundary}px`;
+}
+
+window.addEventListener('DOMContentLoaded', positionMenuSectionPaint);
+window.addEventListener('resize', positionMenuSectionPaint);
+
+const featuredSection = document.getElementById('ft-drinks');
+if (featuredSection && 'ResizeObserver' in window) {
+  const sectionPaintObserver = new ResizeObserver(positionMenuSectionPaint);
+  sectionPaintObserver.observe(featuredSection);
+}
+
+function positionMenuGridPaints() {
+  const menuContent = document.querySelector('.menu-content');
+  if (!menuContent) return;
+
+  const paintWidth = Math.ceil(menuContent.getBoundingClientRect().width);
+
+  document.querySelectorAll('.menu-section--painted .menu-grid-paint').forEach(paint => {
+    paint.style.setProperty('--menu-grid-paint-width', `${paintWidth}px`);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', positionMenuGridPaints);
+window.addEventListener('resize', positionMenuGridPaints);

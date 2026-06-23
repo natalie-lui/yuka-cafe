@@ -10,13 +10,44 @@ html:has(.menu-page) {
   scroll-padding-top: var(--menu-scroll-offset, 5.75rem);
 }
 
+body:has(.menu-page) .navbar {
+  background-color: transparent;
+}
+
+.menu-nav-paint {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: block;
+  pointer-events: none;
+  object-fit: cover;
+  object-position: left top;
+  overflow: visible;
+  position: absolute;
+}
+
 .menu-page {
   display: flex;
   align-items: stretch;
+  position: relative;
   min-height: calc(100vh - 5rem);
   --menu-section-pad-y: clamp(1.5rem, 3vw, 2.5rem);
   --menu-section-pad-x: clamp(1.25rem, 2.5vw, 2rem);
   background-color: var(--color-white);
+}
+
+.menu-section-paint {
+  position: absolute;
+  left: 50%;
+  width: 104vw;
+  max-width: 104vw;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /*=========================
@@ -118,12 +149,12 @@ MENU CONTENT
   flex: 1;
   position: relative;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .menu-section {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -193,9 +224,30 @@ FEATURED DRINKS
   color: var(--color-dark);
 }
 
+.menu-section--painted {
+  overflow: visible;
+}
+
+.menu-section--painted > :not(.menu-grid-paint) {
+  position: relative;
+  z-index: 1;
+}
+
 /*=========================
 MATCHA / COFFEE GRID
 =========================*/
+.menu-grid-paint {
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  width: calc(var(--menu-grid-paint-width, 100%));
+  height: auto;
+  object-fit: contain;
+  object-position: left top;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -240,6 +292,16 @@ MATCHA / COFFEE GRID
 /*=========================
 MOBILE
 =========================*/
+@media (max-width: 900px) {
+  .menu-nav-paint {
+    display: none;
+  }
+
+  body:has(.menu-page) .navbar {
+    background-color: var(--color-white);
+  }
+}
+
 @media (max-width: 768px) {
   body:has(.menu-page),
   html:has(.menu-page) {

@@ -52,7 +52,7 @@ function loadBag() {
         const div = document.createElement("div");
         div.className = "bag-item";
         div.innerHTML = `
-          <img class="bag-item-img" src="${item.image || 'images/drink-img-filler.png'}"/>
+          <img class="bag-item-img" src="${item.image || 'images/shared/drink-img-filler.png'}"/>
           <div class="bag-item-text">
             <h2><b>${item.name}</b></h2>
             <p>${mods}</p>

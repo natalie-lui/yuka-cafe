@@ -26,7 +26,7 @@ if(productId){
       // fallback if no images
       const images = (drink.images && drink.images.length)
         ? drink.images
-        : ["images/drink-img-filler.png"];
+        : ["images/shared/drink-img-filler.png"];
 
       // set default main image
       imgEl.src = images[0];
@@ -103,7 +103,7 @@ function showCartPopup(item) {
   const img = document.getElementById("popup-item-image");
 
   // set img
-  img.src = item.image || "images/drink-img-filler.png";
+  img.src = item.image || "images/shared/drink-img-filler.png";
   img.alt = item.name;
 
   // Build modifier string

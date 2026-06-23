@@ -13,10 +13,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Besley:ital,wght@0,400..900;1,400..900&family=Zen+Antique&display=swap" rel="stylesheet">
 </head>
 <body>
+    <img class="menu-nav-paint" src="images/menu/brown-paint-menu-top.png" alt="" aria-hidden="true" />
     <!-- NAVBAR -->
     <nav class="navbar">
         <a href="index.html" class="navbar__brand">
-            <img src="images/yuka-logo-text.png" alt="Yuka Cafe" class="navbar__logo" />
+            <img src="images/shared/yuka-logo-text.png" alt="Yuka Cafe" class="navbar__logo" />
         </a>
 
         <ul class="navbar__links">
@@ -29,7 +30,7 @@
         <div class="navbar__actions">
             <a href="menu.html" class="btn-primary navbar__order">Order Now</a>
             <button type="button" class="navbar__bag" onclick="openBag()" aria-label="Open bag">
-                <img src="images/bag-icon.png" alt="" aria-hidden="true" class="navbar__bag-icon" />
+                <img src="images/shared/bag-icon.png" alt="" aria-hidden="true" class="navbar__bag-icon" />
             </button>
         </div>
 
@@ -58,7 +59,7 @@
         <div class="socials">
             <button>
                 <a href="https://www.instagram.com/theyukacafe/" target="_blank">
-                    <img src="images/insta-logo.png"/>
+                    <img src="images/shared/insta-logo.png"/>
                     <p>@theyukacafe</p>
                 </a>
             </button>
@@ -66,6 +67,7 @@
     </div>
 
     <main class="menu-page">
+        <img class="menu-section-paint" src="images/menu/brown-paint-menu-2.png" alt="" aria-hidden="true" />
         <aside class="menu-sidebar" aria-label="Menu sections">
             <div class="menu-sidebar__top">
                 <h1 class="menu-sidebar__title">Menu</h1>
@@ -79,7 +81,7 @@
             </div>
 
             <figure class="menu-sidebar__art">
-                <img src="images/menu-cat.png" alt="" aria-hidden="true" />
+                <img src="images/menu/menu-cat.png" alt="" aria-hidden="true" />
                 <figcaption>As the sun rises, the kitty looks over the horizon</figcaption>
             </figure>
         </aside>
@@ -93,16 +95,18 @@
             </section>
 
             <!-- MATCHA -->
-            <section id="matcha" class="menu-section">
+            <section id="matcha" class="menu-section menu-section--painted">
+                <img class="menu-grid-paint" src="images/menu/brown-paint-menu-3.png" alt="" aria-hidden="true" />
                 <h2>Matcha</h2>
-                <p class="menu-section__subtitle">Our matcha is first harvest ceremonial-grade matcha sourced directly from Japan! Each drink is hand-whisked with care ♡</p>
+                <p class="menu-section__subtitle">Our matcha is first harvest ceremonial-grade matcha sourced directly from <br> Japan! Each drink is hand-whisked with care ♡</p>
                 <div class="menu-grid" id="matcha-items"></div>
             </section>
 
             <!-- COFFEE -->
-            <section id="coffee" class="menu-section">
+            <section id="coffee" class="menu-section menu-section--painted">
+                <img class="menu-grid-paint" src="images/menu/brown-paint-menu-3.png" alt="" aria-hidden="true" />
                 <h2>Coffee</h2>
-                <p class="menu-section__subtitle">Our coffee is made from blonde espresso roast arabica coffee beans, and the beans are freshly ground for every order!</p>
+                <p class="menu-section__subtitle">Our coffee is made from blonde espresso roast arabica coffee beans, and <br>the beans are freshly ground for every order!</p>
                 <div class="menu-grid" id="coffee-items"></div>
             </section>
         </div>
@@ -119,7 +123,7 @@
         <div class="bag-footer">
             <p id="bag-total"></p>
             <button class="checkout-btn" onclick=showPickupTime()>
-            <img src="images/checkout-btn.png" alt="Checkout"/>
+            <img src="images/shared/checkout-btn.png" alt="Checkout"/>
             </button>
         </div>
         </div>
@@ -133,7 +137,7 @@
             <div id="slots-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px;"></div>
         </div>
         <button class="confirmation-button" onclick=checkout()>
-            <img src="images/confirm-pay-btn.png" alt="Confirm & Pay"/>
+            <img src="images/shared/confirm-pay-btn.png" alt="Confirm & Pay"/>
         </button>
         </div>
     </div>
@@ -141,7 +145,7 @@
    <footer class="footer">
      <div class="footer__inner">
        <a href="index.html" class="footer__brand">
-         <img src="images/yuka-logo-img.png" alt="" class="footer__logo" />
+         <img src="images/shared/yuka-logo-img.png" alt="" class="footer__logo" />
          <span class="footer__name">YUKA CAFE</span>
        </a>
        <div class="footer__columns">

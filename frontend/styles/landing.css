@@ -93,7 +93,7 @@
    =========================== */
 .features {
   position: relative;
-  background: url("../images/paint-strip.png") center / 100% 100% no-repeat;
+  background: url("../images/home/paint-strip.png") center / 100% 100% no-repeat;
   padding: 4rem 2rem;
   margin: 0;
   transform: translateY(-15%);
@@ -246,6 +246,10 @@
   object-fit: cover;
   object-position: center top;
   border-radius: 2px;
+}
+
+.showcase__photo--olive {
+  object-position: center 80%;
 }
 
 .showcase__pink-paint {

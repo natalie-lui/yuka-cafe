@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
         name: itemData.name || "Unnamed item",
         description: itemData.description || "",
         price: Number(priceCents) / 100,
-        image: imageUrls.length ? imageUrls[0] : "/images/drink-img-filler.png",
+        image: imageUrls.length ? imageUrls[0] : "/images/shared/drink-img-filler.png",
         category: categoryName || "uncategorized"
       };
     });
@@ -106,7 +106,7 @@ router.get("/:squareId", async (req, res) => {
       description: item?.description ?? "",
       price: Number(priceCents) / 100,
       image: imageUrls[0] || null,
-      images: imageUrls.length ? imageUrls : ["/images/drink-img-filler.png"],
+      images: imageUrls.length ? imageUrls : ["/images/shared/drink-img-filler.png"],
       modifiers,
     });
 
