@@ -1,22 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { getDayName, getUpcomingWeekend } = require("../utils/dateHelpers");
+const { getDayName, getUpcomingPickupDates } = require("../utils/dateHelpers");
 
-// GET /api/slots for upcoming weekend
+function parseTimeForSort(timeStr) {
+  const [time, period] = timeStr.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
+  if (period === "PM" && hours !== 12) hours += 12;
+  if (period === "AM" && hours === 12) hours = 0;
+  return hours * 60 + minutes;
+}
+
+function sortByTime(slots) {
+  return [...slots].sort((a, b) => parseTimeForSort(a.time) - parseTimeForSort(b.time));
+}
+
+// GET /api/slots — upcoming pickup days within rolling 7-day window
 router.get("/", (req, res) => {
-  const dates = getUpcomingWeekend(); // ["2026-05-02", "2026-05-03", "2026-05-04"]
+  const dates = getUpcomingPickupDates();
 
   const result = dates.map(date => {
     const dayName = getDayName(date);
 
-    const scheduled = db.prepare(`
+    const scheduled = sortByTime(db.prepare(`
       SELECT time, max_orders FROM schedule
-      WHERE day_of_week = ? ORDER BY time
-    `).all(dayName);
+      WHERE day_of_week = ?
+    `).all(dayName));
 
     if (!scheduled.length) {
-      return { date, dayName, available: [], closed: true };
+      return { date, dayName, available: [], closed: true, fullyBooked: true };
     }
 
     const booked = db.prepare(`
@@ -25,55 +37,26 @@ router.get("/", (req, res) => {
     `).all(date);
 
     const bookedMap = {};
-    booked.forEach(b => bookedMap[b.time] = b.count);
+    booked.forEach(b => { bookedMap[b.time] = b.count; });
 
-    const available = scheduled
-      .filter(slot => (bookedMap[slot.time] || 0) < slot.max_orders)
-      .map(slot => ({
+    const available = scheduled.map(slot => {
+      const bookedCount = bookedMap[slot.time] || 0;
+      return {
         time: slot.time,
-        remaining: slot.max_orders - (bookedMap[slot.time] || 0)
-      }));
+        remaining: slot.max_orders - bookedCount,
+        full: bookedCount >= slot.max_orders,
+      };
+    });
 
-    return { date, dayName, available };
+    return {
+      date,
+      dayName,
+      available,
+      fullyBooked: available.every(s => s.full),
+    };
   });
 
   res.json(result);
-});
-
-// POST /api/slots/claim
-router.post("/claim", (req, res) => {
-  const { date, time, orderId } = req.body;
-  const dayName = getDayName(date);
-
-  const slot = db.prepare(`
-    SELECT max_orders FROM schedule WHERE day_of_week = ? AND time = ?
-  `).get(dayName, time);
-
-  if (!slot) {
-    return res.status(400).json({ error: "That time slot doesn't exist" });
-  }
-
-  const claim = db.transaction(() => {
-    const { count } = db.prepare(`
-      SELECT COUNT(*) as count FROM bookings WHERE date = ? AND time = ?
-    `).get(date, time);
-
-    if (count >= slot.max_orders) return { full: true };
-
-    db.prepare(`
-      INSERT INTO bookings (date, time, order_id) VALUES (?, ?, ?)
-    `).run(date, time, orderId || null);
-
-    return { full: false };
-  });
-
-  const result = claim();
-
-  if (result.full) {
-    return res.status(409).json({ error: "Slot is full — please pick another time" });
-  }
-
-  res.json({ success: true });
 });
 
 module.exports = router;

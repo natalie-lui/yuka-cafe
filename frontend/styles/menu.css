@@ -10,8 +10,10 @@ html:has(.menu-page) {
   scroll-padding-top: var(--menu-scroll-offset, 5.75rem);
 }
 
-body:has(.menu-page) .navbar {
+body:has(.menu-page) .navbar:not(.navbar--scrolled) {
   background-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .menu-nav-paint {
@@ -24,7 +26,11 @@ body:has(.menu-page) .navbar {
   object-fit: cover;
   object-position: left top;
   overflow: visible;
-  position: absolute;
+  transition: opacity 0.25s ease;
+}
+
+body.menu-scrolled .menu-nav-paint {
+  opacity: 0;
 }
 
 .menu-page {
@@ -42,10 +48,9 @@ body:has(.menu-page) .navbar {
   left: 50%;
   width: 104vw;
   max-width: 104vw;
-  height: auto;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%);
   object-fit: cover;
-  object-position: center;
+  object-position: right top;
   pointer-events: none;
   z-index: 2;
 }
@@ -297,7 +302,7 @@ MOBILE
     display: none;
   }
 
-  body:has(.menu-page) .navbar {
+  body:has(.menu-page) .navbar:not(.navbar--scrolled) {
     background-color: var(--color-white);
   }
 }

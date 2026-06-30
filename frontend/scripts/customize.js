@@ -1,179 +1,385 @@
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
-
 let currentDrink = null;
+let editingCartIndex = null;
 
-//fetch drink from backend
-if(productId){
+const customizeOverlay = document.getElementById("customize-overlay");
+const customizeModal = document.querySelector(".customize-modal");
+
+function openCustomizeModal(productId) {
+  if (!productId || !customizeOverlay) return;
+
+  editingCartIndex = null;
+  customizeOverlay.classList.remove("hidden");
+  customizeOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  loadDrink(productId);
+}
+
+function openCustomizeModalForEdit(productId, cartIndex, item) {
+  if (!productId || !customizeOverlay) return;
+
+  editingCartIndex = cartIndex;
+  customizeOverlay.classList.remove("hidden");
+  customizeOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  loadDrink(productId, item);
+}
+
+function closeCustomizeModal() {
+  if (!customizeOverlay) return;
+
+  customizeOverlay.classList.add("hidden");
+  customizeOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  currentDrink = null;
+  editingCartIndex = null;
+  clearCustomizeError();
+}
+
+if (customizeOverlay) {
+  customizeOverlay.addEventListener("click", closeCustomizeModal);
+}
+
+if (customizeModal) {
+  customizeModal.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+
+  if (customizeOverlay && !customizeOverlay.classList.contains("hidden")) {
+    closeCustomizeModal();
+    return;
+  }
+
+  const cartPopupOverlay = document.getElementById("cart-popup-overlay");
+  if (cartPopupOverlay && !cartPopupOverlay.classList.contains("hidden")) {
+    closeCartPopup();
+  }
+});
+
+function loadDrink(productId, prefillItem = null) {
   fetch(`/api/drinks/${productId}`)
     .then(res => {
-      if (!res.ok) {
-        throw new Error("Drink not found");
-      }
+      if (!res.ok) throw new Error("Drink not found");
       return res.json();
     })
     .then(drink => {
       currentDrink = drink;
-
-      document.getElementById("drink-name").textContent = drink.name;
-      document.getElementById("drink-price").textContent = `$${drink.price.toFixed(2)}`;
-      document.getElementById("drink-description").textContent = drink.description;
-
-      //RENDER IMGS
-      const imgEl = document.getElementById("drink-image");
-      const thumbnailColumn = document.getElementById("thumbnail-col");
-
-      // fallback if no images
-      const images = (drink.images && drink.images.length)
-        ? drink.images
-        : ["images/shared/drink-img-filler.png"];
-
-      // set default main image
-      imgEl.src = images[0];
-      imgEl.alt = drink.name;
-
-      // render thumbnails
-      thumbnailColumn.innerHTML = "";
-
-      images.forEach((img, index) => {
-        const thumb = document.createElement("img");
-        thumb.src = img;
-        thumb.className = "thumbnail";
-
-        // highlight first one
-        if (index === 0) thumb.classList.add("active");
-
-        thumb.addEventListener("click", () => {
-          // update main image
-          imgEl.src = img;
-
-          // update active state
-          document.querySelectorAll(".thumbnail").forEach(t =>
-            t.classList.remove("active")
-          );
-          thumb.classList.add("active");
-        });
-
-        thumbnailColumn.appendChild(thumb);
-      });
-
-      // -------- RENDER MODIFIERS --------
-      const container = document.getElementById("modifiers-container");
-      container.innerHTML = "";
-
-      drink.modifiers.forEach(list => {
-
-        const fieldset = document.createElement("fieldset");
-        fieldset.className = "adjust-field";
-
-        const legend = document.createElement("legend");
-        legend.textContent = list.name;
-        fieldset.appendChild(legend);
-
-        list.options.forEach((opt, index) => {
-
-          const label = document.createElement("label");
-
-          label.innerHTML = `
-            <input type="radio"
-                  name="${list.name}"
-                  value="${opt.name}"
-                  data-price="${opt.price}"
-                  ${index === 0 ? "checked" : ""}>
-            ${opt.name} ${opt.price ? `(+$${opt.price})` : ""}
-          `;
-
-          fieldset.appendChild(label);
-        });
-
-        container.appendChild(fieldset);
-      });
+      renderDrink(drink, prefillItem);
     })
     .catch(err => {
       console.error(err);
-      document.body.innerHTML = "<h1>Drink not found</h1>";
+      closeCustomizeModal();
     });
-  } else {
-  console.warn("No product ID found in URL.");
 }
 
-function showCartPopup(item) {
-  const overlay = document.getElementById("cart-popup-overlay");
-  const details = document.getElementById("popup-item-details");
-  const img = document.getElementById("popup-item-image");
+function renderDrink(drink, prefillItem = null) {
+  document.getElementById("customize-drink-name").textContent = drink.name;
+  document.getElementById("customize-summary-name").textContent = drink.name;
+  document.getElementById("customize-drink-description").textContent = drink.description || "";
 
-  // set img
-  img.src = item.image || "images/shared/drink-img-filler.png";
-  img.alt = item.name;
+  const noteField = document.getElementById("custom-note");
+  if (noteField) noteField.value = prefillItem?.note || "";
 
-  // Build modifier string
-  const mods = Object.entries(item.modifiers || {})
-    .map(([k, v]) => `${k}: ${v}`)
-    .join(", ");
-
-  details.innerHTML = `
-    <h2><b>${item.name}</b></h2>
-    <p>${mods}</p>
-    <p>Price: $${item.price.toFixed(2)}</p>
-  `;
-
-  overlay.classList.remove("hidden");
+  renderImages(drink, prefillItem);
+  renderModifiers(drink, prefillItem);
+  clearCustomizeError();
+  updateCustomizeSummary();
 }
 
-//add to order
-let currItem = {};
+function renderImages(drink, prefillItem = null) {
+  const imgEl = document.getElementById("drink-image");
+  const thumbnailColumn = document.getElementById("thumbnail-col");
+  const images = drink.images?.length ? drink.images : ["images/shared/drink-img-filler.png"];
+  const preferredImage = prefillItem?.image || images[0];
 
-function addToCart() {
-  if (!currItem || !currentDrink) return;
+  imgEl.src = preferredImage;
+  imgEl.alt = drink.name;
+  thumbnailColumn.innerHTML = "";
 
+  images.forEach((img, index) => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.className = "thumbnail";
+    if (img === preferredImage || (index === 0 && !prefillItem?.image)) {
+      thumb.classList.add("active");
+    }
+
+    thumb.addEventListener("click", () => {
+      imgEl.src = img;
+      thumbnailColumn.querySelectorAll(".thumbnail").forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
+    });
+
+    thumbnailColumn.appendChild(thumb);
+  });
+}
+
+function renderModifiers(drink, prefillItem = null) {
+  const container = document.getElementById("modifiers-container");
+  const categoryList = document.getElementById("customize-adjustments-list");
+  container.innerHTML = "";
+
+  const modifierNames = (drink.modifiers || []).map(list => list.name);
+  const categories = modifierNames.length ? [...modifierNames, "Notes"] : ["Notes"];
+  categoryList.textContent = categories.join(", ");
+
+  (drink.modifiers || []).forEach(list => {
+    const fieldset = document.createElement("fieldset");
+    fieldset.className = "adjust-field";
+
+    const legend = document.createElement("legend");
+    legend.textContent = list.name;
+    fieldset.appendChild(legend);
+
+    if (list.name.toLowerCase().includes("milk")) {
+      const note = document.createElement("p");
+      note.className = "customize-modal__modifier-note";
+      note.textContent = "*Milk alternatives have no extra cost";
+      fieldset.appendChild(note);
+    }
+
+    const preselectedValue = prefillItem?.modifiers?.[list.name];
+
+    list.options.forEach((opt) => {
+      const label = document.createElement("label");
+      const isChecked = preselectedValue === opt.name ? "checked" : "";
+      label.innerHTML = `
+        <input type="radio"
+          name="${list.name}"
+          value="${opt.name}"
+          data-price="${opt.price}"
+          ${isChecked}>
+        <span>${opt.name}${opt.price ? ` (+$${opt.price.toFixed(2)})` : ""}</span>
+      `;
+      const input = label.querySelector("input");
+      input.addEventListener("change", () => {
+        clearCustomizeError();
+        updateCustomizeSummary();
+      });
+      fieldset.appendChild(label);
+    });
+
+    container.appendChild(fieldset);
+  });
+
+  const noteField = document.getElementById("custom-note");
+  if (noteField) {
+    noteField.removeEventListener("input", updateCustomizeSummary);
+    noteField.addEventListener("input", updateCustomizeSummary);
+  }
+}
+
+function getSelectedModifiers() {
   const selectedModifiers = {};
   let modifierPriceTotal = 0;
 
-  // Loop through all modifier groups
   document.querySelectorAll("#modifiers-container fieldset").forEach(field => {
-    const legend = field.querySelector("legend").textContent;
+    const legend = field.querySelector("legend")?.textContent;
     const checked = field.querySelector("input:checked");
-
-    if (checked) {
-      const price = Number(checked.dataset.price || 0);
+    if (legend && checked) {
       selectedModifiers[legend] = checked.value;
-      modifierPriceTotal += price;
+      modifierPriceTotal += Number(checked.dataset.price || 0);
     }
   });
 
-  // Final price includes base + modifier prices
+  return { selectedModifiers, modifierPriceTotal };
+}
+
+function getMissingModifierFields() {
+  const missing = [];
+
+  document.querySelectorAll("#modifiers-container fieldset").forEach(field => {
+    const legend = field.querySelector("legend")?.textContent;
+    const checked = field.querySelector("input:checked");
+    if (legend && !checked) {
+      missing.push(field);
+    }
+  });
+
+  return missing;
+}
+
+function showCustomizeError() {
+  const errorEl = document.getElementById("customize-error");
+  if (errorEl) errorEl.classList.remove("hidden");
+}
+
+function clearCustomizeError() {
+  const errorEl = document.getElementById("customize-error");
+  if (errorEl) errorEl.classList.add("hidden");
+}
+
+function updateCustomizeSummary() {
+  if (!currentDrink) return;
+
+  const { selectedModifiers, modifierPriceTotal } = getSelectedModifiers();
+  const note = document.getElementById("custom-note")?.value.trim();
   const finalPrice = currentDrink.price + modifierPriceTotal;
-  const note = document.getElementById("custom-note").value;
+
+  const summaryParts = Object.values(selectedModifiers);
+  if (note) summaryParts.push(`Notes: ${note}`);
+
+  document.getElementById("customize-summary-details").textContent = summaryParts.join(", ");
+  document.getElementById("customize-price").textContent = `$${finalPrice.toFixed(2)}`;
+}
+
+const CART_POPUP_TRANSITION_MS = 300;
+
+function openCartPopup(item) {
+  const overlay = document.getElementById("cart-popup-overlay");
+  const img = document.getElementById("popup-item-image");
+  const nameEl = document.getElementById("popup-item-name");
+  const modsEl = document.getElementById("popup-item-mods");
+  const noteEl = document.getElementById("popup-item-note");
+  if (!overlay || !img || !nameEl || !modsEl || !noteEl) return;
+
+  img.src = item.image || "images/shared/drink-img-filler.png";
+  img.alt = item.name;
+  nameEl.textContent = item.name;
+
+  const mods = Object.values(item.modifiers || {}).join(", ");
+  modsEl.textContent = mods;
+
+  noteEl.textContent = item.note ? `Notes: ${item.note}` : "";
+
+  overlay.classList.remove("hidden");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  requestAnimationFrame(() => {
+    overlay.classList.add("is-open");
+  });
+}
+
+function closeCartPopup(onClosed) {
+  const overlay = document.getElementById("cart-popup-overlay");
+  if (!overlay || overlay.classList.contains("hidden")) {
+    onClosed?.();
+    return;
+  }
+
+  overlay.classList.remove("is-open");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  window.setTimeout(() => {
+    overlay.classList.add("hidden");
+    onClosed?.();
+  }, CART_POPUP_TRANSITION_MS);
+}
+
+function showCartPopup(item) {
+  openCartPopup(item);
+}
+
+function addToCart() {
+  if (!currentDrink) return;
+
+  const missingFields = getMissingModifierFields();
+  if (missingFields.length > 0) {
+    showCustomizeError();
+    missingFields[0].scrollIntoView({ behavior: "smooth", block: "nearest" });
+    return;
+  }
+
+  clearCustomizeError();
+
+  const { selectedModifiers, modifierPriceTotal } = getSelectedModifiers();
+  const note = document.getElementById("custom-note")?.value.trim() || "";
+  const finalPrice = currentDrink.price + modifierPriceTotal;
 
   const cartItem = {
     productId: currentDrink.id,
     name: currentDrink.name,
     price: finalPrice,
     modifiers: selectedModifiers,
-    note: note,
-    image: currentDrink.image || currentDrink.images?.[0] //for popup
+    note,
+    image: currentDrink.image || currentDrink.images?.[0],
+    quantity: 1,
   };
 
-  // Send to backend
-  fetch("/api/cart", {
-    method: "POST",
+  const isEditing = editingCartIndex !== null;
+  const url = isEditing ? `/api/cart/${editingCartIndex}` : "/api/cart";
+  const method = isEditing ? "PUT" : "POST";
+
+  fetch(url, {
+    method,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(cartItem)
+    body: JSON.stringify(cartItem),
   })
-  .then(res => res.json())
-  .then(data => {
-    showCartPopup(cartItem); // show popup
-    console.log("Added to cart:", cartItem);
-  })
-  .catch(err => console.error("Cart error:", err));
+    .then(res => res.json())
+    .then(() => {
+      closeCustomizeModal();
+      if (isEditing) {
+        if (typeof loadBag === "function") loadBag();
+      } else {
+        showCartPopup(cartItem);
+      }
+    })
+    .catch(err => console.error("Cart error:", err));
 }
 
-// cart popup buttons
-document.getElementById("continue-ordering").onclick = () => {
-  document.getElementById("cart-popup-overlay").classList.add("hidden");
-};
+const continueOrderingBtn = document.getElementById("continue-ordering");
+const goToBagBtn = document.getElementById("go-to-bag");
 
-document.getElementById("go-to-bag").onclick = () => {
-  document.getElementById("cart-popup-overlay").classList.add("hidden");
-  showCart();
-};
+if (continueOrderingBtn) {
+  continueOrderingBtn.onclick = () => {
+    closeCartPopup();
+  };
+}
+
+if (goToBagBtn) {
+  goToBagBtn.onclick = () => {
+    closeCartPopup(() => {
+      if (typeof showCart === "function") showCart();
+      else if (typeof openBag === "function") openBag();
+    });
+  };
+}
+
+const cartPopupOverlay = document.getElementById("cart-popup-overlay");
+if (cartPopupOverlay) {
+  cartPopupOverlay.addEventListener("click", closeCartPopup);
+  cartPopupOverlay.querySelector(".cart-popup")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+}
+
+function initCustomizeFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const customizeId = urlParams.get("customize") || urlParams.get("id");
+  const editIndex = urlParams.get("edit");
+
+  if (!customizeId || !document.querySelector(".menu-page")) return;
+
+  if (editIndex !== null) {
+    fetch("/api/cart")
+      .then(res => res.json())
+      .then(cart => {
+        const item = cart[Number(editIndex)];
+        if (item) {
+          openCustomizeModalForEdit(customizeId, Number(editIndex), item);
+        } else {
+          openCustomizeModal(customizeId);
+        }
+      })
+      .catch(() => openCustomizeModal(customizeId));
+    return;
+  }
+
+  openCustomizeModal(customizeId);
+}
+
+window.addEventListener("DOMContentLoaded", initCustomizeFromUrl);
+
+window.openCustomizeModal = openCustomizeModal;
+window.openCustomizeModalForEdit = openCustomizeModalForEdit;
+window.closeCustomizeModal = closeCustomizeModal;
+window.openCartPopup = openCartPopup;
+window.closeCartPopup = closeCartPopup;
+window.addToCart = addToCart;

@@ -60,7 +60,7 @@ router.post("/", async (req, res) => {
       return {
         uid: `line-${index}`,
         name: item.name,
-        quantity: "1",
+        quantity: String(item.quantity || 1),
         basePriceMoney: {
           amount: BigInt(Math.round(item.price * 100)),
           currency: "USD"

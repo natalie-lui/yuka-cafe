@@ -22,80 +22,17 @@ async function loadDrinks() {
 
       const link = document.createElement('a');
       link.className = 'featured-drink ft-drink-link';
-      link.href = `customize.html?id=${drink.id}`;
+      link.href = '#';
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.openCustomizeModal?.(drink.id);
+      });
       link.innerHTML = `
         <img class="featured-drink__img" src="${drink.image || '/images/shared/drink-img-filler.png'}" alt="${drink.name}">
         <span class="featured-drink__name">${drink.name}</span>
       `;
       featuredContainer.appendChild(link);
     });
-
-    //sticker mapping
-    const drinkStickers = {
-        "Matcha Latte": {
-            src: "images/menu/dino-sticker.png",
-            top: "45%",
-            left: "55%",
-            width: "50%",
-            rotate: "-5deg"
-        },
-
-        "Matcha Cloud": {
-            src: "images/menu/olive-matcha-sticker.png",
-            top: "-5%",
-            left: "70%",
-            width: "38%",
-            rotate: "10deg"
-        },
-
-        "Yuka": {
-            src: "images/menu/olive-strawberry-sticker.png",
-            top: "45%",
-            left: "65%",
-            width: "50%",
-            rotate: "-5deg"
-        },
-        
-        "Banana Matcha": {
-            src: "images/menu/smiski-sticker.png",
-            top: "38%",
-            left: "65%",
-            width: "50%",
-            rotate: "-5deg"
-        }, 
-
-        "Kuma": {
-            src: "images/menu/kuma-sticker.png",
-            top: "48%",
-            left: "60%",
-            width: "34%",
-            rotate: "5deg"
-        },
-
-        "Capybara": {
-            src: "images/menu/capybara-sticker.png",
-            top: "-5%",
-            left: "72%",
-            width: "35%",
-            rotate: "-5deg"
-        },
-
-        "Cookie Spice Latte": {
-            src: "images/menu/cookie-sticker.png",
-            top: "46%",
-            left: "75%",
-            width: "34%",
-            rotate: "5deg"
-        },
-
-        "Build-Your-Own Latte": {
-            src: "images/menu/latte-sticker.png",
-            top: "42%",
-            left: "77%",
-            width: "45%",
-            rotate: "5deg"
-        }
-    }
 
     drinks.forEach(drink => {
       const card = document.createElement('article');
@@ -108,26 +45,8 @@ async function loadDrinks() {
         <p class="menu-price">$${drink.price.toFixed(2)}</p>
       `;
 
-      //pull sticker for drink
-      const stickerInfo = drinkStickers[drink.name]
-
-      if (stickerInfo) {
-        const sticker = document.createElement('img');
-        sticker.src = stickerInfo.src;
-        sticker.className = 'sticker';
-        sticker.style.position = 'absolute';
-        sticker.style.top = stickerInfo.top || '45%';
-        sticker.style.left = stickerInfo.left || '55%';
-        sticker.style.width = stickerInfo.width || '20%';
-        sticker.style.transform = `rotate(${stickerInfo.rotate || '0deg'})`;
-        sticker.style.pointerEvents = 'none';
-
-        card.appendChild(sticker);
-      }
-
-
       card.addEventListener('click', () => {
-        window.location.href = `customize.html?id=${drink.id}`;
+        window.openCustomizeModal?.(drink.id);
       });
 
       card.style.cursor = 'pointer';
@@ -141,6 +60,7 @@ async function loadDrinks() {
     });
 
     positionMenuSectionPaint();
+    positionMenuNavPaint();
 
       } catch (err) {
         console.error('Error loading drinks:', err);
@@ -208,6 +128,18 @@ menuTabButtons.forEach(button => {
 window.addEventListener('DOMContentLoaded', updateMenuScrollOffset);
 window.addEventListener('resize', updateMenuScrollOffset);
 
+function getFeaturedSectionPaintMetrics() {
+  const menuPage = document.querySelector('.menu-page');
+  const menuContent = document.querySelector('.menu-content');
+  const featured = document.getElementById('ft-drinks');
+  if (!menuPage || !menuContent || !featured) return null;
+
+  const pullUp = menuPage.getBoundingClientRect().top + window.scrollY;
+  const featuredEnd = menuContent.offsetTop + featured.offsetTop + featured.offsetHeight;
+
+  return { pullUp, featuredEnd, totalHeight: pullUp + featuredEnd };
+}
+
 function positionMenuNavPaint() {
   const paint = document.querySelector('.menu-nav-paint');
   const navbar = document.querySelector('.navbar');
@@ -221,10 +153,11 @@ function positionMenuNavPaint() {
   }
 
   const anchorRight = widthAnchor.getBoundingClientRect().left;
-  const navbarBox = navbar.getBoundingClientRect();
+  const metrics = getFeaturedSectionPaintMetrics();
+  const height = metrics ? metrics.totalHeight : Math.ceil(navbar.getBoundingClientRect().bottom);
 
   paint.style.width = `${Math.ceil(anchorRight + 24)}px`;
-  paint.style.height = `${Math.ceil(navbarBox.bottom)}px`;
+  paint.style.height = `${Math.ceil(height)}px`;
 }
 
 window.addEventListener('DOMContentLoaded', positionMenuNavPaint);
@@ -232,12 +165,17 @@ window.addEventListener('resize', positionMenuNavPaint);
 
 function positionMenuSectionPaint() {
   const paint = document.querySelector('.menu-section-paint');
-  const featured = document.getElementById('ft-drinks');
-  const menuContent = document.querySelector('.menu-content');
-  if (!paint || !featured || !menuContent) return;
+  const metrics = getFeaturedSectionPaintMetrics();
+  if (!paint || !metrics) return;
 
-  const boundary = menuContent.offsetTop + featured.offsetTop + featured.offsetHeight;
-  paint.style.top = `${boundary}px`;
+  if (window.matchMedia('(max-width: 900px)').matches) {
+    paint.style.top = '';
+    paint.style.height = '';
+    return;
+  }
+
+  paint.style.top = `${-metrics.pullUp}px`;
+  paint.style.height = `${metrics.totalHeight}px`;
 }
 
 window.addEventListener('DOMContentLoaded', positionMenuSectionPaint);
@@ -245,7 +183,10 @@ window.addEventListener('resize', positionMenuSectionPaint);
 
 const featuredSection = document.getElementById('ft-drinks');
 if (featuredSection && 'ResizeObserver' in window) {
-  const sectionPaintObserver = new ResizeObserver(positionMenuSectionPaint);
+  const sectionPaintObserver = new ResizeObserver(() => {
+    positionMenuSectionPaint();
+    positionMenuNavPaint();
+  });
   sectionPaintObserver.observe(featuredSection);
 }
 

@@ -1,35 +1,35 @@
-const DAYS = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+const DAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+const PICKUP_DAYS = new Set(["tuesday", "wednesday", "thursday", "sunday"]);
 
 function getDayName(dateStr) {
   const d = new Date(dateStr + "T00:00:00");
   return DAYS[d.getDay()];
 }
 
-function getDateStr(daysAhead = 0) {
-  const d = new Date();
-  d.setDate(d.getDate() + daysAhead);
-  return d.toISOString().split("T")[0];
+function toDateStr(d) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const date = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${date}`;
 }
 
-function getUpcomingWeekend() {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
+function getUpcomingPickupDates() {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  start.setDate(start.getDate() + 1);
 
-  // advance to Friday
-  while (d.getDay() !== 5) {
-    d.setDate(d.getDate() + 1);
+  const dates = [];
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    const dayName = DAYS[d.getDay()];
+    if (PICKUP_DAYS.has(dayName)) {
+      dates.push(toDateStr(d));
+    }
   }
 
-  // build date strings for Fri, Sat, Sun, Mon
-  return [0, 1, 2, 3].map(offset => {
-    const day = new Date(d);
-    day.setDate(d.getDate() + offset);
-    const year  = day.getFullYear();
-    const month = String(day.getMonth() + 1).padStart(2, "0");
-    const date  = String(day.getDate()).padStart(2, "0");
-    return `${year}-${month}-${date}`;
-  });
+  return dates;
 }
 
-
-module.exports = { getDayName, getDateStr, getUpcomingWeekend };
+module.exports = { getDayName, getUpcomingPickupDates };

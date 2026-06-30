@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yuka Cafe | Home</title>
+  <title>Yuka Cafe | About Us</title>
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="styles/navbar.css">
   <link rel="stylesheet" href="styles/about.css">
@@ -65,94 +65,222 @@
     </div>
     <!--ABOUT US-->
    <section class="about-us-container">
-    <div class="about-us">
-        <div class="left-polaroid">
-            <img src="images/about/polaroid-frame.png" alt="polaroid frame"/>
+    <section class="about-intro" aria-label="About Yuka Cafe">
+      <h1 class="about-intro__title">MEET THE TEAM</h1>
+      <div class="about-intro__body">
+        <hr class="about-intro__divider" />
+        <img class="about-intro__petal about-intro__petal--topRight" src="images/about/petals.png" alt="" aria-hidden="true" />
+        <img class="about-intro__petal about-intro__petal--midLeft" src="images/about/petals.png" alt="" aria-hidden="true" />
+        <div class="about-intro__gallery">
+          <div class="about-intro__row">
+            <figure class="about-intro__member">
+              <img class="about-intro__photo" src="images/about/sammi-about-us.png" alt="Sammi" />
+              <figcaption class="about-intro__caption">
+                <span class="about-intro__name">Sammi</span>
+                <span class="about-intro__subtitle">title</span>
+              </figcaption>
+            </figure>
+            <figure class="about-intro__member">
+              <img class="about-intro__photo" src="images/about/tatum-about-us.png" alt="Tatum" />
+              <figcaption class="about-intro__caption">
+                <span class="about-intro__name">Tatum</span>
+                <span class="about-intro__subtitle">title</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="about-intro__row about-intro__row--bottom">
+            <figure class="about-intro__member">
+              <img class="about-intro__photo" src="images/about/about-us-filler.png" alt="Yuka the cat" />
+              <figcaption class="about-intro__caption">
+                <span class="about-intro__name">Caroline</span>
+                <span class="about-intro__subtitle">title</span>
+              </figcaption>
+            </figure>
+            <figure class="about-intro__member">
+              <img class="about-intro__photo" src="images/about/about-us-filler.png" alt="Yuka the cat" />
+              <figcaption class="about-intro__caption">
+                <span class="about-intro__name">Natalie</span>
+                <span class="about-intro__subtitle">title</span>
+              </figcaption>
+            </figure>
+            <figure class="about-intro__member">
+              <img class="about-intro__photo" src="images/about/about-us-filler.png" alt="Yuka the cat" />
+              <figcaption class="about-intro__caption">
+                <span class="about-intro__name">Caysie</span>
+                <span class="about-intro__subtitle">title</span>
+              </figcaption>
+            </figure>
+          </div>
         </div>
-        <div class="about-us-text">
-            <h2>About Us</h2>
-            <p>We're recent college graduates who fell in love with matcha long before we fell into adulthood. Between classes, late nights, and caffeine-fueled study sessions, we tried matcha everywhere—cafes, pop-ups, specialty shops, you name it. And somewhere along the way, we started asking the same question over and over: </p>
+        <div class="about-intro__text">
+          <img class="about-intro__petal about-intro__petal--textBottomLeft" src="images/about/petals.png" alt="" aria-hidden="true" />
+          <p>We're recent college graduates who fell in love with matcha long before we fell into adulthood. Between classes, late nights, and caffeine-fueled study sessions, we tried matcha everywhere—cafes, pop-ups, specialty shops, you name it. And somewhere along the way, we started asking the same question over and over:</p>
         </div>
-        <div class="right-polaroid">
-            <img src="images/about/right-polaroid-frame.png" alt="polaroid frame"/>
+      </div>
+    </section>
+    <section class="about-quote" aria-label="Our founding question">
+      <img class="about-quote__branch about-quote__branch--topRight"
+           src="images/about/right-branch.png" alt="" aria-hidden="true" />
+      <img class="about-quote__branch about-quote__branch--bottomLeft"
+           src="images/about/left-branch.png" alt="" aria-hidden="true" />
+
+      <blockquote class="about-quote__blockquote">
+        <img class="about-quote__mark about-quote__mark--open"
+             src="images/about/left-quote.png" alt="" aria-hidden="true" />
+        <p class="about-quote__text">
+          Why are we paying $9 for a cup of matcha that&rsquo;s barely bigger than our hand?
+        </p>
+        <img class="about-quote__mark about-quote__mark--close"
+             src="images/about/right-quote.png" alt="" aria-hidden="true" />
+      </blockquote>
+
+      <button type="button" class="about-quote__cat" aria-label="Discover a secret">
+        <img src="images/about/cat-sketch.png" alt="" aria-hidden="true" />
+      </button>
+    </section>
+    <section class="about-mission" aria-label="Our mission">
+      <div class="about-economy">
+        <img class="about-economy__mountain about-economy__mountain--large"
+             src="images/about/large-mountains.png" alt="" aria-hidden="true" />
+        <img class="about-economy__mountain about-economy__mountain--small"
+             src="images/about/small-mountains.png" alt="" aria-hidden="true" />
+        <div class="about-economy__text-wrap">
+          <p class="about-economy__text">The economy is expensive enough. Good matcha shouldn't be. So we decided to do something about it.</p>
+          <img class="about-economy__petal" src="images/about/petals.png" alt="" aria-hidden="true" />
         </div>
-    </div>
-    <div class="our-goal">
-       <img src="images/about/about-us-quote.png" alt="Why are we paying $9 for a cup of matcha that’s barely bigger than our hand?"/>
-       <div class="our-goal-content">
-            <div class="our-goal-text">
-                <p>The economy is expensive enough. <br> Good matcha shouldn’t be. <br> So we decided to do something about it.</p>
-            </div>
-            <div class="our-goal-img-wrapper">
-                <img src="images/about/kuma-sticker-big.png" alt="bear-sticker"/>
-            </div>
-       </div>
-    </div>
-    <div class="our-goal-2">
-        <img class="yuka-transparent" src="images/about/yuka-transparent.png" alt="matcha latte"/>
-        <div class="our-goal-2-text">
-            <h2>Our Goal:</h2>
-            <p>Create a space where matcha is affordable without compromise.</p>
+      </div>
+
+      <div class="about-goal">
+        <hr class="about-mission__divider" />
+        <img class="about-goal__branch about-goal__branch--left"
+             src="images/about/olive-branch.png" alt="" aria-hidden="true" />
+        <img class="about-goal__branch about-goal__branch--right"
+             src="images/shared/branch.png" alt="" aria-hidden="true" />
+        <div class="about-goal__inner">
+          <img class="about-goal__bowl" src="images/shared/bowl.png" alt="" aria-hidden="true" />
+          <h2 class="about-goal__title">Our Goal:</h2>
+          <p class="about-goal__text">Create a space where matcha is affordable without compromise.</p>
         </div>
-        <img class="einspanner-transparent" src="images/about/einspanner-transparent.png" alt="einspanner latte"/>
-        <img class="olive-sticker-overlap" src="images/about/olive-matcha-sticker.png" alt="olive matcha sticker"/>
-    </div>
-    <div class="about-us-2">
-        <div class="about-us-2-content">
-            <img class="banana-transparant" src="images/about/banana-transparant.png" alt="banana matcha latte"/>
-            <p>We don’t cut corners. We use the same amount of matcha (if not more), source high-quality powder, and focus on balance, flavor, and care in every cup.</p>
-            <img class="yuka-transparant-2" src="images/about/yuka-transparant-2.png" al="the yuka"/>
+        <hr class="about-mission__divider" />
+      </div>
+
+      <div class="about-quality">
+        <img class="about-quality__seal" src="images/about/red-seal.png" alt="" aria-hidden="true" />
+        <div class="about-quality__copy">
+          <h2 class="about-quality__title">We don't cut corners</h2>
+          <p class="about-quality__text">We use the same amount of matcha (if not more), source high-quality powder, and focus on balance, flavor, and care in every cup.</p>
         </div>
-        <div class="about-us-2-text">
-            <p class="about-us-2-text-p"><i>No</i> watered-down drinks. <br> <i>No</i> shortcuts. <br> <i>No</i> “premium” up-charges for things that should</p>
-            <p class="about-us-2-text-emph"><i>already be standard.</i></p>
+        <ul class="about-quality__list">
+          <li><i>No</i> watered-down drinks.</li>
+          <li><i>No</i> shortcuts.</li>
+          <li><i>No</i> "premium" up-charges for things that should <br> <span class="about-quality__emphasis">already be standard.</span></li>
+        </ul>
+        <img class="about-quality__cat" src="images/about/cat-painted.png" alt="" aria-hidden="true" />
+      </div>
+    </section>
+    <section class="about-transparency" aria-label="Our transparency promise">
+      <img class="about-transparency__mountains"
+           src="images/about/full-mountain-range.png" alt="" aria-hidden="true" />
+
+      <div class="about-transparency__intro">
+        <p class="about-transparency__lead">Every drink is <em>hand-whisked</em>, the way matcha is meant to be made. And yes—if you want, we&rsquo;re happy to show you. Feel free to ask for a video of your drink being made from start to finish.</p>
+        <div class="about-transparency__sketches">
+          <img class="about-transparency__sketch" src="images/about/left-sketch-photo.png" alt="" aria-hidden="true" />
+          <img class="about-transparency__sketch" src="images/about/right-sketch-photo.png" alt="" aria-hidden="true" />
+          <img class="about-transparency__petal"
+               src="images/about/petals.png" alt="" aria-hidden="true" />
         </div>
-    </div>
-    <div class="transparancy-statement">
-        <div class="transparent-text-1">
-            <p>Every drink is <i>hand-whisked</i>, the way matcha is meant to be made. And yes—if you want, we’re happy to show you. Feel free to ask for a video of your drink being made from start to finish. </p>
-            <img src="images/about/latte-sticker.png"/>
+      </div>
+
+      <div class="about-transparency__bottom">
+        <div class="about-transparency__photo-wrap">
+          <img class="about-transparency__rose" src="images/about/rose.png" alt="" aria-hidden="true" />
+          <img class="about-transparency__photo" src="images/about/photobooth-photo.png" alt="Yuka Cafe founders" />
         </div>
-        <img class="carousel-desktop" src="images/about/videos-carousel.png" alt="matcha whisking videos"/>
-        <img class="carousel-mobile" src="images/about/mobile-vids.png" alt="videos"/>
-        <div class="transparent-text-2">
-            <img src="images/about/capybara-sticker.png"/>
-            <p>Transparency matters to us. <br> This café exists for <i>students, creatives,</i> and anyone tired of overpaying for something they <i>genuinely love</i></p>
+        <div class="about-transparency__copy">
+          <h2 class="about-transparency__title">Transparency matters to us.</h2>
+          <p class="about-transparency__text">This café exists for <em>students, creatives,</em> and anyone tired of overpaying for something they <em>genuinely love</em></p>
         </div>
-        <div class="mission-statement">
-            <p>We’re here to make matcha accessible, intentional, and worth coming back for—<br><i>every single time.</i></p>
-            <img src="images/about/logo-petals.png" alt="yuka logo and flower petals"/>
+      </div>
+    </section>
+
+    <section class="about-closing" aria-label="Our promise">
+      <div class="about-closing__text-band">
+        <div class="about-closing__cluster-slot about-closing__cluster-slot--left">
+          <img class="about-closing__cluster about-closing__cluster--left"
+               src="images/about/left-petal-cluster.png" alt="" aria-hidden="true" />
         </div>
-    </div>
-    <img class = "yuka-tape" src="images/shared/yuka-tape.png"/>
+        <div class="about-closing__copy">
+          <p class="about-closing__lead">We&rsquo;re here to make matcha accessible, intentional, and worth coming back for</p>
+          <div class="about-closing__emphasis-row">
+            <img class="about-closing__petal" src="images/about/petals.png" alt="" aria-hidden="true" />
+            <span class="about-closing__emphasis">every single time.</span>
+          </div>
+        </div>
+        <div class="about-closing__cluster-slot about-closing__cluster-slot--right">
+          <img class="about-closing__cluster about-closing__cluster--right"
+               src="images/about/right-petal-cluster.png" alt="" aria-hidden="true" />
+        </div>
+      </div>
+      <img class="about-closing__logo" src="images/about/logo-large.png" alt="Yuka Cafe" />
+    </section>
    </section>
    <!-- BAG OVERLAY -->
-    <div id="bag-overlay" class="bag-overlay hidden">
+    <div id="bag-overlay" class="bag-overlay bag-overlay--cart hidden">
         <!--CART VIEW-->
         <div id="bag-panel" class="bag-panel">
-        <div class="bag-header">
-            <h2>Bag</h2>
-        </div>
-        <div id="bag-items"></div>
-        <div class="bag-footer">
-            <p id="bag-total"></p>
-            <button class="checkout-btn" onclick=showPickupTime()>
-            <img src="images/shared/checkout-btn.png" alt="Checkout"/>
-            </button>
-        </div>
+          <div class="bag-header">
+            <h2>BAG</h2>
+          </div>
+          <div class="bag-middle">
+            <hr class="bag-divider" />
+            <div id="bag-empty" class="bag-empty">
+              <p>Your bag is empty...</p>
+              <p>Why don't you take a look at our menu ;)</p>
+            </div>
+            <div id="bag-items" class="bag-items hidden"></div>
+            <hr class="bag-divider" />
+          </div>
+          <div class="bag-footer">
+            <button type="button" id="bag-checkout-btn" class="bag-checkout-btn" onclick="showPickupTime()">CHECKOUT • $0.00</button>
+          </div>
         </div>
         <!--PICKUP TIME VIEW-->
-        <div class="pickup-view" id="pickup-view" style="display:none">
-        <button class="back-to-bag-btn" onclick=showCart()><b>&lt</b> Back to Bag</button>
-        <div class="pickup-time-content">
-            <h1>Select Pickup Time</h1>
-            <p>*Same day pick-up is unavailable</p>
-            <div id="day-tabs" style="display: flex; gap: 8px; margin-bottom: 1rem;"></div>
-            <div id="slots-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px;"></div>
-        </div>
-        <button class="confirmation-button" onclick=checkout()>
-            <img src="images/shared/confirm-pay-btn.png" alt="Confirm & Pay"/>
-        </button>
+        <div class="pickup-view" id="pickup-view">
+          <button type="button" class="back-to-bag-btn" onclick="showCart()">&lt; Back to Bag</button>
+          <div class="pickup-header">
+            <h2>CHECKOUT</h2>
+          </div>
+          <div class="pickup-middle">
+            <hr class="bag-divider" />
+            <section class="pickup-schedule">
+              <div class="pickup-schedule__header">
+                <h3 class="pickup-schedule__title">Pick-up Time</h3>
+                <p class="pickup-schedule__note">*Same day pick-up is unavailable</p>
+              </div>
+              <div class="pickup-fields-row">
+                <label class="pickup-field">
+                  <span class="pickup-field__label">Day</span>
+                  <select id="pickup-day-select" class="pickup-select">
+                    <option value="">Select a Day</option>
+                  </select>
+                </label>
+                <label class="pickup-field">
+                  <span class="pickup-field__label">Time</span>
+                  <select id="pickup-time-select" class="pickup-select" disabled>
+                    <option value="">--:-- AM</option>
+                  </select>
+                </label>
+              </div>
+              <p id="pickup-slot-hint" class="pickup-slot-hint hidden"></p>
+            </section>
+            <hr class="bag-divider" />
+            <div id="checkout-items" class="checkout-items"></div>
+            <hr class="bag-divider" />
+          </div>
+          <div class="pickup-footer">
+            <button type="button" class="bag-checkout-btn" onclick="checkout()">CONFIRM &amp; PAY</button>
+          </div>
         </div>
     </div>
    <!--FOOTER-->
@@ -187,6 +315,7 @@
        </div>
      </div>
    </footer>
+   <script src="scripts/navbar.js"></script>
    <script src="scripts/customize.js"></script>
    <script src="scripts/bag.js"></script>
 </body>

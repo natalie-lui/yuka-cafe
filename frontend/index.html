@@ -128,7 +128,7 @@
 
       <!-- ABOUT US PREVIEW -->
       <section class="about-preview" aria-label="About Yuka Cafe">
-      <img class="about-preview__blossom" src="images/home/branch.png" alt="" aria-hidden="true" />
+      <img class="about-preview__blossom" src="images/shared/branch.png" alt="" aria-hidden="true" />
       <img class="about-preview__brown-paint" src="images/home/brown-paint-3.png" alt="" aria-hidden="true" />
       <div class="about-preview__inner">
         <h2 class="about-preview__heading">About Us</h2>
@@ -137,7 +137,7 @@
             <div class="about-preview__photo-wrap">
               <img class="about-preview__photo" src="images/home/about-us-preview.png" alt="Yuka Cafe" />
               <img class="about-preview__petals" src="images/home/petals.png" alt="" aria-hidden="true" />
-              <img class="about-preview__bowl" src="images/home/bowl.png" alt="" aria-hidden="true" />
+              <img class="about-preview__bowl" src="images/shared/bowl.png" alt="" aria-hidden="true" />
             </div>
           </div>
           <div class="about-preview__content">
@@ -157,32 +157,61 @@
 
   </main>
    <!-- BAG OVERLAY -->
-    <div id="bag-overlay" class="bag-overlay hidden">
+    <div id="bag-overlay" class="bag-overlay bag-overlay--cart hidden">
         <!--CART VIEW-->
         <div id="bag-panel" class="bag-panel">
-        <div class="bag-header">
-            <h2>Bag</h2>
-        </div>
-        <div id="bag-items"></div>
-        <div class="bag-footer">
-            <p id="bag-total"></p>
-            <button class="checkout-btn" onclick=showPickupTime()>
-            <img src="images/shared/checkout-btn.png" alt="Checkout"/>
-            </button>
-        </div>
+          <div class="bag-header">
+            <h2>BAG</h2>
+          </div>
+          <div class="bag-middle">
+            <hr class="bag-divider" />
+            <div id="bag-empty" class="bag-empty">
+              <p>Your bag is empty...</p>
+              <p>Why don't you take a look at our menu ;)</p>
+            </div>
+            <div id="bag-items" class="bag-items hidden"></div>
+            <hr class="bag-divider" />
+          </div>
+          <div class="bag-footer">
+            <button type="button" id="bag-checkout-btn" class="bag-checkout-btn" onclick="showPickupTime()">CHECKOUT • $0.00</button>
+          </div>
         </div>
         <!--PICKUP TIME VIEW-->
-        <div class="pickup-view" id="pickup-view" style="display:none">
-        <button class="back-to-bag-btn" onclick=showCart()><b>&lt</b> Back to Bag</button>
-        <div class="pickup-time-content">
-            <h1>Select Pickup Time</h1>
-            <p>*Same day pick-up is unavailable</p>
-            <div id="day-tabs" style="display: flex; gap: 8px; margin-bottom: 1rem;"></div>
-            <div id="slots-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px;"></div>
-        </div>
-        <button class="confirmation-button" onclick=checkout()>
-            <img src="images/shared/confirm-pay-btn.png" alt="Confirm & Pay"/>
-        </button>
+        <div class="pickup-view" id="pickup-view">
+          <button type="button" class="back-to-bag-btn" onclick="showCart()">&lt; Back to Bag</button>
+          <div class="pickup-header">
+            <h2>CHECKOUT</h2>
+          </div>
+          <div class="pickup-middle">
+            <hr class="bag-divider" />
+            <section class="pickup-schedule">
+              <div class="pickup-schedule__header">
+                <h3 class="pickup-schedule__title">Pick-up Time</h3>
+                <p class="pickup-schedule__note">*Same day pick-up is unavailable</p>
+              </div>
+              <div class="pickup-fields-row">
+                <label class="pickup-field">
+                  <span class="pickup-field__label">Day</span>
+                  <select id="pickup-day-select" class="pickup-select">
+                    <option value="">Select a Day</option>
+                  </select>
+                </label>
+                <label class="pickup-field">
+                  <span class="pickup-field__label">Time</span>
+                  <select id="pickup-time-select" class="pickup-select" disabled>
+                    <option value="">--:-- AM</option>
+                  </select>
+                </label>
+              </div>
+              <p id="pickup-slot-hint" class="pickup-slot-hint hidden"></p>
+            </section>
+            <hr class="bag-divider" />
+            <div id="checkout-items" class="checkout-items"></div>
+            <hr class="bag-divider" />
+          </div>
+          <div class="pickup-footer">
+            <button type="button" class="bag-checkout-btn" onclick="checkout()">CONFIRM &amp; PAY</button>
+          </div>
         </div>
     </div>
    <!--FOOTER-->
@@ -217,6 +246,7 @@
        </div>
      </div>
    </footer>
+   <script src="scripts/navbar.js"></script>
    <script src="scripts/hero-align.js"></script>
    <script src="scripts/bag.js"></script>
 </body>

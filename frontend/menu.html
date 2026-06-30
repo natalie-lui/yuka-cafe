@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="styles/navbar.css">
   <link rel="stylesheet" href="styles/menu.css">
+  <link rel="stylesheet" href="styles/customize.css">
   <link rel="stylesheet" href="styles/bag.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,33 +113,143 @@
         </div>
     </main>
 
+    <!-- CUSTOMIZE MODAL -->
+    <div id="customize-overlay" class="customize-overlay hidden" aria-hidden="true">
+      <div class="customize-modal" role="dialog" aria-modal="true" aria-labelledby="customize-drink-name">
+        <button type="button" class="customize-modal__close" onclick="closeCustomizeModal()" aria-label="Close">✕</button>
+
+        <div class="customize-modal__body">
+          <div class="customize-modal__options">
+            <div class="customize-modal__drink-info">
+              <h1 id="customize-drink-name" class="customize-modal__title"></h1>
+              <p id="customize-drink-description" class="customize-modal__description"></p>
+              <hr class="customize-modal__divider" />
+            </div>
+
+            <div class="customize-modal__adjustments">
+              <h2 class="customize-modal__section-title">Adjustments</h2>
+              <p id="customize-adjustments-list" class="customize-modal__category-list"></p>
+              <div id="modifiers-container" class="customize-modal__modifiers"></div>
+
+              <div class="customize-modal__notes">
+                <h3 class="customize-modal__section-title">Notes</h3>
+                <textarea
+                  id="custom-note"
+                  class="customize-modal__textarea"
+                  placeholder="Any additional notes (allergies, preferences, etc.)"
+                  rows="5"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="customize-modal__gallery">
+            <img id="drink-image" class="customize-modal__main-image" alt="" />
+            <div id="thumbnail-col" class="customize-modal__thumbnails"></div>
+          </div>
+        </div>
+
+        <div class="customize-modal__footer">
+          <hr class="customize-modal__divider" />
+          <div class="customize-modal__footer-inner">
+            <div class="customize-modal__summary">
+              <strong id="customize-summary-name"></strong>
+              <p id="customize-summary-details"></p>
+            </div>
+            <div class="customize-modal__actions">
+              <button type="button" class="customize-modal__add btn-primary" onclick="addToCart()">
+                ADD TO BAG • <span id="customize-price">$0.00</span>
+              </button>
+              <p id="customize-error" class="customize-modal__error hidden" role="alert" aria-live="polite">
+                *Specify all adjustments to order
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADDED TO BAG POPUP -->
+    <div id="cart-popup-overlay" class="cart-popup-overlay hidden" aria-hidden="true">
+      <div class="cart-popup" role="dialog" aria-modal="true" aria-labelledby="cart-popup-title">
+        <button type="button" class="cart-popup__close" onclick="closeCartPopup()" aria-label="Close">✕</button>
+
+        <div class="cart-popup__content">
+          <h1 id="cart-popup-title" class="cart-popup__title">Added to Bag</h1>
+          <img id="popup-item-image" class="cart-popup__image" src="images/shared/drink-img-filler.png" alt="" />
+          <div class="cart-popup__details">
+            <p id="popup-item-name" class="cart-popup__name"></p>
+            <p id="popup-item-mods" class="cart-popup__mods"></p>
+            <p id="popup-item-note" class="cart-popup__note"></p>
+          </div>
+        </div>
+
+        <div class="cart-popup__footer">
+          <hr class="cart-popup__divider" />
+          <div class="cart-popup__actions">
+            <button type="button" id="continue-ordering" class="cart-popup__btn-outline">Order More</button>
+            <button type="button" id="go-to-bag" class="cart-popup__btn-primary">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- BAG OVERLAY -->
-    <div id="bag-overlay" class="bag-overlay hidden">
+    <div id="bag-overlay" class="bag-overlay bag-overlay--cart hidden">
         <!--CART VIEW-->
         <div id="bag-panel" class="bag-panel">
-        <div class="bag-header">
-            <h2>Bag</h2>
-        </div>
-        <div id="bag-items"></div>
-        <div class="bag-footer">
-            <p id="bag-total"></p>
-            <button class="checkout-btn" onclick=showPickupTime()>
-            <img src="images/shared/checkout-btn.png" alt="Checkout"/>
-            </button>
-        </div>
+          <div class="bag-header">
+            <h2>BAG</h2>
+          </div>
+          <div class="bag-middle">
+            <hr class="bag-divider" />
+            <div id="bag-empty" class="bag-empty">
+              <p>Your bag is empty...</p>
+              <p>Why don't you take a look at our menu ;)</p>
+            </div>
+            <div id="bag-items" class="bag-items hidden"></div>
+            <hr class="bag-divider" />
+          </div>
+          <div class="bag-footer">
+            <button type="button" id="bag-checkout-btn" class="bag-checkout-btn" onclick="showPickupTime()">CHECKOUT • $0.00</button>
+          </div>
         </div>
         <!--PICKUP TIME VIEW-->
-        <div class="pickup-view" id="pickup-view" style="display:none">
-        <button class="back-to-bag-btn" onclick=showCart()><b>&lt</b> Back to Bag</button>
-        <div class="pickup-time-content">
-            <h1>Select Pickup Time</h1>
-            <p>*Same day pick-up is unavailable</p>
-            <div id="day-tabs" style="display: flex; gap: 8px; margin-bottom: 1rem;"></div>
-            <div id="slots-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px;"></div>
-        </div>
-        <button class="confirmation-button" onclick=checkout()>
-            <img src="images/shared/confirm-pay-btn.png" alt="Confirm & Pay"/>
-        </button>
+        <div class="pickup-view" id="pickup-view">
+          <button type="button" class="back-to-bag-btn" onclick="showCart()">&lt; Back to Bag</button>
+          <div class="pickup-header">
+            <h2>CHECKOUT</h2>
+          </div>
+          <div class="pickup-middle">
+            <hr class="bag-divider" />
+            <section class="pickup-schedule">
+              <div class="pickup-schedule__header">
+                <h3 class="pickup-schedule__title">Pick-up Time</h3>
+                <p class="pickup-schedule__note">*Same day pick-up is unavailable</p>
+              </div>
+              <div class="pickup-fields-row">
+                <label class="pickup-field">
+                  <span class="pickup-field__label">Day</span>
+                  <select id="pickup-day-select" class="pickup-select">
+                    <option value="">Select a Day</option>
+                  </select>
+                </label>
+                <label class="pickup-field">
+                  <span class="pickup-field__label">Time</span>
+                  <select id="pickup-time-select" class="pickup-select" disabled>
+                    <option value="">--:-- AM</option>
+                  </select>
+                </label>
+              </div>
+              <p id="pickup-slot-hint" class="pickup-slot-hint hidden"></p>
+            </section>
+            <hr class="bag-divider" />
+            <div id="checkout-items" class="checkout-items"></div>
+            <hr class="bag-divider" />
+          </div>
+          <div class="pickup-footer">
+            <button type="button" class="bag-checkout-btn" onclick="checkout()">CONFIRM &amp; PAY</button>
+          </div>
         </div>
     </div>
     <!--FOOTER-->
@@ -173,7 +284,9 @@
        </div>
      </div>
    </footer>
+   <script src="scripts/navbar.js"></script>
    <script src="scripts/script.js" type="module"></script>
+   <script src="scripts/customize.js"></script>
    <script src="scripts/bag.js"></script>
 </body>
 </html>
